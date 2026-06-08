@@ -1,0 +1,7 @@
+export default function HomePage() {
+  return (
+    <main className="min-h-screen flex items-center justify-center">
+      <p className="text-2xl font-semibold text-gray-400">Home</p>
+    </main>
+  );
+}
