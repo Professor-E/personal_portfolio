@@ -31,7 +31,8 @@ export default function RootLayout({
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <Navbar />
-          <main>{children}</main>
+          {/* pt-[70px] matches exact navbar height from Figma node 627:340 */}
+          <main className="pt-[70px]">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

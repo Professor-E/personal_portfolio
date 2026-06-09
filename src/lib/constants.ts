@@ -18,6 +18,21 @@ export const EXPERIENCE: ExperienceEntry[] = [
     logoPlaceholder: "yc-jam-it",
   },
   {
+    id: "akamai",
+    company: "Akamai Technologies",
+    role: "Software Engineering Intern",
+    startDate: "May 2025",
+    endDate: "Aug 2025",
+    location: "Cambridge, MA",
+    description: [
+      "Worked on distributed systems and edge-computing infrastructure at one of the world's largest CDN providers.",
+      "Contributed to internal tooling improvements and performance optimization pipelines.",
+      "Collaborated with cross-functional engineering teams in an Agile sprint environment.",
+    ],
+    brandColor: "#009BDE",
+    logoPlaceholder: "akamai",
+  },
+  {
     id: "hamilton-broadcast",
     company: "Hamilton Broadcast Engineering, LLC",
     role: "Electronics & Biomedical Technician",

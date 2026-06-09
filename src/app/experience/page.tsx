@@ -1,7 +1,5 @@
-export default function ExperiencePage() {
-  return (
-    <main className="min-h-screen flex items-center justify-center">
-      <p className="text-2xl font-semibold text-gray-400">Experience</p>
-    </main>
-  );
+import ExperiencePage from "@/components/experience/ExperiencePage";
+
+export default function ExperienceRoute() {
+  return <ExperiencePage />;
 }

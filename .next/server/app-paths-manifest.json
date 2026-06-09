@@ -1,10 +1,5 @@
 {
-  "/page": "app/page.js",
-  "/experience/page": "app/experience/page.js",
+  "/contact/page": "app/contact/page.js",
   "/home/page": "app/home/page.js",
-  "/projects/page": "app/projects/page.js",
-  "/activities/page": "app/activities/page.js",
-  "/hobbies/page": "app/hobbies/page.js",
-  "/about/page": "app/about/page.js",
-  "/contact/page": "app/contact/page.js"
+  "/experience/page": "app/experience/page.js"
 }
