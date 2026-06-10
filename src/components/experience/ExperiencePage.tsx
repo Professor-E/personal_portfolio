@@ -9,12 +9,6 @@ import TimelineNav from "./TimelineNav";
 import ExperienceEntry from "./ExperienceEntry";
 import ScrollNudge from "./ScrollNudge";
 
-// ── Skills — from Figma node 616:567 ──────────────────────────────────────────
-const SKILLS = [
-  "PCB Design", "Circuit Analysis", "Digital Logic", "Analog Circuits",
-  "EasyEDA", "KiCAD", "Fusion", "Python", "C", "Swift", "Prusa Slicer", "Bambu Studio",
-] as const;
-
 // ── Display order ──────────────────────────────────────────────────────────────
 const DISPLAY_ORDER = [
   "yc-jam-it", "akamai", "hamilton-broadcast", "argonne",
@@ -73,13 +67,19 @@ export default function ExperiencePage() {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
   // ── Apply scroll-snap to the page on mount ───────────────────────────────
+  // "proximity" (not "mandatory"): entries still lock in place when the user
+  // stops near one, but scrolling past the last entry to the footer is
+  // allowed instead of being yanked back up.
+  //
+  // NO scrollPaddingTop: with center snap alignment, any scroll padding would
+  // offset the snap resting point away from the scrollIntoView({block:
+  // "center"}) target, causing a visible double-jump after every scroll.
+  // Both must agree on the exact viewport center.
   useEffect(() => {
     const html = document.documentElement;
-    html.style.scrollSnapType = "y mandatory";
-    html.style.scrollPaddingTop = "70px";
+    html.style.scrollSnapType = "y proximity";
     return () => {
       html.style.scrollSnapType = "";
-      html.style.scrollPaddingTop = "";
     };
   }, []);
 
@@ -101,20 +101,24 @@ export default function ExperiencePage() {
   }, [entries.length]);
 
   // ── Scroll to a specific entry ─────────────────────────────────────────────
+  // block: "center" — the section (and the card flex-centered inside it)
+  // lands in the middle of the viewport, matching the snap alignment.
   const scrollToEntry = useCallback((idx: number) => {
-    sectionRefs.current[idx]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    sectionRefs.current[idx]?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, []);
 
   // ── Keyboard navigation ────────────────────────────────────────────────────
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "ArrowDown") {
+      // At the edges, fall through to native scrolling so the user can
+      // continue past the last entry (e.g. down to the footer).
+      if (e.key === "ArrowDown" && activeIndex < entries.length - 1) {
         e.preventDefault();
-        scrollToEntry(Math.min(activeIndex + 1, entries.length - 1));
+        scrollToEntry(activeIndex + 1);
       }
-      if (e.key === "ArrowUp") {
+      if (e.key === "ArrowUp" && activeIndex > 0) {
         e.preventDefault();
-        scrollToEntry(Math.max(activeIndex - 1, 0));
+        scrollToEntry(activeIndex - 1);
       }
     }
     window.addEventListener("keydown", handleKey);
@@ -157,22 +161,25 @@ export default function ExperiencePage() {
         onDotClick={scrollToEntry}
       />
 
-      {/* ── Sticky heading (Change 1) ────────────────────────────────────────
-          top: navbar(70px) + 24px gap = 94px
-          padding-left: 80px on desktop
-          max-width: 520px so it never wraps awkwardly
-          z-index: 10 so it sits above scrolling cards
+      {/* ── Sticky heading ───────────────────────────────────────────────────
+          top: navbar(70px from layout.tsx) + 24px gap = 94px
+          padding-left: 48px desktop / 24px mobile
+          max-width: 500px — long names ("Hamilton Broadcast Engineering, LLC")
+          wrap to a second line instead of clipping
+          width: calc(40% - 48px) on desktop so it never overflows the card area
+          overflow: visible — heading must never be clipped
+          z-index: 10 — above watermark, below scroll nudge pills (z-30)
       ────────────────────────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5, ease: "easeOut" }}
         className="sticky z-10 pointer-events-none"
-        style={{ top: "94px" }}
+        style={{ top: "94px", overflow: "visible" }}
       >
         <div
-          className="pl-5 md:pl-20 max-w-[520px] pointer-events-auto"
-          style={{ paddingTop: "8px", paddingBottom: "8px" }}
+          className="pl-6 md:pl-12 max-w-[500px] md:w-[calc(40%-48px)] pointer-events-auto"
+          style={{ paddingTop: "8px", paddingBottom: "8px", overflow: "visible" }}
         >
           <RotatingHeading
             companyName={activeEntry?.company ?? ""}
@@ -187,52 +194,6 @@ export default function ExperiencePage() {
         activeIndex={activeIndex}
         onDotClick={scrollToEntry}
       />
-
-      {/* ── Skills strip — Figma node 616:567 ────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className="relative z-10 px-5 md:px-20 pb-4"
-      >
-        <p
-          className="font-semibold mb-2"
-          style={{ fontSize: "16px", color: "#5f5e5a" }}
-        >
-          Skills
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {SKILLS.map((skill) => (
-            <span
-              key={skill}
-              className="flex items-center gap-1 font-medium text-[var(--text-secondary)]"
-              style={{
-                fontSize: "14px",
-                border: "1px solid var(--text-secondary)",
-                borderRadius: "10px",
-                padding: "6px 8px",
-                lineHeight: 1,
-              }}
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <polyline points="16 18 22 12 16 6" />
-                <polyline points="8 6 2 12 8 18" />
-              </svg>
-              {skill}
-            </span>
-          ))}
-        </div>
-      </motion.div>
 
       {/* ── Experience entry sections (Changes 3 & 5) ────────────────────────
           Each section: min-height 100vh, flex items-center justify-center
@@ -250,7 +211,7 @@ export default function ExperiencePage() {
             className="flex items-center justify-center w-full px-4 md:px-8"
             style={{
               minHeight: "100vh",
-              scrollSnapAlign: "start",
+              scrollSnapAlign: "center",
             }}
           >
             <ExperienceEntry

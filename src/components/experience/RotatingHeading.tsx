@@ -24,17 +24,24 @@ export default function RotatingHeading({ companyName, brandColor }: RotatingHea
         My Experience with
       </p>
 
-      {/* Animated company name — text-3xl mobile, text-5xl desktop */}
-      <div className="overflow-hidden">
+      {/* Animated company name — text-3xl mobile, text-5xl desktop.
+          overflow: visible + break-word so long names ("Hamilton Broadcast
+          Engineering, LLC") wrap to a second line and are never clipped. */}
+      <div style={{ overflow: "visible" }} className="w-full">
         <AnimatePresence mode="wait">
           <motion.p
             key={companyName}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -14 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="text-3xl md:text-5xl font-bold leading-tight"
-            style={{ color: brandColor }}
+            style={{
+              color: brandColor,
+              display: "block",
+              wordBreak: "break-word",
+              overflowWrap: "break-word",
+            }}
           >
             {companyName}
           </motion.p>

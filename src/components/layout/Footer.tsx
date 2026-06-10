@@ -17,24 +17,29 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, ArrowUp } from "lucide-react";
 
-// ── Social links (Figma node 627:367 — exactly 3 icons) ──────────────────────
+// ── Social links (Figma node 627:367) ─────────────────────────────────────────
 const SOCIAL = [
   {
     id: "github",
     label: "GitHub",
-    // TODO: add username
-    href: "https://github.com/",
+    href: "https://github.com/Professor-E",
     icon: Github,
     external: true,
   },
   {
     id: "linkedin",
     label: "LinkedIn",
-    // TODO: add profile slug
-    href: "https://linkedin.com/in/",
+    href: "https://www.linkedin.com/in/domgrzeszczak/",
     icon: Linkedin,
+    external: true,
+  },
+  {
+    id: "instagram",
+    label: "Instagram",
+    href: "https://www.instagram.com/grzeszczak.dominik/",
+    icon: Instagram,
     external: true,
   },
   {

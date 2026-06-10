@@ -1,44 +1,27 @@
 "use client";
 
-import { motion } from "framer-motion";
 import HeroSection from "./HeroSection";
 import AcademicsSection from "./AcademicsSection";
+import SkillsSection from "./SkillsSection";
 import MemoriesSection from "./MemoriesSection";
 
 /**
- * AboutPage — main container — Figma node 616:669
+ * AboutPage — main container.
  *
- * Page layout (Figma exact):
- *   bg-[var(--background)], flex-col, gap-16px, items-center, px-24px
+ * Content locked to Figma node 616:669; Skills & Tools added here after being
+ * moved off the Experience page. Section order:
+ *   1. Hero (Figma) → 2. Academics (Figma) → 3. Skills & Tools (moved)
+ *   → 4. Memories (Figma)
  *
- * Section order (only what Figma shows):
- *   1. Hero  (node 616:671) — text left, headshot right
- *   2. Academics (node 616:680) — High School + College cards
- *   3. Memories (node 616:699) — heading + empty photos frame
- *
- * Page entry animation: opacity 0→1, y 20→0, 0.5s ease-out
+ * Each section animates itself (hero on load, the rest via whileInView).
  */
-
-const pageVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
-};
-
 export default function AboutPage() {
   return (
-    <motion.main
-      className="flex flex-col items-center gap-[16px] px-[24px] bg-[var(--background)] min-h-screen"
-      variants={pageVariants}
-      initial="hidden"
-      animate="show"
-    >
+    <main className="max-w-5xl mx-auto px-6 md:px-12 pt-16 pb-24 space-y-24 bg-[var(--background)]">
       <HeroSection />
       <AcademicsSection />
+      <SkillsSection />
       <MemoriesSection />
-    </motion.main>
+    </main>
   );
 }

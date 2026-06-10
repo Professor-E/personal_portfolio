@@ -121,12 +121,12 @@ export default function ScrollNudge({
                   style={pillStyle}
                   aria-label={`Scroll up to ${prevName}`}
                 >
-                  <ChevronUp
-                    style={{ width: 14, height: 14, flexShrink: 0 }}
-                  />
                   {prevName && (
                     <span>{prevName}</span>
                   )}
+                  <ChevronUp
+                    style={{ width: 14, height: 14, flexShrink: 0 }}
+                  />
                 </motion.button>
               </motion.div>
             </motion.div>
