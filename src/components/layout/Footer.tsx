@@ -62,8 +62,9 @@ export default function Footer() {
       style={{ backgroundColor: "var(--border)" }}
     >
       {/* ── Top three-column section ─────────────────────────────────────── */}
-      {/* Figma node 627:363: flex items-start justify-between px-[24px] py-[10px] */}
-      <div className="max-w-[1440px] mx-auto px-6 py-2.5 flex flex-col md:flex-row items-start justify-between gap-10 md:gap-6">
+      {/* Figma node 627:363: flex items-start justify-between px-[24px]   */}
+      {/* pt-7 (28px) — columns sit slightly higher in the footer            */}
+      <div className="max-w-[1440px] mx-auto px-6 pt-7 pb-6 flex flex-col md:flex-row items-start justify-between gap-10 md:gap-6">
 
         {/* ── Left column — Identity (Figma node 627:364) ──────────────── */}
         {/* h-[96px] p-[10px] justify-between in Figma */}
@@ -157,10 +158,9 @@ export default function Footer() {
 
       {/* ── Bottom strip (Figma node 627:382) ───────────────────────────── */}
       {/* px-[24px] py-[10px], flex items-center justify-between           */}
-      {/* Subtle border-top for visual separation                           */}
+      {/* Figma shows NO divider between columns and this strip — no border */}
       <div
-        className="max-w-[1440px] mx-auto px-6 py-2.5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 border-t"
-        style={{ borderColor: "rgba(0,0,0,0.08)" }}
+        className="max-w-[1440px] mx-auto px-6 py-2.5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3"
       >
         {/* Copyright — Figma node 627:383: Inter Medium 12px, text-secondary */}
         <p

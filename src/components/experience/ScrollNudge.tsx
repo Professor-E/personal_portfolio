@@ -13,13 +13,17 @@ interface ScrollNudgeProps {
 }
 
 /**
- * Fixed scroll nudge indicators — top-center and bottom-center of the viewport.
+ * Fixed scroll nudge indicators — perfectly centered above and below viewport.
  *
- * Up chevron:   visible when activeIndex > 0 (entry above exists)
- * Down chevron: visible when activeIndex < entries.length - 1 (entry below exists)
+ * Centering: outer plain div uses `position:fixed; left:50%;
+ * transform:translateX(-50%)` — never animated so centering never breaks.
+ * Bob animation + enter/exit live on inner motion.divs only.
  *
- * After 3 seconds of no scroll activity both fade to 40% opacity.
- * Any scroll or pointer activity near the edge restores full opacity.
+ * Up pill:   visible when activeIndex > 0
+ * Down pill: visible when activeIndex < entries.length - 1
+ *
+ * After 3 s of no scroll/pointer activity, pills dim to 40% opacity.
+ * Any activity restores full opacity.
  */
 export default function ScrollNudge({
   entries,
@@ -36,7 +40,7 @@ export default function ScrollNudge({
   const prevName = entries[activeIndex - 1]?.company ?? "";
   const nextName = entries[activeIndex + 1]?.company ?? "";
 
-  // ── Auto-dim after 3 s of inactivity ─────────────────────────────────────
+  // ── Auto-dim after 3 s of inactivity ───────────────────────────────────────
   const resetTimer = () => {
     setDimmed(false);
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -55,112 +59,131 @@ export default function ScrollNudge({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Also reset when active index changes (user navigated)
+  // Reset whenever active index changes (user navigated)
   useEffect(() => {
     resetTimer();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex]);
 
+  // ── Shared pill style ───────────────────────────────────────────────────────
+  const pillStyle: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "6px",
+    padding: "8px 16px",
+    borderRadius: "9999px",
+    background: "rgba(0,0,0,0.06)",
+    border: "1px solid rgba(0,0,0,0.10)",
+    backdropFilter: "blur(8px)",
+    WebkitBackdropFilter: "blur(8px)",
+    whiteSpace: "nowrap",
+    width: "fit-content",
+    fontSize: "12px",
+    fontWeight: 500,
+    cursor: "pointer",
+    color: "var(--text-secondary)",
+  };
+
   return (
     <>
-      {/* ── UP chevron ───────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {showAbove && (
-          <motion.div
-            key="nudge-up"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: dimmed ? 0.4 : 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed left-1/2 -translate-x-1/2 z-30"
-            style={{ top: "calc(70px + 16px)" }}
-          >
-            {/* Floating bob wrapper */}
+      {/* ── UP pill ────────────────────────────────────────────────────────
+          Outer div: fixed position — NEVER animated so centering is stable.
+          left:50% + translateX(-50%) guarantees horizontal center at all widths.
+      ──────────────────────────────────────────────────────────────────── */}
+      <div
+        style={{
+          position: "fixed",
+          left: "50%",
+          transform: "translateX(-50%)",
+          top: "calc(70px + 16px)",
+          zIndex: 30,
+        }}
+      >
+        <AnimatePresence>
+          {showAbove && (
+            /* Enter/exit + opacity dim — on this motion.div only */
             <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              key="nudge-up"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: dimmed ? 0.4 : 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <motion.button
-                onClick={onScrollUp}
-                whileHover={{ scale: 1.05, opacity: 1 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-1.5 rounded-full cursor-pointer"
-                style={{
-                  padding: "var(--nudge-py, 8px) var(--nudge-px, 16px)",
-                  background: "rgba(0,0,0,0.06)",
-                  border: "1px solid rgba(0,0,0,0.10)",
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
-                }}
-                aria-label={`Scroll up to ${prevName}`}
+              {/* Floating bob — vertical only, never touches centering */}
+              <motion.div
+                animate={{ y: [0, -4, 0] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               >
-                <ChevronUp className="w-4 h-4 text-[var(--text-secondary)] shrink-0" />
-                {/* Company name — hidden on mobile */}
-                {prevName && (
-                  <span className="hidden md:block text-xs font-medium text-[var(--text-secondary)] whitespace-nowrap max-w-[120px] overflow-hidden text-ellipsis">
-                    {prevName}
-                  </span>
-                )}
-              </motion.button>
+                <motion.button
+                  onClick={onScrollUp}
+                  whileHover={{ scale: 1.05, opacity: 1 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={pillStyle}
+                  aria-label={`Scroll up to ${prevName}`}
+                >
+                  <ChevronUp
+                    style={{ width: 14, height: 14, flexShrink: 0 }}
+                  />
+                  {prevName && (
+                    <span>{prevName}</span>
+                  )}
+                </motion.button>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
 
-      {/* ── DOWN chevron ─────────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {showBelow && (
-          <motion.div
-            key="nudge-down"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: dimmed ? 0.4 : 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed left-1/2 -translate-x-1/2 z-30"
-            style={{ bottom: "24px" }}
-          >
-            {/* Floating bob wrapper */}
+      {/* ── DOWN pill ──────────────────────────────────────────────────────
+          Same structure — outer fixed div never animates.
+      ──────────────────────────────────────────────────────────────────── */}
+      <div
+        style={{
+          position: "fixed",
+          left: "50%",
+          transform: "translateX(-50%)",
+          bottom: "24px",
+          zIndex: 30,
+        }}
+      >
+        <AnimatePresence>
+          {showBelow && (
             <motion.div
-              animate={{ y: [0, 4, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              key="nudge-down"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: dimmed ? 0.4 : 1, y: 0 }}
+              exit={{ opacity: 0, y: 8 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <motion.button
-                onClick={onScrollDown}
-                whileHover={{ scale: 1.05, opacity: 1 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-1.5 rounded-full cursor-pointer"
-                style={{
-                  padding: "var(--nudge-py, 8px) var(--nudge-px, 16px)",
-                  background: "rgba(0,0,0,0.06)",
-                  border: "1px solid rgba(0,0,0,0.10)",
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
-                }}
-                aria-label={`Scroll down to ${nextName}`}
+              <motion.div
+                animate={{ y: [0, 4, 0] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               >
-                {nextName && (
-                  <span className="hidden md:block text-xs font-medium text-[var(--text-secondary)] whitespace-nowrap max-w-[120px] overflow-hidden text-ellipsis">
-                    {nextName}
-                  </span>
-                )}
-                <ChevronDown className="w-4 h-4 text-[var(--text-secondary)] shrink-0" />
-              </motion.button>
+                <motion.button
+                  onClick={onScrollDown}
+                  whileHover={{ scale: 1.05, opacity: 1 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={pillStyle}
+                  aria-label={`Scroll down to ${nextName}`}
+                >
+                  {nextName && (
+                    <span>{nextName}</span>
+                  )}
+                  <ChevronDown
+                    style={{ width: 14, height: 14, flexShrink: 0 }}
+                  />
+                </motion.button>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
 
-      {/* Dark-mode pill overrides via CSS — scoped so they don't leak */}
+      {/* Dark-mode pill style — scoped so it doesn't leak */}
       <style>{`
         .dark [aria-label^="Scroll"] {
           background: rgba(255,255,255,0.08) !important;
           border-color: rgba(255,255,255,0.12) !important;
-        }
-        @media (max-width: 767px) {
-          [aria-label^="Scroll"] {
-            --nudge-py: 6px;
-            --nudge-px: 12px;
-          }
         }
       `}</style>
     </>

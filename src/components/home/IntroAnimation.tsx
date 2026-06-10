@@ -19,6 +19,19 @@ interface IntroAnimationProps {
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [visible, setVisible] = useState(true);
 
+  // Lock scroll immediately so the footer cannot be seen below the overlay
+  // while the intro is playing. Cleaned up both on unmount and on exit.
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        document.body.style.overflow = "";
+      }
+    };
+  }, []);
+
   useEffect(() => {
     // Begin exit animation at 2.4s; AnimatePresence exit duration = 0.5s
     const timer = setTimeout(() => {
@@ -29,6 +42,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
   function handleExitComplete() {
     if (typeof window !== "undefined") {
+      document.body.style.overflow = "";
       sessionStorage.setItem("intro_played", "true");
     }
     onComplete();
