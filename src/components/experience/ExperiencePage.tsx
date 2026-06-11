@@ -133,6 +133,19 @@ export default function ExperiencePage() {
       initial="hidden"
       animate="show"
       className="relative bg-[var(--background)]"
+      style={
+        {
+          // Width of the fixed left column (sticky heading + timeline).
+          "--exp-left-col": "clamp(210px, 23vw, 340px)",
+          // How far the card column shifts right of true viewport center.
+          // Zero on wide screens (card self-centers in the viewport) and
+          // grows only as much as needed on narrower screens so the card
+          // never slides under the heading column.
+          // 1004px = card max-width (940px) + section padding (64px).
+          "--exp-card-shift":
+            "clamp(0px, calc(2 * var(--exp-left-col) + 1004px - 100vw), var(--exp-left-col))",
+        } as React.CSSProperties
+      }
     >
       {/* ── EXPERIENCE background watermark ──────────────────────────────────
           Fixed, centered in viewport, behind all content.
@@ -162,23 +175,22 @@ export default function ExperiencePage() {
       />
 
       {/* ── Sticky heading ───────────────────────────────────────────────────
-          top: navbar(70px from layout.tsx) + 24px gap = 94px
-          padding-left: 48px desktop / 24px mobile
-          max-width: 500px — long names ("Hamilton Broadcast Engineering, LLC")
-          wrap to a second line instead of clipping
-          width: calc(40% - 48px) on desktop so it never overflows the card area
-          overflow: visible — heading must never be clipped
+          Desktop (md+): sticky at navbar(70px) + 24px = 94px, constrained to
+          the reserved left column (--exp-left-col) so it can NEVER overlap
+          the card column, which is offset to the right by the same amount.
+          Mobile: static (scrolls away) — each card already shows the company
+          name, and a sticky overlay would collide with centered cards.
           z-index: 10 — above watermark, below scroll nudge pills (z-30)
       ────────────────────────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5, ease: "easeOut" }}
-        className="sticky z-10 pointer-events-none"
-        style={{ top: "94px", overflow: "visible" }}
+        className="relative md:sticky md:top-[94px] z-10 pointer-events-none"
+        style={{ overflow: "visible" }}
       >
         <div
-          className="pl-6 md:pl-12 max-w-[500px] md:w-[calc(40%-48px)] pointer-events-auto"
+          className="pl-6 md:pl-12 max-w-[500px] md:max-w-none md:w-[var(--exp-left-col)] pointer-events-auto"
           style={{ paddingTop: "8px", paddingBottom: "8px", overflow: "visible" }}
         >
           <RotatingHeading
@@ -201,7 +213,7 @@ export default function ExperiencePage() {
           IntersectionObserver on these sections drives activeIndex
       ────────────────────────────────────────────────────────────────────── */}
       <div
-        className="relative z-10 flex flex-col items-center"
+        className="relative z-10 flex flex-col items-center md:pl-[var(--exp-card-shift)]"
         style={{ gap: "16px" }}
       >
         {entries.map((entry, idx) => (

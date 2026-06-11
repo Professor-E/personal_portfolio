@@ -30,16 +30,19 @@ export default function TimelineNav({ entries, activeIndex, onDotClick }: Timeli
       style={{ left: "24px" }}
       aria-label="Experience timeline navigation"
     >
-      {/* Background connecting line — full height */}
+      {/* Background connecting line — centered on the dot column.
+          left:50% + translateX(-50%) keeps it perfectly aligned with the
+          dots regardless of which dot is enlarged (active = 12px, rest = 8px).
+          Inset top/bottom 4px so the line runs dot-center to dot-center. */}
       <div
-        className="absolute top-0 bottom-0 w-px pointer-events-none"
-        style={{ left: "5px", backgroundColor: "var(--border)" }}
+        className="absolute left-1/2 -translate-x-1/2 w-px pointer-events-none"
+        style={{ top: "4px", bottom: "4px", backgroundColor: "var(--border)" }}
       />
 
       {/* Progress fill — animates to active dot */}
       <motion.div
-        className="absolute top-0 w-px origin-top pointer-events-none"
-        style={{ left: "5px", backgroundColor: activeBrandColor }}
+        className="absolute left-1/2 -translate-x-1/2 w-px origin-top pointer-events-none"
+        style={{ top: "4px", maxHeight: "calc(100% - 8px)", backgroundColor: activeBrandColor }}
         animate={{ height: `${fillPercent}%` }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       />
@@ -67,6 +70,8 @@ export default function TimelineNav({ entries, activeIndex, onDotClick }: Timeli
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             style={{
               border: isActive ? "none" : "1.5px solid var(--text-secondary)",
+              // Soft halo around the active dot for a clearer "you are here"
+              boxShadow: isActive ? `0 0 0 4px ${entry.brandColor}33` : "none",
             }}
           />
         );

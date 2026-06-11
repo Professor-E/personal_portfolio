@@ -78,7 +78,7 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
           filter: `blur(${blurForDistance(distance)}px)`,
           willChange: "transform, opacity",
         }}
-        className="relative w-full max-w-[900px]"
+        className="relative w-full max-w-[940px]"
         data-entry-id={entry.id}
       >
         {/* ── Card (static — root motion.div above is the only animator) ──── */}
@@ -109,8 +109,11 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
               <div
                 className="shrink-0 rounded-2xl flex items-center justify-center"
                 style={{
-                  width: "160px",
-                  height: "160px",
+                  // Fluid 112–160px: keeps the content column readable on
+                  // narrower desktops where the card shares the row with the
+                  // sticky heading column.
+                  width: "clamp(112px, 12vw, 160px)",
+                  height: "clamp(112px, 12vw, 160px)",
                   maxWidth: "100%",
                   backgroundColor: entry.brandColor,
                 }}

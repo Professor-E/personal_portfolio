@@ -31,11 +31,11 @@ export default function RotatingHeading({ companyName, brandColor }: RotatingHea
         <AnimatePresence mode="wait">
           <motion.p
             key={companyName}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="text-3xl md:text-5xl font-bold leading-tight"
+            className="text-3xl md:text-[clamp(28px,2.9vw,42px)] font-bold leading-tight"
             style={{
               color: brandColor,
               display: "block",

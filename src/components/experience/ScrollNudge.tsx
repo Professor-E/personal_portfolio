@@ -37,8 +37,10 @@ export default function ScrollNudge({
   const showAbove = activeIndex > 0;
   const showBelow = activeIndex < entries.length - 1;
 
-  const prevName = entries[activeIndex - 1]?.company ?? "";
-  const nextName = entries[activeIndex + 1]?.company ?? "";
+  const prevEntry = entries[activeIndex - 1];
+  const nextEntry = entries[activeIndex + 1];
+  const prevName = prevEntry?.company ?? "";
+  const nextName = nextEntry?.company ?? "";
 
   // ── Auto-dim after 3 s of inactivity ───────────────────────────────────────
   const resetTimer = () => {
@@ -66,38 +68,38 @@ export default function ScrollNudge({
   }, [activeIndex]);
 
   // ── Shared pill style ───────────────────────────────────────────────────────
-  const pillStyle: React.CSSProperties = {
+  // Brand-tinted border + glow per target entry so the pills clearly read as
+  // "there's more to see" and visually connect to the entry they lead to.
+  const pillStyle = (brandColor: string): React.CSSProperties => ({
     display: "inline-flex",
     alignItems: "center",
-    gap: "6px",
-    padding: "8px 16px",
+    gap: "8px",
+    padding: "10px 18px",
     borderRadius: "9999px",
-    background: "rgba(0,0,0,0.06)",
-    border: "1px solid rgba(0,0,0,0.10)",
-    backdropFilter: "blur(8px)",
-    WebkitBackdropFilter: "blur(8px)",
+    background: "var(--surface)",
+    border: `1.5px solid ${brandColor}66`,
+    boxShadow: `0 4px 18px ${brandColor}30, 0 2px 8px rgba(0,0,0,0.08)`,
+    backdropFilter: "blur(10px)",
+    WebkitBackdropFilter: "blur(10px)",
     whiteSpace: "nowrap",
     width: "fit-content",
-    fontSize: "12px",
-    fontWeight: 500,
+    fontSize: "13px",
+    fontWeight: 600,
     cursor: "pointer",
-    color: "var(--text-secondary)",
-  };
+    color: "var(--text-primary)",
+  });
 
   return (
     <>
       {/* ── UP pill ────────────────────────────────────────────────────────
           Outer div: fixed position — NEVER animated so centering is stable.
-          left:50% + translateX(-50%) guarantees horizontal center at all widths.
+          Mobile: centered on the viewport. Desktop (md+): centered on the
+          CARD column (viewport center + half the reserved left column),
+          so the pill always sits directly above the active card.
       ──────────────────────────────────────────────────────────────────── */}
       <div
-        style={{
-          position: "fixed",
-          left: "50%",
-          transform: "translateX(-50%)",
-          top: "calc(70px + 16px)",
-          zIndex: 30,
-        }}
+        className="fixed left-1/2 md:left-[calc(50%+var(--exp-card-shift)/2)] -translate-x-1/2 z-30"
+        style={{ top: "calc(70px + 16px)" }}
       >
         <AnimatePresence>
           {showAbove && (
@@ -105,28 +107,31 @@ export default function ScrollNudge({
             <motion.div
               key="nudge-up"
               initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: dimmed ? 0.4 : 1, y: 0 }}
+              animate={{ opacity: dimmed ? 0.6 : 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               {/* Floating bob — vertical only, never touches centering */}
               <motion.div
-                animate={{ y: [0, -4, 0] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
               >
                 <motion.button
                   onClick={onScrollUp}
-                  whileHover={{ scale: 1.05, opacity: 1 }}
+                  whileHover={{ scale: 1.06, opacity: 1 }}
                   whileTap={{ scale: 0.95 }}
-                  style={pillStyle}
+                  style={pillStyle(prevEntry?.brandColor ?? "var(--accent)")}
                   aria-label={`Scroll up to ${prevName}`}
                 >
-                  {prevName && (
-                    <span>{prevName}</span>
-                  )}
                   <ChevronUp
-                    style={{ width: 14, height: 14, flexShrink: 0 }}
+                    style={{
+                      width: 16,
+                      height: 16,
+                      flexShrink: 0,
+                      color: prevEntry?.brandColor,
+                    }}
                   />
+                  {prevName && <span>{prevName}</span>}
                 </motion.button>
               </motion.div>
             </motion.div>
@@ -138,39 +143,37 @@ export default function ScrollNudge({
           Same structure — outer fixed div never animates.
       ──────────────────────────────────────────────────────────────────── */}
       <div
-        style={{
-          position: "fixed",
-          left: "50%",
-          transform: "translateX(-50%)",
-          bottom: "24px",
-          zIndex: 30,
-        }}
+        className="fixed left-1/2 md:left-[calc(50%+var(--exp-card-shift)/2)] -translate-x-1/2 z-30"
+        style={{ bottom: "24px" }}
       >
         <AnimatePresence>
           {showBelow && (
             <motion.div
               key="nudge-down"
               initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: dimmed ? 0.4 : 1, y: 0 }}
+              animate={{ opacity: dimmed ? 0.6 : 1, y: 0 }}
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <motion.div
-                animate={{ y: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                animate={{ y: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
               >
                 <motion.button
                   onClick={onScrollDown}
-                  whileHover={{ scale: 1.05, opacity: 1 }}
+                  whileHover={{ scale: 1.06, opacity: 1 }}
                   whileTap={{ scale: 0.95 }}
-                  style={pillStyle}
+                  style={pillStyle(nextEntry?.brandColor ?? "var(--accent)")}
                   aria-label={`Scroll down to ${nextName}`}
                 >
-                  {nextName && (
-                    <span>{nextName}</span>
-                  )}
+                  {nextName && <span>{nextName}</span>}
                   <ChevronDown
-                    style={{ width: 14, height: 14, flexShrink: 0 }}
+                    style={{
+                      width: 16,
+                      height: 16,
+                      flexShrink: 0,
+                      color: nextEntry?.brandColor,
+                    }}
                   />
                 </motion.button>
               </motion.div>
@@ -178,14 +181,6 @@ export default function ScrollNudge({
           )}
         </AnimatePresence>
       </div>
-
-      {/* Dark-mode pill style — scoped so it doesn't leak */}
-      <style>{`
-        .dark [aria-label^="Scroll"] {
-          background: rgba(255,255,255,0.08) !important;
-          border-color: rgba(255,255,255,0.12) !important;
-        }
-      `}</style>
     </>
   );
 }
