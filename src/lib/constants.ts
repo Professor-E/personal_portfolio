@@ -348,6 +348,147 @@ export const HOBBIES: HobbyEntry[] = [
   },
 ];
 
+// ── Extracurriculars ──────────────────────────────────────────────────────────
+export const EXTRACURRICULARS = [
+  {
+    id: "engineering-club",
+    name: "Engineering Club",
+    monogram: "EC",
+    accentColor: "#E85D20",
+    category: "Leadership",
+    roles: ["President", "Electronics Manager"],
+    dateRange: "Aug 2021 – May 2025",
+    shortDescription:
+      "Led the largest non-volunteering club of 124 members with 7 active subsets — Maker Events, MakerFaire, VEX Robotics, Glenview's Got STEAM, CAD Club, Project Enable, and AI Club.",
+    fullDescription:
+      "As President (senior year) and Makerspace & Electronics Manager (freshman–junior year), I led a club of 124 members across 7 subsets. I organized monthly STEM volunteering events for 60+ elementary and middle schoolers, ran fundraisers raising $1,000+ for new makerspace equipment, and managed weekly meetings for each subset. Subsets included Maker Events (monthly tool lectures and build competitions), MakerFaire (year-long project showcase for 300+ attendees), VEX Robotics, Glenview's Got STEAM (STEAM outreach to 10 local schools), CAD Club, Project Enable (3D printing prosthetics for children), and AI Club.",
+    stats: [
+      { value: "124", label: "members" },
+      { value: "7", label: "subsets" },
+      { value: "$1,000+", label: "fundraised" },
+    ],
+  },
+  {
+    id: "vex-robotics",
+    name: "VEX Robotics",
+    monogram: "VR",
+    accentColor: "#2563EB",
+    category: "Competition",
+    roles: ["Team Captain", "Programmer", "Hardware Engineer"],
+    dateRange: "Aug 2022 – May 2025",
+    shortDescription:
+      "Team captain, hardware engineer, and programmer. Led a team of 7, placed 5th in State, and automated drivetrain code for a 60% efficiency gain.",
+    fullDescription:
+      "As Team Captain, I led a team of 7 students through three competitive seasons. I designed and built the robot's drivetrain and defensive subsystems, wrote autonomous gameplay code, and optimized the drivetrain for 60% greater efficiency over the prior year's robot. The team placed 5th in the Illinois State Championship. I also assisted in organizing competitions hosted at Glenbrook South with ~100 competitors and 10+ local high school teams, handled field inspection, and consulted with other teams on robot design and strategy.",
+    stats: [
+      { value: "5th", label: "in State" },
+      { value: "100+", label: "competitors organized" },
+      { value: "60%", label: "drivetrain efficiency gain" },
+    ],
+  },
+  {
+    id: "science-olympiad",
+    name: "Science Olympiad",
+    monogram: "SO",
+    accentColor: "#0D9488",
+    category: "Competition",
+    roles: ["Team Leader", "Varsity Competitor"],
+    dateRange: "Aug 2022 – May 2025",
+    shortDescription:
+      "Led and managed a team of 30. Placed 2nd at Regionals and 9th in State, improving team placement by 6 positions. Selected as ACS Competitor sophomore and senior year.",
+    fullDescription:
+      "I assisted in leading and managing a varsity Science Olympiad team of 30 students. I helped organize weekly team meetings, constructed practice tests for tryouts, advised coaches on event assignments, and assisted teammates in building competition solutions. The team placed 2nd in Regionals and 9th in State — an improvement of 6 places from the prior year. I personally competed in detector building, robot tour, chem lab, air trajectory, electric vehicle, and was selected as an American Chemical Society (ACS) competitor during my sophomore and senior years.",
+    stats: [
+      { value: "2nd", label: "Regionals" },
+      { value: "9th", label: "State" },
+      { value: "+6", label: "rank improvement" },
+    ],
+  },
+  {
+    id: "math-team",
+    name: "Math Team",
+    monogram: "MT",
+    accentColor: "#7C3AED",
+    category: "Competition",
+    roles: ["General Member", "Orals Competitor"],
+    dateRange: "Aug 2023 – May 2025",
+    shortDescription:
+      "Advanced competition math across general, orals, and Math Madness formats. Placed 10th in State and 8th nationally in Math Madness. AMC 10 & 12 competitor.",
+    fullDescription:
+      "I competed on the General and Orals math teams, practicing advanced competition mathematics including probability & statistics, algebra, geometry, trigonometry, and pre-calculus. On the Orals team I competed in applied mathematics covering digital logic circuits and game theory. I placed 10th in the Illinois State Math Competition and 8th nationally in the Math Madness tournament. I also helped teammates understand complex problems and explained solutions during team practice. Selected as an AMC 10 competitor freshman year and AMC 12 competitor junior and senior year.",
+    stats: [
+      { value: "10th", label: "in State" },
+      { value: "8th", label: "national (Math Madness)" },
+    ],
+  },
+  {
+    id: "tutor",
+    name: "Private Tutor & TLC Tutor",
+    monogram: "TU",
+    accentColor: "#16A34A",
+    category: "Community & Volunteering",
+    roles: ["Paid Private Tutor", "TLC Volunteer"],
+    dateRange: "Aug 2021 – May 2025",
+    shortDescription:
+      "Tutored 150+ students across all levels — studies through AP and college. Average grade increase of 1–2 grade levels. Subjects spanning engineering, math, science, CS, English, and Spanish.",
+    fullDescription:
+      "I worked as a paid private tutor from freshman through senior year and as a volunteer tutor at the Titan Learning Center (TLC) during junior and senior year. I provided 1:1 and small group sessions for 150+ students at every course level from Studies through AP and Dual Enrollment college courses. I tutored every subject I had studied: Engineering, Physics, Chemistry, Biology, Algebra I through Multivariable Calculus, Computer Science (Java, C, C++, Arduino), English, Spanish, World History, and Government. I reported 100% student satisfaction and an average academic grade increase of 1–2 grade levels across all students.",
+    stats: [
+      { value: "150+", label: "students tutored" },
+      { value: "300+", label: "hours" },
+      { value: "+1–2", label: "grade levels avg" },
+    ],
+  },
+  {
+    id: "glenviews-got-steam",
+    name: "Glenview's Got STEAM",
+    monogram: "GS",
+    accentColor: "#D97706",
+    category: "Community & Volunteering",
+    roles: ["Student Manager", "Volunteer"],
+    dateRange: "Aug 2021 – May 2025",
+    shortDescription:
+      "Managed STEAM outreach events for 60 elementary and middle schoolers from 10 local schools. Organized 30 volunteers and raised $1,000+ for the public library.",
+    fullDescription:
+      "I helped lead and organize STEAM-related events for 20–60 elementary and middle school students from 10 different local schools. I planned presentational materials, organized budgets and materials for each activity, lectured on topics including 3D printing, electronics fundamentals, what engineering is, and how science and math apply to everyday life. I helped create fundraisers raising $1,000+ for the club and the local public library to purchase tools and equipment for community use. I also tracked volunteer participation and briefed the 30 volunteers before each event.",
+    stats: [
+      { value: "60", label: "students per event" },
+      { value: "10", label: "local schools" },
+      { value: "$1,000+", label: "raised for public library" },
+    ],
+  },
+  {
+    id: "jv-swim",
+    name: "Junior Varsity Swim Team",
+    monogram: "JV",
+    accentColor: "#0369A1",
+    category: "Competition",
+    roles: ["Team Representative"],
+    dateRange: "Nov 2021 – Jan 2023",
+    shortDescription:
+      "Long-distance free stroke JV swimmer. Red Cross lifeguard and CPR certified. Taught swim techniques and lifeguarding to teammates.",
+    fullDescription:
+      "I competed as a JV swimmer specializing in long-distance free stroke events. I also swam breaststroke, backstroke, and butterfly. I served as a team representative, demonstrated proper swimming technique to newer teammates, and participated in both team and individual training exercises. During this period I obtained my Red Cross lifeguard and CPR certifications while helping teach other swimmers proper lifeguarding techniques and emergency response procedures.",
+    stats: [],
+  },
+  {
+    id: "habitat-for-humanity",
+    name: "Habitat for Humanity",
+    monogram: "HH",
+    accentColor: "#DC2626",
+    category: "Community & Volunteering",
+    roles: ["Group Leader", "Volunteer"],
+    dateRange: "July 2024",
+    shortDescription:
+      "Week-long build trip to Manistique, MI. Painted interior and exterior of a home, refurbished a shelter, cleaned a local park, and cooked for families.",
+    fullDescription:
+      "I participated in a week-long Habitat for Humanity build trip to Manistique, Michigan, serving as a group leader. Our team primed and painted the interior and exterior of a residential home, refurbished a dormitory shelter, cleaned a local park of weeds and debris, assisted in cleaning a local business's dining area, and cooked meals for the families we were serving. I helped direct the work and coordinate volunteers throughout the week.",
+    stats: [],
+  },
+] as const;
+
+export type Extracurricular = (typeof EXTRACURRICULARS)[number];
+
 // ── Navigation ────────────────────────────────────────────────────────────────
 export const NAV_TABS = [
   { id: "home",       label: "Home",        href: "/home" },
