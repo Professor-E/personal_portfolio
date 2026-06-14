@@ -1,4 +1,4 @@
-import type { ExperienceEntry, ActivityEntry, HobbyEntry } from "@/types";
+import type { ExperienceEntry, ActivityEntry } from "@/types";
 
 // ── Experience ────────────────────────────────────────────────────────────────
 export const EXPERIENCE: ExperienceEntry[] = [
@@ -296,57 +296,83 @@ export const ACTIVITIES: ActivityEntry[] = [
 ];
 
 // ── Hobbies ───────────────────────────────────────────────────────────────────
-export const HOBBIES: HobbyEntry[] = [
+export const HOBBIES = [
   {
     id: "dj",
-    title: "DJ",
+    name: "DJing",
+    monogram: "DJ",
+    accentColor: "#7C3AED",
+    category: "Music",
+    tagline: "Pioneer DDJ-FLX4 — house, techno, and electronic music.",
     description:
-      "Mixing and performing music on a Pioneer DDJ-FLX4 controller. Passion for house, techno, and electronic music.",
-    vibe: "creative",
+      "DJing is where engineering meets creativity for me. I mix primarily house and techno on a Pioneer DDJ-FLX4, using Rekordbox for track management and set preparation. I love the technical side — beat matching, EQ transitions, building energy across a set — as much as the musical side. It is one of the few things that completely clears my head after a long day of problem sets.",
+    chips: ["Pioneer DDJ-FLX4", "Rekordbox", "House / Techno"],
+    imagePath: "/hobbies/dj.jpg",
   },
   {
     id: "skiing",
-    title: "Skiing",
+    name: "Skiing",
+    monogram: "SK",
+    accentColor: "#0369A1",
+    category: "Outdoors",
+    tagline: "Black diamonds and long runs — the steeper the better.",
     description:
-      "Downhill skiing in the Midwest and beyond. Love the speed and the mountains.",
-    vibe: "adventure",
-  },
-  {
-    id: "swimming",
-    title: "Swimming",
-    description:
-      "Competitive and recreational swimming. Former JV swimmer, now a regular at the pool.",
-    vibe: "athletic",
+      "I have been skiing since I was a kid and it remains one of my favorite ways to spend a winter weekend. I gravitate toward black diamond runs and enjoy pushing my technique on steeper terrain. There is something uniquely satisfying about the combination of speed, precision, and reading the mountain — it scratches the same problem-solving itch that engineering does, just with more adrenaline.",
+    chips: ["Alpine skiing", "Black diamonds", "Midwest + Colorado"],
+    imagePath: "/hobbies/skiing.jpg",
   },
   {
     id: "working-out",
-    title: "Working Out",
+    name: "Working Out",
+    monogram: "WO",
+    accentColor: "#374151",
+    category: "Fitness",
+    tagline: "Daily training — consistency over intensity.",
     description:
-      "Lifting, calisthenics, and staying active. Consistency over intensity.",
-    vibe: "athletic",
+      "I train daily and treat the gym as a non-negotiable part of my routine. Lifting gives me a reliable way to build discipline and mental clarity that carries directly into academic and engineering work. I focus on compound movements and progressive overload, tracking everything methodically — the same approach I apply to projects and problem sets.",
+    chips: ["Strength training", "Daily routine", "Progressive overload"],
+    imagePath: "/hobbies/gym.jpg",
+  },
+  {
+    id: "cars",
+    name: "Car Work",
+    monogram: "CR",
+    accentColor: "#DC2626",
+    category: "Engineering",
+    tagline: "Wrenching, modifications, and understanding how things work.",
+    description:
+      "Working on cars is a natural extension of my love for hands-on engineering. I enjoy doing my own maintenance and modifications — understanding every system, diagnosing issues from first principles, and improving performance where I can. It is the same mindset as PCB debugging or circuit design, just at a larger, greasier scale.",
+    chips: ["Maintenance & repair", "Modifications", "Diagnostics"],
+    imagePath: "/hobbies/cars.jpg",
   },
   {
     id: "reading",
-    title: "Reading",
+    name: "Reading",
+    monogram: "RD",
+    accentColor: "#D97706",
+    category: "Learning",
+    tagline:
+      "Engineering textbooks, biographies, and anything that teaches me something new.",
     description:
-      "Voracious reader across sci-fi, philosophy, biographies, and technical books.",
-    vibe: "intellectual",
-  },
-  {
-    id: "car-work",
-    title: "Car Work",
-    description:
-      "DIY automotive maintenance and mods. Learning the car inside and out.",
-    vibe: "mechanical",
+      "I read consistently across engineering, science, biography, and history. Some of my favorites include Electronic Principles by Malvino, which I worked through cover to cover during my time at Hamilton Broadcast Engineering, and biographies of engineers and scientists who applied theory to change the world. Reading is how I fill the gaps between formal coursework and practical work.",
+    chips: ["Engineering & science", "Biographies", "History"],
+    imagePath: "/hobbies/reading.jpg",
   },
   {
     id: "family-friends",
-    title: "Family & Friends",
+    name: "Family & Friends",
+    monogram: "FF",
+    accentColor: "#16A34A",
+    category: "Personal",
+    tagline: "Polish roots, Chicago raised — the people who keep me grounded.",
     description:
-      "Quality time with family and close friends is a top priority. Polish roots and a tight-knit community.",
-    vibe: "personal",
+      "Outside of everything else, time with family and friends is what matters most. I grew up in a close Polish-American household in the Chicago suburbs and that foundation — hard work, loyalty, showing up for the people around you — shapes how I approach everything. The best moments are the simple ones: cooking together, watching the game, or just being present.",
+    chips: ["Polish-American", "Chicago suburbs", "Close-knit"],
+    imagePath: "/hobbies/family.jpg",
   },
-];
+] as const;
+
+export type Hobby = (typeof HOBBIES)[number];
 
 // ── Extracurriculars ──────────────────────────────────────────────────────────
 export const EXTRACURRICULARS = [
