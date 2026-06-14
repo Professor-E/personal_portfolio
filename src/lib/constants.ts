@@ -1,4 +1,4 @@
-import type { ExperienceEntry, ProjectEntry, ActivityEntry, HobbyEntry } from "@/types";
+import type { ExperienceEntry, ActivityEntry, HobbyEntry } from "@/types";
 
 // ── Experience ────────────────────────────────────────────────────────────────
 export const EXPERIENCE: ExperienceEntry[] = [
@@ -124,125 +124,88 @@ export const EXPERIENCE: ExperienceEntry[] = [
 ];
 
 // ── Projects ─────────────────────────────────────────────────────────────────
-export const PROJECTS: ProjectEntry[] = [
+export const PROJECTS = [
   {
     id: "jam-it",
     title: "Jam It!",
-    description: "Social DJ platform enabling collaborative music experiences in real-time.",
-    tech: ["React", "Node.js", "WebSockets", "TypeScript"],
-    startDate: "Jan 2026",
-    endDate: "Present",
-    link: null,
-  },
-  {
-    id: "tesla-coil",
-    title: "Tesla Coil",
-    description: "High-voltage resonant transformer capable of producing visible electrical arcs.",
-    tech: ["Power Electronics", "Circuit Design", "High Voltage"],
-    startDate: "2023",
-    endDate: "2023",
-    link: null,
-  },
-  {
-    id: "reusable-rocket",
-    title: "3D Printed Reusable Rocket",
-    description: "Hobby rocket with 3D printed airframe designed for multiple flights and recovery.",
-    tech: ["3D Printing", "Rocketry", "CAD", "Aerodynamics"],
-    startDate: "2023",
-    endDate: "2024",
-    link: null,
+    monogram: "JI",
+    category: "Software",
+    accentColor: "#E85D20",
+    year: "Jan–Feb 2026",
+    shortDescription:
+      "Music-tech social DJ app co-founded as part of Y Combinator. 5★ on the App Store, 53 downloads in 60 days.",
+    fullDescription:
+      "Co-founded and launched Jam It! on the App Store with direct funding from Y Combinator. Achieved a 5-star rating, over 1,000 views, 53 downloads, and $25 of in-app purchases within 60 days. Designed low-fidelity and high-fidelity prototypes in Figma, built game logic and song compatibility in Swift and SwiftUI, and designed the marketing website in TypeScript, Node.js, and React deployed on Vercel and Cloudflare.",
+    badge: "YC Funded",
   },
   {
     id: "digital-logic-trainer",
     title: "Digital Logic Trainer",
-    description: "Educational PCB board for learning combinational and sequential logic circuits.",
-    tech: ["PCB Design", "Digital Logic", "KiCad"],
-    startDate: "2023",
-    endDate: "2023",
-    link: null,
+    monogram: "DL",
+    category: "Hardware",
+    accentColor: "#2563EB",
+    year: "2024",
+    shortDescription:
+      "Custom PCB teaching tool for digital logic gates, flip-flops, and combinational circuits.",
+    fullDescription:
+      "Designed and manufactured a custom printed circuit board intended as a hands-on educational tool for digital electronics. The board allows students to wire and test logic gates, flip-flops, multiplexers, and combinational circuits using physical jumpers and onboard LEDs. Schematic and layout designed in KiCAD and EasyEDA Pro.",
+    badge: null,
+  },
+  {
+    id: "maine-east-radio",
+    title: "Maine East Radio Station",
+    monogram: "ME",
+    category: "Hardware",
+    accentColor: "#0D9488",
+    year: "2022–2023",
+    shortDescription:
+      "Designed and built a full broadcast radio station for Maine East High School, now serving 2,340+ listeners.",
+    fullDescription:
+      "Planned, designed, and implemented a complete AM/FM broadcast radio station for Maine East High School as part of work at Hamilton Broadcast Engineering. The station serves over 2,340 listeners. Work included antenna system design, transmitter configuration, studio wiring, and signal path verification using spectrum analyzers and oscilloscopes.",
+    badge: null,
+  },
+  {
+    id: "tesla-coil",
+    title: "Tesla Coil",
+    monogram: "TC",
+    category: "Hardware",
+    accentColor: "#7C3AED",
+    year: "2023",
+    shortDescription:
+      "Hand-wound solid-state Tesla coil (SSTC) capable of producing 12-inch plasma streamers.",
+    fullDescription:
+      "Designed and built a solid-state Tesla coil from scratch, including primary and secondary coil winding, resonant frequency tuning, IGBT driver circuit design, and safety interlock systems. Capable of producing 12-inch continuous plasma streamers. All circuit design completed in KiCAD; mathematical resonance calculations performed by hand.",
+    badge: null,
+  },
+  {
+    id: "3d-rocket",
+    title: "3D Printed Reusable Rocket",
+    monogram: "RK",
+    category: "Hardware",
+    accentColor: "#D97706",
+    year: "2024",
+    shortDescription:
+      "Fully 3D printed rocket with avionics bay, parachute deployment, and dual-event recovery system.",
+    fullDescription:
+      "Designed and 3D printed a multi-stage model rocket with an integrated avionics bay for altimeter-triggered dual-event parachute deployment. The airframe, nose cone, and fins were modeled in Autodesk Fusion 360 and printed on a Prusa MINI+. Recovery system uses a main chute and drogue chute for safe descent.",
+    badge: null,
   },
   {
     id: "bluetooth-drone",
     title: "Bluetooth Drone",
-    description: "Custom-built quadcopter controlled via Bluetooth with real-time telemetry.",
-    tech: ["Arduino", "Bluetooth", "Flight Control", "3D Printing"],
-    startDate: "2022",
-    endDate: "2022",
-    link: null,
+    monogram: "BD",
+    category: "Hardware",
+    accentColor: "#6B7280",
+    year: "2023",
+    shortDescription:
+      "Custom quadcopter with Bluetooth control, PID stabilization, and a fully 3D-printed frame.",
+    fullDescription:
+      "Built a custom quadcopter from scratch with a 3D-printed PLA frame, brushless motors, ESCs, and a flight controller programmed with PID stabilization loops. Control interface implemented over Bluetooth using a custom mobile app. Frame designed in Fusion 360; firmware written in C++ on Arduino.",
+    badge: null,
   },
-  {
-    id: "radio-station",
-    title: "Maine East High School Radio Station",
-    description: "Rebuilt and upgraded the broadcast infrastructure for a high school radio station.",
-    tech: ["Broadcast Engineering", "Audio Electronics", "RF"],
-    startDate: "2022",
-    endDate: "2023",
-    link: null,
-  },
-  {
-    id: "digital-clock",
-    title: "Digital Clock",
-    description: "Custom digital clock built from discrete 7-segment displays and TTL logic ICs.",
-    tech: ["Digital Electronics", "TTL Logic", "PCB Design"],
-    startDate: "2021",
-    endDate: "2021",
-    link: null,
-  },
-  {
-    id: "electric-guitar",
-    title: "3D Printed Electric Guitar",
-    description: "Fully playable electric guitar with 3D printed body and hand-wired electronics.",
-    tech: ["3D Printing", "Guitar Electronics", "CAD"],
-    startDate: "2023",
-    endDate: "2024",
-    link: null,
-  },
-  {
-    id: "electric-longboard",
-    title: "Electric Longboard",
-    description: "Self-built electric longboard with brushless motor, ESC, and custom remote.",
-    tech: ["Power Electronics", "ESC", "3D Printing", "Embedded Systems"],
-    startDate: "2022",
-    endDate: "2022",
-    link: null,
-  },
-  {
-    id: "jingle-ai",
-    title: "Jingle (Personal AI)",
-    description: "Personal AI assistant with memory and contextual awareness built for daily use.",
-    tech: ["Python", "LLM APIs", "Vector DB", "FastAPI"],
-    startDate: "2025",
-    endDate: "Present",
-    link: null,
-  },
-  {
-    id: "penny-hockey",
-    title: "Penny Hockey Board",
-    description: "Handcrafted wooden penny hockey game board with custom scoring mechanism.",
-    tech: ["Woodworking", "Mechanical Design"],
-    startDate: "2021",
-    endDate: "2021",
-    link: null,
-  },
-  {
-    id: "custom-pc",
-    title: "Custom PC",
-    description: "High-performance custom desktop PC built for engineering and creative workloads.",
-    tech: ["PC Hardware", "System Building", "Cable Management"],
-    startDate: "2022",
-    endDate: "2022",
-    link: null,
-  },
-  {
-    id: "3d-prints",
-    title: "3D Prints",
-    description: "Ongoing collection of functional and artistic 3D prints across various domains.",
-    tech: ["FDM Printing", "Resin Printing", "Fusion 360", "CAD"],
-    startDate: "2020",
-    endDate: "Present",
-    link: null,
-  },
-];
+] as const;
+
+export type Project = (typeof PROJECTS)[number];
 
 // ── Activities ────────────────────────────────────────────────────────────────
 export const ACTIVITIES: ActivityEntry[] = [
