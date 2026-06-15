@@ -5,7 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Inbox } from "lucide-react";
 import { EXTRACURRICULARS } from "@/lib/constants";
 import ActivityCard from "@/components/extracurriculars/ActivityCard";
+import ActivityDetail from "@/components/extracurriculars/ActivityDetail";
 import FilterPills from "@/components/extracurriculars/FilterPills";
+import Lightbox from "@/components/common/Lightbox";
 
 const FILTER_OPTIONS = [
   "All",
@@ -30,7 +32,8 @@ const listVariants = {
 
 export default function ExtracurricularsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [direction, setDirection] = useState<number>(0);
 
   const filtered = EXTRACURRICULARS.filter(
     (activity) => activeFilter === "All" || activity.category === activeFilter
@@ -39,11 +42,17 @@ export default function ExtracurricularsPage() {
   function handleFilterChange(next: string) {
     setActiveFilter(next);
     // A card hidden by the new filter shouldn't stay logically "open".
-    setExpandedId(null);
+    setActiveId(null);
   }
 
-  function handleToggle(id: string) {
-    setExpandedId((current) => (current === id ? null : id));
+  const activeIndex = filtered.findIndex((a) => a.id === activeId);
+  const activeActivity = activeIndex >= 0 ? filtered[activeIndex] : null;
+
+  function navigate(step: number) {
+    if (activeIndex < 0 || filtered.length === 0) return;
+    const nextIndex = (activeIndex + step + filtered.length) % filtered.length;
+    setDirection(step);
+    setActiveId(filtered[nextIndex].id);
   }
 
   return (
@@ -121,14 +130,41 @@ export default function ExtracurricularsPage() {
                 <ActivityCard
                   key={activity.id}
                   activity={activity}
-                  isExpanded={expandedId === activity.id}
-                  onToggle={() => handleToggle(activity.id)}
+                  onOpen={() => {
+                    setDirection(0);
+                    setActiveId(activity.id);
+                  }}
                 />
               ))}
             </AnimatePresence>
           </motion.div>
         )}
       </div>
+
+      {/* ── Enlarged detail lightbox ──────────────────────────────────────── */}
+      <Lightbox
+        isOpen={activeActivity !== null}
+        layoutId={`activity-${activeId}`}
+        contentKey={activeId ?? ""}
+        accentColor={activeActivity?.accentColor}
+        direction={direction}
+        showArrows={filtered.length > 1}
+        prevLabel={
+          activeIndex >= 0
+            ? filtered[(activeIndex - 1 + filtered.length) % filtered.length].name
+            : undefined
+        }
+        nextLabel={
+          activeIndex >= 0
+            ? filtered[(activeIndex + 1) % filtered.length].name
+            : undefined
+        }
+        onClose={() => setActiveId(null)}
+        onPrev={() => navigate(-1)}
+        onNext={() => navigate(1)}
+      >
+        {activeActivity && <ActivityDetail activity={activeActivity} />}
+      </Lightbox>
     </div>
   );
 }

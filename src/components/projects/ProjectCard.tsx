@@ -6,8 +6,8 @@ import type { Project } from "@/lib/constants";
 
 interface ProjectCardProps {
   project: Project;
-  isExpanded: boolean;
-  onToggle: () => void;
+  /** Open the enlarged detail lightbox for this project. */
+  onOpen: () => void;
 }
 
 // Entry / exit variants — kept calm and quick so cards coexist rather than
@@ -21,23 +21,29 @@ const cardVariants = {
 // secondary token so it still tracks light/dark mode.
 const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
 
-export default function ProjectCard({ project, isExpanded, onToggle }: ProjectCardProps) {
+export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
   return (
     <motion.article
-      layout
+      // Shared layout id — the lightbox box grows out of this exact card.
+      layoutId={`project-${project.id}`}
       variants={cardVariants}
       exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.15, ease: "easeOut" } }}
-      transition={{ layout: { duration: 0.3, ease: "easeOut" } }}
+      onClick={onOpen}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl border-[0.5px]",
+        "group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border-[0.5px]",
         "transition-colors duration-200",
-        // "border-secondary" is a subtle upgrade from the faint default
-        // --border. Full literal classes are required for Tailwind JIT.
-        isExpanded
-          ? "border-[color-mix(in_srgb,var(--text-secondary)_45%,var(--border))]"
-          : "border-[var(--border)] hover:border-[color-mix(in_srgb,var(--text-secondary)_45%,var(--border))]"
+        "border-[var(--border)] hover:border-[color-mix(in_srgb,var(--text-secondary)_45%,var(--border))]"
       )}
       style={{ backgroundColor: "var(--background)" }}
+      aria-label={`See more about ${project.title}`}
     >
       {/* ── Color block (decorative, flat) ────────────────────────────────── */}
       <div
@@ -83,31 +89,24 @@ export default function ProjectCard({ project, isExpanded, onToggle }: ProjectCa
           {project.title}
         </h3>
 
-        {/* Animated accent underline — grows on hover, stays open when expanded */}
+        {/* Animated accent underline — grows on hover */}
         <div
-          className={cn(
-            "mb-2.5 mt-1.5 h-[1.5px] transition-[width] duration-[250ms] ease-out",
-            isExpanded ? "w-full" : "w-0 group-hover:w-full"
-          )}
+          className="mb-2.5 mt-1.5 h-[1.5px] w-0 transition-[width] duration-[250ms] ease-out group-hover:w-full"
           style={{ backgroundColor: `${project.accentColor}99` }}
           aria-hidden="true"
         />
 
-        {/* Description — collapses to 2 lines, expands to full text inline.
-            Color shifts to text-primary on card hover for "in focus" feel. */}
+        {/* Description — always the short preview; full text lives in the lightbox. */}
         <div className="mb-4">
           <p
-            className={cn(
-              "leading-relaxed text-[var(--text-secondary)] transition-colors duration-200 group-hover:text-[var(--text-primary)]",
-              !isExpanded && "line-clamp-2"
-            )}
+            className="line-clamp-2 leading-relaxed text-[var(--text-secondary)] transition-colors duration-200 group-hover:text-[var(--text-primary)]"
             style={{ fontSize: "13px" }}
           >
-            {isExpanded ? project.fullDescription : project.shortDescription}
+            {project.shortDescription}
           </p>
         </div>
 
-        {/* Footer row — year + expand toggle, pinned to bottom */}
+        {/* Footer row — year + see more, pinned to bottom */}
         <div className="mt-auto flex items-center justify-between">
           <span
             className="font-medium leading-none"
@@ -116,31 +115,15 @@ export default function ProjectCard({ project, isExpanded, onToggle }: ProjectCa
             {project.year}
           </span>
 
-          {isExpanded ? (
-            <button
-              type="button"
-              onClick={onToggle}
-              aria-expanded
-              className="flex items-center gap-1 font-medium leading-none text-[var(--text-secondary)]"
-              style={{ fontSize: "12px" }}
-            >
-              <span>&larr;</span>
-              Show less
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={onToggle}
-              aria-expanded={false}
-              className="flex items-center gap-1 font-medium leading-none text-[var(--accent)]"
-              style={{ fontSize: "12px" }}
-            >
-              See more
-              <span className="transition-transform duration-200 group-hover:translate-x-1">
-                &rarr;
-              </span>
-            </button>
-          )}
+          <span
+            className="flex items-center gap-1 font-medium leading-none text-[var(--accent)]"
+            style={{ fontSize: "12px" }}
+          >
+            See more
+            <span className="transition-transform duration-200 group-hover:translate-x-1">
+              &rarr;
+            </span>
+          </span>
         </div>
       </div>
     </motion.article>

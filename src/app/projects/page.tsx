@@ -5,7 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FolderOpen } from "lucide-react";
 import { PROJECTS } from "@/lib/constants";
 import ProjectCard from "@/components/projects/ProjectCard";
+import ProjectDetail from "@/components/projects/ProjectDetail";
 import FilterPills from "@/components/projects/FilterPills";
+import Lightbox from "@/components/common/Lightbox";
 
 const FILTER_OPTIONS = ["All", "Hardware", "Software", "Research"];
 
@@ -25,7 +27,8 @@ const gridVariants = {
 
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [direction, setDirection] = useState<number>(0);
 
   const filtered = PROJECTS.filter(
     (project) => activeFilter === "All" || project.category === activeFilter
@@ -34,11 +37,17 @@ export default function ProjectsPage() {
   function handleFilterChange(next: string) {
     setActiveFilter(next);
     // A card hidden by the new filter shouldn't stay logically "open".
-    setExpandedId(null);
+    setActiveId(null);
   }
 
-  function handleToggle(id: string) {
-    setExpandedId((current) => (current === id ? null : id));
+  const activeIndex = filtered.findIndex((p) => p.id === activeId);
+  const activeProject = activeIndex >= 0 ? filtered[activeIndex] : null;
+
+  function navigate(step: number) {
+    if (activeIndex < 0 || filtered.length === 0) return;
+    const nextIndex = (activeIndex + step + filtered.length) % filtered.length;
+    setDirection(step);
+    setActiveId(filtered[nextIndex].id);
   }
 
   return (
@@ -118,14 +127,41 @@ export default function ProjectsPage() {
                 <ProjectCard
                   key={project.id}
                   project={project}
-                  isExpanded={expandedId === project.id}
-                  onToggle={() => handleToggle(project.id)}
+                  onOpen={() => {
+                    setDirection(0);
+                    setActiveId(project.id);
+                  }}
                 />
               ))}
             </AnimatePresence>
           </motion.div>
         )}
       </div>
+
+      {/* ── Enlarged detail lightbox ──────────────────────────────────────── */}
+      <Lightbox
+        isOpen={activeProject !== null}
+        layoutId={`project-${activeId}`}
+        contentKey={activeId ?? ""}
+        accentColor={activeProject?.accentColor}
+        direction={direction}
+        showArrows={filtered.length > 1}
+        prevLabel={
+          activeIndex >= 0
+            ? filtered[(activeIndex - 1 + filtered.length) % filtered.length].title
+            : undefined
+        }
+        nextLabel={
+          activeIndex >= 0
+            ? filtered[(activeIndex + 1) % filtered.length].title
+            : undefined
+        }
+        onClose={() => setActiveId(null)}
+        onPrev={() => navigate(-1)}
+        onNext={() => navigate(1)}
+      >
+        {activeProject && <ProjectDetail project={activeProject} />}
+      </Lightbox>
     </div>
   );
 }

@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Lightbox from "@/components/common/Lightbox";
 
 /**
  * Featured work grid — Figma node 616:516
@@ -138,19 +140,30 @@ const cardVariants = {
 };
 
 // ── Single Pillbox card ────────────────────────────────────────────────────────
-function PillboxCard({ item, index }: { item: FeaturedItem; index: number }) {
+function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void }) {
   return (
     <motion.div
+      // Shared layout id — the lightbox box grows out of this exact card.
+      layoutId={`featured-${item.id}`}
       variants={cardVariants}
       whileHover={{ scale: 1.025, transition: { duration: 0.2 } }}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-[20px] bg-[var(--surface)] dark:bg-[var(--surface)]"
+      onClick={onOpen}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
+      className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[20px] bg-[var(--surface)] dark:bg-[var(--surface)]"
       style={{
         boxShadow: "2px 4px 4px 0px rgba(0,0,0,0.25)",
         padding: "24px 48px",
         // On mobile/tablet use natural height; on desktop match Figma 647px
         minHeight: "clamp(480px, 45vw, 647px)",
       }}
-      aria-label={item.title}
+      aria-label={`See more about ${item.title}`}
     >
       {/* ── Colored image placeholder (brand color, not #c2c2c2 per spec) ── */}
       <div className="flex flex-col gap-6 flex-1">
@@ -186,40 +199,79 @@ function PillboxCard({ item, index }: { item: FeaturedItem; index: number }) {
         </div>
       </div>
 
-      {/* ── "See more →" footer link (Figma node 616:524) ─────────────────── */}
-      {/* Inter Bold 16px, text-primary, text-right */}
-      <Link
-        href={item.link}
-        className="mt-4 block font-bold text-[var(--text-primary)] text-right text-[16px] hover:text-[var(--accent)] transition-colors leading-none"
-        aria-label={`See more about ${item.title}`}
+      {/* ── "See more →" footer (Figma node 616:524) ─────────────────────── */}
+      <span
+        className="mt-4 block font-bold text-[var(--text-primary)] text-right text-[16px] group-hover:text-[var(--accent)] transition-colors leading-none"
       >
         See more →
-      </Link>
+      </span>
+    </motion.div>
+  );
+}
 
-      {/* ── Hover overlay with "View More →" ─────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}
-        className="pointer-events-none group-hover:pointer-events-auto absolute inset-0 rounded-[20px] flex flex-col items-center justify-center gap-4 px-8"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.65) 100%)",
-        }}
+// ── Detail content shown inside the enlarged lightbox ───────────────────────────
+function FeaturedDetail({ item }: { item: FeaturedItem }) {
+  return (
+    <div className="flex flex-col">
+      {/* Color header — matches the card's color block for a seamless enlarge */}
+      <div
+        className="relative flex items-end px-6 py-10 sm:px-12 sm:py-16"
+        style={{ backgroundColor: item.brandColor, minHeight: "200px" }}
       >
+        <span className="text-white text-[14px] font-bold px-3 py-1 rounded-full bg-black/25">
+          {item.category}
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-5 px-6 py-8 sm:px-12 sm:py-10">
+        <h2
+          className="font-semibold leading-tight text-[var(--text-primary)]"
+          style={{ fontSize: "clamp(26px, 4vw, 42px)" }}
+        >
+          {item.title}
+        </h2>
+
+        <div
+          className="h-[2px] w-16 rounded-full"
+          style={{ backgroundColor: `${item.brandColor}99` }}
+          aria-hidden="true"
+        />
+
+        <p
+          className="font-normal text-[var(--text-secondary)]"
+          style={{ fontSize: "clamp(15px, 1.6vw, 19px)", lineHeight: 1.7 }}
+        >
+          {item.description}
+        </p>
+
         <Link
           href={item.link}
-          className="pointer-events-auto font-bold text-white text-[18px] px-6 py-3 rounded-[12px] border-2 border-white/80 hover:bg-white/10 transition-colors"
+          className="mt-2 inline-flex w-fit items-center gap-2 rounded-[12px] border-2 px-6 py-3 font-bold transition-colors"
+          style={{ borderColor: item.brandColor, color: item.brandColor }}
         >
-          View More →
+          Explore {item.category === "Experience" ? "experience" : item.category === "Project" ? "projects" : "activities"} →
         </Link>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
 // ── Grid export ───────────────────────────────────────────────────────────────
 export default function FeaturedGrid() {
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [direction, setDirection] = useState<number>(0);
+
+  const activeIndex = FEATURED_ITEMS.findIndex((it) => it.id === activeId);
+  const activeItem = activeIndex >= 0 ? FEATURED_ITEMS[activeIndex] : null;
+  const len = FEATURED_ITEMS.length;
+
+  function navigate(step: number) {
+    if (activeIndex < 0) return;
+    const nextIndex = (activeIndex + step + len) % len;
+    setDirection(step);
+    setActiveId(FEATURED_ITEMS[nextIndex].id);
+  }
+
   return (
     <section className="w-full px-6 md:px-12 lg:px-20 py-2.5" aria-label="Featured work">
       {/* Section heading */}
@@ -237,10 +289,38 @@ export default function FeaturedGrid() {
         animate="show"
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
-        {FEATURED_ITEMS.map((item, i) => (
-          <PillboxCard key={item.id} item={item} index={i} />
+        {FEATURED_ITEMS.map((item) => (
+          <PillboxCard
+            key={item.id}
+            item={item}
+            onOpen={() => {
+              setDirection(0);
+              setActiveId(item.id);
+            }}
+          />
         ))}
       </motion.div>
+
+      {/* ── Enlarged detail lightbox ──────────────────────────────────────── */}
+      <Lightbox
+        isOpen={activeItem !== null}
+        layoutId={`featured-${activeId}`}
+        contentKey={activeId ?? ""}
+        accentColor={activeItem?.brandColor}
+        direction={direction}
+        showArrows={len > 1}
+        prevLabel={
+          activeIndex >= 0 ? FEATURED_ITEMS[(activeIndex - 1 + len) % len].title : undefined
+        }
+        nextLabel={
+          activeIndex >= 0 ? FEATURED_ITEMS[(activeIndex + 1) % len].title : undefined
+        }
+        onClose={() => setActiveId(null)}
+        onPrev={() => navigate(-1)}
+        onNext={() => navigate(1)}
+      >
+        {activeItem && <FeaturedDetail item={activeItem} />}
+      </Lightbox>
     </section>
   );
 }
