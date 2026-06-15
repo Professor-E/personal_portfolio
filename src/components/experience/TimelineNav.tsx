@@ -7,6 +7,8 @@ interface TimelineNavProps {
   entries: ExperienceEntry[];
   activeIndex: number;
   onDotClick: (index: number) => void;
+  /** Fades the nav in alongside the experience cards during the intro. */
+  visible?: boolean;
 }
 
 /**
@@ -19,15 +21,20 @@ interface TimelineNavProps {
  * Gap: 20px (gap-5) between dots
  * Hidden on mobile (< 768px)
  */
-export default function TimelineNav({ entries, activeIndex, onDotClick }: TimelineNavProps) {
+export default function TimelineNav({ entries, activeIndex, onDotClick, visible = true }: TimelineNavProps) {
   const totalDots = entries.length;
   const fillPercent = totalDots > 1 ? (activeIndex / (totalDots - 1)) * 100 : 0;
   const activeBrandColor = entries[activeIndex]?.brandColor ?? "var(--accent)";
 
   return (
     <nav
-      className="hidden md:flex fixed -translate-y-1/2 z-30 flex-col items-center gap-5"
-      style={{ left: "24px", top: "calc(50% + var(--exp-center-offset, 35px))" }}
+      className="hidden md:flex fixed -translate-y-1/2 z-30 flex-col items-center gap-5 transition-opacity duration-500 ease-out"
+      style={{
+        left: "24px",
+        top: "calc(50% + var(--exp-center-offset, 35px))",
+        opacity: visible ? 1 : 0,
+        pointerEvents: visible ? "auto" : "none",
+      }}
       aria-label="Experience timeline navigation"
     >
       {/* Background connecting line — centered on the dot column.
@@ -53,12 +60,7 @@ export default function TimelineNav({ entries, activeIndex, onDotClick }: Timeli
         return (
           <motion.button
             key={entry.id}
-            onClick={() =>
-              document
-                .querySelector(`[data-entry-id="${entry.id}"]`)
-                ?.closest("section")
-                ?.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
+            onClick={() => onDotClick(idx)}
             aria-label={`Go to ${entry.company}`}
             title={entry.company}
             className="relative z-10 rounded-full cursor-pointer focus:outline-none"
