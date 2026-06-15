@@ -11,7 +11,7 @@ import ContactForm from "./ContactForm";
  *
  * SECTION 1 — above the fold (exactly calc(100vh - 70px)):
  *   • flex-col items-center justify-center
- *   • px-6 md:px-12 lg:px-20 — white side margins
+ *   • px-8 md:px-16 lg:px-24 — white side margins
  *   • Contains: heading + subheading + two-panel card
  *   • Card: max-h-[calc(100vh-70px-140px)] overflow-hidden as safety valve
  *     (140px = heading h1 64px + gap 12px + subtitle ~25px + mb-8 32px ≈ 133px, rounded up)
@@ -57,7 +57,7 @@ export default function ContactPage() {
           flex-col items-center justify-center: heading + card are centered.
       ════════════════════════════════════════════════════════════════════ */}
       <div
-        className="flex flex-col items-center justify-center px-6 md:px-12 lg:px-20"
+        className="flex flex-col items-center justify-center px-8 md:px-16 lg:px-24"
         style={{ minHeight: "calc(100vh - 70px)" }}
       >
         {/* ── Heading block ────────────────────────────────────────────── */}

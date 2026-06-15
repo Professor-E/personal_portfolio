@@ -1167,9 +1167,6 @@ main {
 .min-w-0{
   min-width: 0px;
 }
-.max-w-4xl{
-  max-width: 56rem;
-}
 .max-w-5xl{
   max-width: 64rem;
 }
@@ -1202,6 +1199,9 @@ main {
 }
 .flex-shrink-0{
   flex-shrink: 0;
+}
+.shrink{
+  flex-shrink: 1;
 }
 .shrink-0{
   flex-shrink: 0;
@@ -1935,6 +1935,11 @@ main {
     padding-right: 3rem;
   }
 
+  .md\:px-16{
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
   .md\:px-8{
     padding-left: 2rem;
     padding-right: 2rem;
@@ -1969,6 +1974,11 @@ main {
   .lg\:px-20{
     padding-left: 5rem;
     padding-right: 5rem;
+  }
+
+  .lg\:px-24{
+    padding-left: 6rem;
+    padding-right: 6rem;
   }
 }
 

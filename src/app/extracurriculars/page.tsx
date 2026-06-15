@@ -48,7 +48,8 @@ export default function ExtracurricularsPage() {
 
   return (
     <div className="min-h-[calc(100vh-70px)] bg-[var(--background)]">
-      <div className="mx-auto max-w-4xl px-8">
+      {/* Container normalized to match Projects page: max-w-5xl px-8 md:px-16 lg:px-24 */}
+      <div className="mx-auto max-w-5xl px-8 md:px-16 lg:px-24">
         {/* ── Header ────────────────────────────────────────────────────── */}
         <motion.header
           initial="hidden"

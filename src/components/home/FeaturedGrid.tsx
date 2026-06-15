@@ -221,7 +221,7 @@ function PillboxCard({ item, index }: { item: FeaturedItem; index: number }) {
 // ── Grid export ───────────────────────────────────────────────────────────────
 export default function FeaturedGrid() {
   return (
-    <section className="w-full px-6 py-2.5" aria-label="Featured work">
+    <section className="w-full px-6 md:px-12 lg:px-20 py-2.5" aria-label="Featured work">
       {/* Section heading */}
       <p
         className="font-medium text-[var(--text-secondary)] mb-6"

@@ -15,7 +15,7 @@ export default function HeroSection() {
       {/* ── Display headline (Figma node 616:506) ─────────────────────── */}
       {/* Inter Medium 64px, text-primary, text-center, max-w ~1030px     */}
       <h1
-        className="font-medium text-[var(--text-primary)] text-center leading-none max-w-[1030px] px-4"
+        className="font-medium text-[var(--text-primary)] text-center leading-none max-w-[1030px] px-6 md:px-12 lg:px-20"
         style={{ fontSize: "clamp(32px, 5.5vw, 64px)" }}
       >
         Hello, I&apos;m Dominik — I build things that bridge theory and practice.
@@ -24,7 +24,7 @@ export default function HeroSection() {
       {/* ── Subtitle (Figma node 616:507) ─────────────────────────────── */}
       {/* Inter Semi Bold 24px, text-secondary, text-center, max-w 690px  */}
       <p
-        className="font-semibold text-[var(--text-secondary)] text-center max-w-[690px] px-4"
+        className="font-semibold text-[var(--text-secondary)] text-center max-w-[690px] px-6 md:px-12 lg:px-20"
         style={{ fontSize: "clamp(16px, 2vw, 24px)", lineHeight: 1 }}
       >
         Electronics, software, and a constant quench for knowledge. Here&apos;s

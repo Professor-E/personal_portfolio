@@ -43,7 +43,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-[calc(100vh-70px)] bg-[var(--background)]">
-      <div className="mx-auto max-w-5xl px-8">
+      <div className="mx-auto max-w-5xl px-8 md:px-16 lg:px-24">
         {/* ── Header ────────────────────────────────────────────────────── */}
         <motion.header
           initial="hidden"

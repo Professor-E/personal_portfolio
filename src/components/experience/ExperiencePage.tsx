@@ -217,6 +217,15 @@ export default function ExperiencePage() {
         style={{ gap: "16px" }}
       >
         {entries.map((entry, idx) => (
+          // Projects page reference padding: px-8 md:px-16 lg:px-24.
+          // Intentionally NOT applied here: this section's horizontal padding is
+          // load-bearing for the scroll-snap layout. The --exp-card-shift calc
+          // above hardcodes "1004px = card max-width (940px) + section padding
+          // (64px)", i.e. md:px-8. Increasing it would (a) shrink the centered
+          // card at tablet/desktop widths and offset it from the viewport-centered
+          // watermark — visual drift — and (b) require editing the non-padding
+          // shift calc, which is out of scope. Per the "if matching causes any
+          // visual drift, leave it" rule, the existing value is preserved.
           <section
             key={entry.id}
             ref={(el) => { sectionRefs.current[idx] = el; }}
