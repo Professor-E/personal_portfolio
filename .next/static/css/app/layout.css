@@ -1176,11 +1176,11 @@ main {
 .max-w-6xl{
   max-width: 72rem;
 }
-.max-w-\[1030px\]{
-  max-width: 1030px;
-}
 .max-w-\[1100px\]{
   max-width: 1100px;
+}
+.max-w-\[1250px\]{
+  max-width: 1250px;
 }
 .max-w-\[1440px\]{
   max-width: 1440px;
@@ -1311,6 +1311,9 @@ main {
 }
 .gap-6{
   gap: 1.5rem;
+}
+.gap-7{
+  gap: 1.75rem;
 }
 .gap-\[10px\]{
   gap: 10px;
@@ -1627,6 +1630,9 @@ main {
 .italic{
   font-style: italic;
 }
+.leading-\[1\.05\]{
+  line-height: 1.05;
+}
 .leading-none{
   line-height: 1;
 }
@@ -1782,6 +1788,10 @@ main {
 .last\:border-0:last-child{
   border-width: 0px;
 }
+.hover\:-translate-y-0\.5:hover{
+  --tw-translate-y: -0.125rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .hover\:border-\[color-mix\(in_srgb\2c var\(--text-secondary\)_45\%\2c var\(--border\)\)\]:hover{
   border-color: color-mix(in srgb,var(--text-secondary) 45%,var(--border));
 }
@@ -1810,24 +1820,32 @@ main {
 .hover\:opacity-85:hover{
   opacity: 0.85;
 }
-.hover\:opacity-90:hover{
-  opacity: 0.9;
+.hover\:opacity-95:hover{
+  opacity: 0.95;
 }
 .focus\:outline-none:focus{
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
+.active\:translate-y-0:active{
+  --tw-translate-y: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .active\:opacity-75:active{
   opacity: 0.75;
 }
-.active\:opacity-80:active{
-  opacity: 0.8;
+.active\:opacity-90:active{
+  opacity: 0.9;
 }
 .group:hover .group-hover\:pointer-events-auto{
   pointer-events: auto;
 }
 .group:hover .group-hover\:w-full{
   width: 100%;
+}
+.group:hover .group-hover\:translate-x-0\.5{
+  --tw-translate-x: 0.125rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .group:hover .group-hover\:translate-x-1{
   --tw-translate-x: 0.25rem;
@@ -1882,6 +1900,10 @@ main {
 
   .md\:top-\[94px\]{
     top: 94px;
+  }
+
+  .md\:block{
+    display: block;
   }
 
   .md\:flex{

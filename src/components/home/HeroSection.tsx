@@ -1,24 +1,29 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 /**
  * Hero section — Figma node 616:505
- * Layout: flex-col gap-24px items-center justify-center pt-48px min-h-492px
+ * Layout: flex-col items-center justify-center, min-h-492px
  */
 export default function HeroSection() {
   return (
     <section
-      className="flex flex-col items-center justify-center gap-6 pt-12 pb-4 min-h-[492px]"
+      className="flex flex-col items-center justify-center gap-7 pt-12 pb-4 min-h-[492px]"
       aria-label="Hero"
     >
-      {/* ── Display headline (Figma node 616:506) ─────────────────────── */}
-      {/* Inter Medium 64px, text-primary, text-center, max-w ~1030px     */}
+      {/* ── Display headline — locked to two lines on desktop ──────────── */}
+      {/* Inter Medium, text-primary, text-center. The font scale is nudged
+          down slightly from the original 64px cap so the line breaks cleanly
+          into exactly two balanced lines ("…and practice." on line two). */}
       <h1
-        className="font-medium text-[var(--text-primary)] text-center leading-none max-w-[1030px] px-6 md:px-12 lg:px-20"
-        style={{ fontSize: "clamp(32px, 5.5vw, 64px)" }}
+        className="font-medium text-[var(--text-primary)] text-center leading-[1.05] max-w-[1250px] px-6"
+        style={{ fontSize: "clamp(30px, 5vw, 58px)", textWrap: "balance" }}
       >
-        Hello, I&apos;m Dominik — I build things that bridge theory and practice.
+        Hello, I&apos;m Dominik — I build things{" "}
+        <br className="hidden md:block" />
+        that bridge theory and practice.
       </h1>
 
       {/* ── Subtitle ──────────────────────────────────────────────────── */}
@@ -31,21 +36,28 @@ export default function HeroSection() {
         a look at the work I&apos;m most proud of.
       </p>
 
-      {/* ── CTA Button (Figma node 616:508) ───────────────────────────── */}
-      {/* bg-accent, rounded-20px, h-70px, w-232px, Inter Bold 24px, white */}
+      {/* ── CTA Button — compact, refined ─────────────────────────────── */}
       <Link
         href="/contact"
-        className="flex items-center justify-center font-bold text-[var(--surface)] transition-opacity hover:opacity-90 active:opacity-80"
+        className="group mt-1 inline-flex items-center justify-center gap-2 font-bold text-[var(--surface)] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 active:translate-y-0 active:opacity-90"
         style={{
           backgroundColor: "var(--accent)",
-          borderRadius: "20px",
-          height: "70px",
-          width: "232px",
-          fontSize: "24px",
+          borderRadius: "12px",
+          height: "52px",
+          padding: "0 28px",
+          fontSize: "16px",
           lineHeight: 1,
+          boxShadow:
+            "0 8px 20px -8px color-mix(in srgb, var(--accent) 55%, transparent)",
         }}
       >
         Get in touch
+        <ArrowRight
+          size={18}
+          strokeWidth={2.5}
+          className="transition-transform duration-200 group-hover:translate-x-0.5"
+          aria-hidden="true"
+        />
       </Link>
     </section>
   );
