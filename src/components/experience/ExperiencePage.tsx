@@ -149,8 +149,10 @@ export default function ExperiencePage() {
           // grows only as much as needed on narrower screens so the card
           // never slides under the heading column.
           // 1004px = card max-width (940px) + section padding (64px).
+          // The 0.7 factor pulls the card back toward true center so it reads
+          // as centered on the page rather than hugging the heading column.
           "--exp-card-shift":
-            "clamp(0px, calc(2 * var(--exp-left-col) + 1004px - 100vw), var(--exp-left-col))",
+            "clamp(0px, calc((2 * var(--exp-left-col) + 1004px - 100vw) * 0.7), calc(var(--exp-left-col) * 0.7))",
         } as React.CSSProperties
       }
     >
