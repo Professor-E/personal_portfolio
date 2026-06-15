@@ -21,11 +21,11 @@ export default function HeroSection() {
         Hello, I&apos;m Dominik — I build things that bridge theory and practice.
       </h1>
 
-      {/* ── Subtitle (Figma node 616:507) ─────────────────────────────── */}
-      {/* Inter Semi Bold 24px, text-secondary, text-center, max-w 690px  */}
+      {/* ── Subtitle ──────────────────────────────────────────────────── */}
+      {/* Body-large: regular weight, relaxed leading for a calm, minimal feel */}
       <p
-        className="font-semibold text-[var(--text-secondary)] text-center max-w-[690px] px-6 md:px-12 lg:px-20"
-        style={{ fontSize: "clamp(16px, 2vw, 24px)", lineHeight: 1 }}
+        className="font-normal text-[var(--text-secondary)] text-center max-w-[620px] px-6 md:px-12 lg:px-20"
+        style={{ fontSize: "clamp(16px, 1.6vw, 20px)", lineHeight: 1.6 }}
       >
         Electronics, software, and a constant quench for knowledge. Here&apos;s
         a look at the work I&apos;m most proud of.

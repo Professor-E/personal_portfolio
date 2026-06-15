@@ -4,23 +4,32 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface IntroAnimationProps {
+  /** Fires the moment the panel begins sliding down — mount + fade in the
+   *  homepage beneath the overlay so it is revealed *as* the panel slides. */
+  onReveal: () => void;
+  /** Fires once the panel has fully slid off-screen and the overlay unmounts. */
   onComplete: () => void;
 }
 
+const FULL_NAME = "Dominik Grzeszczak";
+const START_DELAY_MS = 350; // beat before typing begins (gray screen shows first)
+const TYPE_SPEED_MS = 85; // per-character typing cadence
+const HOLD_AFTER_TYPE_MS = 650; // pause on the finished name before the reveal
+
 /**
- * Full-screen intro overlay.
- * Sequence (total ~2.9s):
- *   0.0 – 0.4s  — overlay fades in
- *   0.4 – 1.4s  — name reveals upward (y 20→0, opacity 0→1)
- *   1.4 – 1.9s  — subtitle fades in
- *   1.9 – 2.4s  — horizontal accent line expands (scaleX 0→1)
- *   2.4 – 2.9s  — overlay fades out → onComplete fires → component unmounts
+ * Full-screen intro overlay (first visit / fresh load only).
+ *
+ * Sequence:
+ *   1. Dark-gray panel is on screen immediately.
+ *   2. Typewriter types "Dominik Grzeszczak" with a blinking caret.
+ *   3. Short hold, then the whole panel slides DOWN off the bottom edge.
+ *   4. As it slides, the homepage is revealed and its content fades in.
  */
-export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
+export default function IntroAnimation({ onReveal, onComplete }: IntroAnimationProps) {
+  const [typed, setTyped] = useState("");
   const [visible, setVisible] = useState(true);
 
-  // Lock scroll immediately so the footer cannot be seen below the overlay
-  // while the intro is playing. Cleaned up both on unmount and on exit.
+  // Lock scroll while the overlay is up so nothing peeks below it.
   useEffect(() => {
     if (typeof window !== "undefined") {
       document.body.style.overflow = "hidden";
@@ -32,13 +41,33 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
     };
   }, []);
 
+  // Typewriter — reveal one character at a time after a short initial beat.
   useEffect(() => {
-    // Begin exit animation at 2.4s; AnimatePresence exit duration = 0.5s
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, 2400);
-    return () => clearTimeout(timer);
+    let i = 0;
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const startTimer = setTimeout(() => {
+      interval = setInterval(() => {
+        i += 1;
+        setTyped(FULL_NAME.slice(0, i));
+        if (i >= FULL_NAME.length && interval) clearInterval(interval);
+      }, TYPE_SPEED_MS);
+    }, START_DELAY_MS);
+
+    return () => {
+      clearTimeout(startTimer);
+      if (interval) clearInterval(interval);
+    };
   }, []);
+
+  // Once the name is fully typed, hold briefly then start the slide-down reveal.
+  useEffect(() => {
+    if (typed.length !== FULL_NAME.length) return;
+    const timer = setTimeout(() => {
+      onReveal(); // homepage mounts + fades in beneath the panel
+      setVisible(false); // panel begins sliding down over it
+    }, HOLD_AFTER_TYPE_MS);
+    return () => clearTimeout(timer);
+  }, [typed, onReveal]);
 
   function handleExitComplete() {
     if (typeof window !== "undefined") {
@@ -53,55 +82,38 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       {visible && (
         <motion.div
           key="intro-overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
+          initial={{ y: 0 }}
+          exit={{ y: "100%" }}
+          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center"
           style={{ backgroundColor: "var(--text-primary)" }}
         >
-          {/* ── Name — upward reveal, delay 0.4s ─────────────────────── */}
-          <div className="overflow-hidden">
-            <motion.p
-              initial={{ y: 28, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                delay: 0.4,
-                duration: 0.9,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="text-[var(--surface)] text-center font-medium leading-none"
-              style={{ fontSize: "clamp(32px, 5vw, 64px)" }}
-            >
-              Dominik Grzeszczak
-            </motion.p>
-          </div>
-
-          {/* ── Subtitle — fade in, delay 1.4s ───────────────────────── */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.4, duration: 0.5, ease: "easeOut" }}
-            className="mt-4 text-[var(--text-secondary)] text-center font-semibold"
-            style={{ fontSize: "clamp(14px, 2vw, 18px)" }}
+          {/* Name typed out — same display typography as the home hero h1 */}
+          <p
+            className="text-[var(--surface)] text-center font-medium leading-none px-6"
+            style={{ fontSize: "clamp(32px, 5vw, 64px)" }}
           >
-            Electrical Engineering &amp; Computer Science · MIT &apos;28
-          </motion.p>
-
-          {/* ── Accent line — scaleX expand from center, delay 1.9s ───── */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ delay: 1.9, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              transformOrigin: "center",
-              backgroundColor: "var(--accent)",
-              height: "2px",
-              width: "clamp(180px, 30vw, 320px)",
-              marginTop: "24px",
-              borderRadius: "1px",
-            }}
-          />
+            {typed}
+            {/* Blinking caret */}
+            <motion.span
+              aria-hidden="true"
+              className="inline-block"
+              style={{
+                width: "0.06em",
+                marginLeft: "0.06em",
+                height: "0.95em",
+                verticalAlign: "text-bottom",
+                backgroundColor: "var(--accent)",
+              }}
+              animate={{ opacity: [1, 1, 0, 0] }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "linear",
+                times: [0, 0.5, 0.5, 1],
+              }}
+            />
+          </p>
         </motion.div>
       )}
     </AnimatePresence>

@@ -1071,6 +1071,9 @@ main {
 .block{
   display: block;
 }
+.inline-block{
+  display: inline-block;
+}
 .inline{
   display: inline;
 }
@@ -1170,6 +1173,9 @@ main {
 .max-w-5xl{
   max-width: 64rem;
 }
+.max-w-6xl{
+  max-width: 72rem;
+}
 .max-w-\[1030px\]{
   max-width: 1030px;
 }
@@ -1185,17 +1191,14 @@ main {
 .max-w-\[597px\]{
   max-width: 597px;
 }
-.max-w-\[690px\]{
-  max-width: 690px;
+.max-w-\[620px\]{
+  max-width: 620px;
 }
 .max-w-\[940px\]{
   max-width: 940px;
 }
-.max-w-lg{
-  max-width: 32rem;
-}
-.max-w-6xl{
-  max-width: 72rem;
+.max-w-xl{
+  max-width: 36rem;
 }
 .flex-1{
   flex: 1 1 0%;
@@ -1436,6 +1439,10 @@ main {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
+.px-12{
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
 .px-2\.5{
   padding-left: 0.625rem;
   padding-right: 0.625rem;
@@ -1500,10 +1507,6 @@ main {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.px-12{
-  padding-left: 3rem;
-  padding-right: 3rem;
-}
 .pb-1{
   padding-bottom: 0.25rem;
 }
@@ -1513,8 +1516,8 @@ main {
 .pb-2{
   padding-bottom: 0.5rem;
 }
-.pb-24{
-  padding-bottom: 6rem;
+.pb-32{
+  padding-bottom: 8rem;
 }
 .pb-4{
   padding-bottom: 1rem;
@@ -1537,8 +1540,8 @@ main {
 .pt-12{
   padding-top: 3rem;
 }
-.pt-16{
-  padding-top: 4rem;
+.pt-24{
+  padding-top: 6rem;
 }
 .pt-3{
   padding-top: 0.75rem;
@@ -1551,12 +1554,6 @@ main {
 }
 .pt-\[70px\]{
   padding-top: 70px;
-}
-.pb-32{
-  padding-bottom: 8rem;
-}
-.pt-24{
-  padding-top: 6rem;
 }
 .text-center{
   text-align: center;
@@ -1953,14 +1950,14 @@ main {
     padding-right: 4rem;
   }
 
-  .md\:px-8{
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
   .md\:px-24{
     padding-left: 6rem;
     padding-right: 6rem;
+  }
+
+  .md\:px-8{
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .md\:pl-12{

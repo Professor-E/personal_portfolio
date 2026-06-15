@@ -94,8 +94,8 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 0.5, ease: "easeOut" }}
-          className="font-medium text-[var(--text-secondary)] max-w-[597px]"
-          style={{ fontSize: "18px", lineHeight: "28px" }}
+          className="font-normal text-[var(--text-secondary)] max-w-[597px]"
+          style={{ fontSize: "18px", lineHeight: 1.6 }}
         >
           I am a sophomore at MIT studying electrical engineering and computer
           science. I enjoy building hardware and software that solves

@@ -45,8 +45,8 @@ export default function HobbiesPage() {
           </h1>
 
           <p
-            className="mt-4 max-w-lg leading-relaxed text-[var(--text-secondary)]"
-            style={{ fontSize: "15px" }}
+            className="mt-4 max-w-xl font-normal text-[var(--text-secondary)]"
+            style={{ fontSize: "18px", lineHeight: 1.6 }}
           >
             When I&apos;m not building things, you&apos;ll find me on the slopes,
             behind the decks, or in the gym.

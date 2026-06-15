@@ -14,31 +14,33 @@ const IntroAnimation = dynamic(
 
 export default function HomePage() {
   const [showIntro, setShowIntro] = useState(false);
-  const [introComplete, setIntroComplete] = useState(false);
+  // `revealContent` mounts + fades in the homepage. It flips the moment the
+  // intro panel STARTS sliding down, so the content is revealed *as* it slides.
+  const [revealContent, setRevealContent] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (sessionStorage.getItem("intro_played")) {
         // Already played this session — skip straight to content
-        setIntroComplete(true);
+        setRevealContent(true);
       } else {
         setShowIntro(true);
       }
     }
   }, []);
 
-  function handleIntroComplete() {
-    setIntroComplete(true);
-    setShowIntro(false);
-  }
-
   return (
     <>
       {/* ── Intro overlay (first visit only) ──────────────────────────── */}
-      {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
+      {showIntro && (
+        <IntroAnimation
+          onReveal={() => setRevealContent(true)}
+          onComplete={() => setShowIntro(false)}
+        />
+      )}
 
       {/* ── Page content ─────────────────────────────────────────────── */}
-      {introComplete ? (
+      {revealContent ? (
         <AnimatePresence>
           <motion.div
             key="home-content"

@@ -66,8 +66,8 @@ export default function ProjectsPage() {
           </h1>
 
           <p
-            className="mt-4 max-w-lg leading-relaxed text-[var(--text-secondary)]"
-            style={{ fontSize: "15px" }}
+            className="mt-4 max-w-xl font-normal text-[var(--text-secondary)]"
+            style={{ fontSize: "18px", lineHeight: 1.6 }}
           >
             A collection of hardware, software, and research builds — each one a
             lesson in applying theory to practice.
