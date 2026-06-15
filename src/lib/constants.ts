@@ -9,10 +9,17 @@ export const EXPERIENCE: ExperienceEntry[] = [
     startDate: "May 2026",
     endDate: "Present",
     location: "Cambridge, MA (Remote)",
+    summary:
+      "Built a TypeScript CLI tool that streamlined SDK integration for Akamai's Bot & Abuse Protection platform across five mobile frameworks.",
+    stats: [
+      { value: "5", label: "platforms supported" },
+      { value: "CLI", label: "SDK integration tool" },
+      { value: "Multi-threaded", label: "detection engine" },
+    ],
     description: [
-      "Built a CLI tool in TypeScript to streamline SDK integration for Akamai's Bot & Abuse Protection platform.",
-      "Extended SDK compatibility across 5 platforms: iOS, Android, React Native, Flutter, and Cordova.",
-      "Engineered bot and malware detection with multi-threaded platform rendering and cross-platform network handling.",
+      "Built a CLI tool in TypeScript to streamline SDK integration for Akamai's Bot & Abuse Protection platform",
+      "Extended SDK compatibility across 5 platforms: iOS, Android, React Native, Flutter, and Cordova",
+      "Engineered bot and malware detection with multi-threaded platform rendering and cross-platform network handling",
     ],
     brandColor: "#009BDE",
     logoPlaceholder: "akamai",
@@ -24,11 +31,19 @@ export const EXPERIENCE: ExperienceEntry[] = [
     startDate: "Jan 2026",
     endDate: "Feb 2026",
     location: "Boston, MA (Remote)",
+    summary:
+      "Co-founded and launched Jam It! on the App Store with direct funding from Y Combinator, owning UI/UX, backend, and the marketing site.",
+    stats: [
+      { value: "5\u2605", label: "App Store rating" },
+      { value: "1,000+", label: "views" },
+      { value: "53", label: "downloads" },
+      { value: "$25", label: "in-app purchases" },
+    ],
     description: [
-      "Co-founded and launched \u201CJam It!\u201D on the App Store with direct funding from Y Combinator.",
-      "Achieved a 5-star App Store rating, over 1,000 views, 53 downloads, and $25 of in-app purchases within 60 days.",
-      "Designed UI/UX in Figma and built backend game logic and song compatibility in Swift.",
-      "Designed the marketing website in TypeScript, Node.js, and React, hosted on Vercel and Cloudflare.",
+      "Co-founded and launched \u201CJam It!\u201D on the App Store with direct funding from Y Combinator",
+      "Achieved a 5-star App Store rating, over 1,000 views, 53 downloads, and $25 of in-app purchases within 60 days",
+      "Designed UI/UX in Figma and built backend game logic and song compatibility in Swift",
+      "Designed the marketing website in TypeScript, Node.js, and React, hosted on Vercel and Cloudflare",
     ],
     brandColor: "#FF6600",
     logoPlaceholder: "yc-jam-it",
@@ -40,11 +55,18 @@ export const EXPERIENCE: ExperienceEntry[] = [
     startDate: "Mar 2020",
     endDate: "Aug 2025",
     location: "Des Plaines, IL",
+    summary:
+      "Designed and built a full broadcast radio station for Maine East High School and contributed to a confidential AI-driven biomedical product.",
+    stats: [
+      { value: "2,340", label: "radio listeners" },
+      { value: "20", label: "study volunteers" },
+      { value: "NVIDIA AI", label: "data sampling" },
+    ],
     description: [
-      "Assisted in designing a confidential biomedical product, with data sampled using NVIDIA's AI from 20 volunteers.",
-      "Helped design and build a radio station for Maine East High School serving 2,340 listeners.",
-      "Designed circuit boards using KiCAD, EasyEDA Pro, MultiSIM, and Visual Studio Code.",
-      "Responsible for prototype development, testing, data analysis, and system debugging.",
+      "Assisted in designing a confidential biomedical product, with data sampled using NVIDIA's AI from 20 volunteers",
+      "Helped design and build a radio station for Maine East High School serving 2,340 listeners",
+      "Designed circuit boards using KiCAD, EasyEDA Pro, MultiSIM, and Visual Studio Code",
+      "Responsible for prototype development, testing, data analysis, and system debugging",
     ],
     brandColor: "#1A1A2E",
     logoPlaceholder: "hamilton-broadcast",
@@ -56,9 +78,15 @@ export const EXPERIENCE: ExperienceEntry[] = [
     startDate: "Nov 2025",
     endDate: "Nov 2025",
     location: "Cambridge, MA",
+    summary:
+      "Taught 86 high school students multivariable calculus, electrical engineering, and public speaking at MIT's Splash program.",
+    stats: [
+      { value: "86", label: "students taught" },
+      { value: "3", label: "subjects covered" },
+    ],
     description: [
-      "Taught 86 high school students about multivariable calculus, electrical engineering, and public speaking.",
-      "Covered multidimensional functions, vectors, digital electronics and circuits, and public speaking skills.",
+      "Taught 86 high school students about multivariable calculus, electrical engineering, and public speaking",
+      "Covered multidimensional functions, vectors, digital electronics and circuits, and public speaking skills",
     ],
     brandColor: "#A31F34",
     logoPlaceholder: "mit-splash",
@@ -70,9 +98,15 @@ export const EXPERIENCE: ExperienceEntry[] = [
     startDate: "Sep 2024",
     endDate: "May 2025",
     location: "Lemont, IL",
+    summary:
+      "Ran statistical and biomedical research on plastic-degrading microbes at a U.S. Department of Energy national laboratory.",
+    stats: [
+      { value: "20,000", label: "simulations analyzed" },
+      { value: "Python & R", label: "analysis stack" },
+    ],
     description: [
-      "Conducted statistical and biomedical research on plastic-degrading microbes.",
-      "Used Python and R to analyze 20,000 data simulations, identifying plastic-degrading genomes.",
+      "Conducted statistical and biomedical research on plastic-degrading microbes",
+      "Used Python and R to analyze 20,000 data simulations, identifying plastic-degrading genomes",
     ],
     brandColor: "#004B87",
     logoPlaceholder: "argonne",
@@ -84,9 +118,15 @@ export const EXPERIENCE: ExperienceEntry[] = [
     startDate: "Jul 2024",
     endDate: "Aug 2024",
     location: "Evanston, IL",
+    summary:
+      "Taught advanced high-school statistics and probability to 18 middle school students through lessons, grading, and biweekly reviews.",
+    stats: [
+      { value: "18", label: "students mentored" },
+      { value: "1.5 hr", label: "biweekly reviews" },
+    ],
     description: [
-      "Helped teach advanced high-school statistics and probability to 18 middle school students.",
-      "Created assignments, graded homework and tests, and led 1.5-hour biweekly review sessions.",
+      "Helped teach advanced high-school statistics and probability to 18 middle school students",
+      "Created assignments, graded homework and tests, and led 1.5-hour biweekly review sessions",
     ],
     brandColor: "#4E2A84",
     logoPlaceholder: "northwestern-ctd",
@@ -98,10 +138,17 @@ export const EXPERIENCE: ExperienceEntry[] = [
     startDate: "Aug 2021",
     endDate: "May 2025",
     location: "Glenview, IL",
+    summary:
+      "Lectured 100+ students on Arduino, CAD, and 3D printing while maintaining a $50,000 makerspace of CNC, laser, and fabrication tools.",
+    stats: [
+      { value: "100+", label: "students taught" },
+      { value: "$50K", label: "makerspace managed" },
+      { value: "20", label: "summer students" },
+    ],
     description: [
-      "Lectured 100+ students on Arduino, Fusion 360, PrusaSlicer, 3D printing, and makerspace safety and operations.",
-      "Maintained a $50,000 makerspace with a CNC router, laser cutters, 3D printers, saws, and other power tools.",
-      "Helped teach CAD design, 3D modeling, and 3D printing to 20 students at the high school's summer school.",
+      "Lectured 100+ students on Arduino, Fusion 360, PrusaSlicer, 3D printing, and makerspace safety and operations",
+      "Maintained a $50,000 makerspace with a CNC router, laser cutters, 3D printers, saws, and other power tools",
+      "Helped teach CAD design, 3D modeling, and 3D printing to 20 students at the high school's summer school",
     ],
     brandColor: "#002147",
     logoPlaceholder: "glenbrook-south",

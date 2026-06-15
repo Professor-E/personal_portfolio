@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { ExperienceEntry as ExperienceEntryType } from "@/types";
 
 interface ExperienceEntryProps {
@@ -64,7 +64,10 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
     return (
       <motion.div
         ref={ref}
-        layout
+        // "position" (not full layout) so the dropdown's height change is driven
+        // solely by the AnimatePresence height animation below — animating both
+        // at once is what caused the occasional expand lag.
+        layout="position"
         animate={{
           scale: scaleForDistance(distance),
           opacity: opacityForDistance(distance),
@@ -156,36 +159,71 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
                     {entry.startDate} – {entry.endDate} · {entry.location}
                   </p>
 
-                  {/* First 2 bullets */}
-                  <ul className="flex flex-col gap-2 mt-4">
-                    {entry.description.slice(0, 2).map((bullet, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span
-                          className="mt-[8px] shrink-0 rounded-full"
-                          style={{
-                            width: "5px",
-                            height: "5px",
-                            backgroundColor: entry.brandColor,
-                          }}
-                        />
-                        <span
-                          className="font-normal text-[var(--text-secondary)]"
-                          style={{ fontSize: "16px", lineHeight: 1.6 }}
+                  {/* One-sentence headline summary — the single most important
+                      takeaway for recruiters, set off with a brand accent bar. */}
+                  <div className="mt-4 flex items-start gap-3">
+                    <span
+                      className="mt-[3px] shrink-0 self-stretch rounded-full"
+                      style={{ width: "3px", backgroundColor: entry.brandColor }}
+                      aria-hidden="true"
+                    />
+                    <p
+                      className="font-medium text-[var(--text-primary)]"
+                      style={{ fontSize: "clamp(15px, 1.6vw, 17px)", lineHeight: 1.55 }}
+                    >
+                      {entry.summary}
+                    </p>
+                  </div>
+
+                  {/* Impact metrics — quick-scan chips so recruiters can see the
+                      numbers at a glance. */}
+                  {entry.stats.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-2.5">
+                      {entry.stats.map((stat) => (
+                        <div
+                          key={`${stat.value}-${stat.label}`}
+                          className="flex flex-col gap-1 rounded-xl px-3.5 py-2"
+                          style={{ backgroundColor: `${entry.brandColor}14` }}
                         >
-                          {bullet}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                          <span
+                            className="font-bold leading-none"
+                            style={{
+                              fontSize: "clamp(17px, 1.9vw, 22px)",
+                              color: entry.brandColor,
+                            }}
+                          >
+                            {stat.value}
+                          </span>
+                          <span
+                            className="font-medium text-[var(--text-secondary)] leading-none"
+                            style={{ fontSize: "12px" }}
+                          >
+                            {stat.label}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {/* See more — bottom-right of the content block */}
+                {/* See more / See less — stays pinned bottom-right; only the
+                    label cross-fades between states. */}
                 <div className="flex justify-end mt-4">
                   <button
                     onClick={isExpanded ? onCollapse : onExpand}
                     className="text-sm font-semibold flex items-center gap-1 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors"
                   >
-                    {isExpanded ? "Show Less ↑" : "See more →"}
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={isExpanded ? "less" : "more"}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                      >
+                        {isExpanded ? "See less ↑" : "See more ↓"}
+                      </motion.span>
+                    </AnimatePresence>
                   </button>
                 </div>
               </div>
@@ -228,25 +266,46 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
         {/* ── Expanded bullets (active card, "See more" clicked) ────────────
             Plain conditional render — no AnimatePresence per the unified
             animation rule. */}
-        {isActive && isExpanded && (
-          <div
-            className="mt-2 rounded-3xl p-6"
-            style={{
-              backgroundColor: "var(--surface)",
-              border: `1px solid ${entry.brandColor}80`,
-            }}
-          >
-            <ul className="flex flex-col gap-3">
+        <AnimatePresence initial={false}>
+          {isActive && isExpanded && (
+            <motion.div
+              key="exp-dropdown"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{
+                // easeInOutCubic — slow start, accelerate, ease out at the end.
+                height: { duration: 0.55, ease: [0.65, 0, 0.35, 1] },
+                opacity: { duration: 0.4, ease: [0.65, 0, 0.35, 1] },
+              }}
+              style={{ overflow: "hidden", willChange: "height" }}
+            >
+              <div
+                className="mt-2 rounded-3xl p-6"
+                style={{
+                  backgroundColor: "var(--surface)",
+                  border: `1px solid ${entry.brandColor}80`,
+                }}
+              >
+                <ul className="flex flex-col gap-3">
               {entry.description.map((bullet, i) => (
                 <li key={i} className="flex items-start gap-3">
+                  {/* Dot sits in a line-height-tall box so it centers on the
+                      first line of text (works for single- and multi-line). */}
                   <span
-                    className="mt-[7px] shrink-0 rounded-full"
-                    style={{
-                      width: "6px",
-                      height: "6px",
-                      backgroundColor: entry.brandColor,
-                    }}
-                  />
+                    className="flex shrink-0 items-center justify-center"
+                    style={{ height: "calc(16px * 1.6)", width: "6px" }}
+                    aria-hidden="true"
+                  >
+                    <span
+                      className="rounded-full"
+                      style={{
+                        width: "6px",
+                        height: "6px",
+                        backgroundColor: entry.brandColor,
+                      }}
+                    />
+                  </span>
                   <span
                     className="font-normal text-[var(--text-secondary)]"
                     style={{ fontSize: "16px", lineHeight: 1.6 }}
@@ -255,15 +314,11 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
                   </span>
                 </li>
               ))}
-            </ul>
-            <button
-              onClick={onCollapse}
-              className="mt-4 font-bold text-[16px] text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors"
-            >
-              Show Less ↑
-            </button>
-          </div>
-        )}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     );
   }

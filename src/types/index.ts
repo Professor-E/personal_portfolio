@@ -9,6 +9,11 @@ export type TabId =
   | "contact";
 
 // ── Experience ────────────────────────────────────────────────────────────────
+export interface ExperienceStat {
+  value: string;
+  label: string;
+}
+
 export interface ExperienceEntry {
   id: string;
   company: string;
@@ -16,6 +21,10 @@ export interface ExperienceEntry {
   startDate: string;
   endDate: string | "Present";
   location: string;
+  /** One-sentence headline summarizing the most important impact (recruiter-facing). */
+  summary: string;
+  /** Key quantitative highlights, surfaced as metric chips on the active card. */
+  stats: ExperienceStat[];
   description: string[];
   brandColor: string;
   logoPlaceholder: string;
