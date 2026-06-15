@@ -17,8 +17,8 @@ import MemoriesSection from "./MemoriesSection";
  */
 export default function AboutPage() {
   return (
-    // Container normalized to match Projects page: max-w-5xl px-8 md:px-16 lg:px-24
-    <main className="max-w-5xl mx-auto px-8 md:px-16 lg:px-24 pt-16 pb-24 space-y-24 bg-[var(--background)]">
+    // Wider gutters than other pages so the About content doesn't feel scrunched
+    <main className="max-w-6xl mx-auto px-12 md:px-24 lg:px-36 pt-24 pb-32 space-y-24 bg-[var(--background)]">
       <HeroSection />
       <AcademicsSection />
       <SkillsSection />
