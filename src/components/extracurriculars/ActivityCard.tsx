@@ -31,6 +31,7 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
       layoutId={`activity-${activity.id}`}
       variants={entryVariants}
       exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.15, ease: "easeOut" } }}
+      whileHover={{ y: -4 }}
       onClick={onOpen}
       role="button"
       tabIndex={0}
@@ -41,10 +42,12 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
         }
       }}
       className={cn(
-        "group flex w-full cursor-pointer flex-row items-start gap-5 overflow-hidden rounded-2xl border-[0.5px] p-5",
-        "transition-colors duration-200"
+        "group flex w-full cursor-pointer flex-row items-start gap-5 overflow-hidden rounded-2xl border p-5",
+        "transition-[border-color,box-shadow] duration-200",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_20px_rgba(0,0,0,0.07)]",
+        "hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_14px_32px_rgba(0,0,0,0.12)]"
       )}
-      style={{ backgroundColor: "var(--background)", borderColor: "var(--border)" }}
+      style={{ backgroundColor: "var(--surface)", borderColor: "var(--border)" }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = BORDER_SECONDARY;
       }}

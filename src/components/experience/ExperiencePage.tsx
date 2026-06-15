@@ -11,8 +11,8 @@ import ScrollNudge from "./ScrollNudge";
 
 // ── Display order ──────────────────────────────────────────────────────────────
 const DISPLAY_ORDER = [
-  "yc-jam-it", "akamai", "hamilton-broadcast", "argonne",
-  "northwestern-ctd", "mit-splash", "gbs", "habitat-humanity",
+  "akamai", "yc-jam-it", "hamilton-broadcast", "mit-splash",
+  "argonne", "northwestern-ctd", "gbs",
 ];
 
 function getOrderedEntries(): ExperienceEntryType[] {

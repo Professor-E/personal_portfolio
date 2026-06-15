@@ -68,15 +68,15 @@ export default function ProjectsPage() {
           </p>
 
           <h1
-            className="mt-3 font-medium text-[var(--text-primary)]"
-            style={{ fontSize: "48px", lineHeight: 1.05 }}
+            className="mt-3 font-medium leading-none text-[var(--text-primary)]"
+            style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
           >
             Projects
           </h1>
 
           <p
-            className="mt-4 max-w-xl font-normal text-[var(--text-secondary)]"
-            style={{ fontSize: "18px", lineHeight: 1.6 }}
+            className="mt-4 max-w-xl font-medium text-[var(--text-secondary)]"
+            style={{ fontSize: "18px", lineHeight: 1.4 }}
           >
             A collection of hardware, software, and research builds — each one a
             lesson in applying theory to practice.
