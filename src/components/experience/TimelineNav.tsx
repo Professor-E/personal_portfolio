@@ -26,8 +26,8 @@ export default function TimelineNav({ entries, activeIndex, onDotClick }: Timeli
 
   return (
     <nav
-      className="hidden md:flex fixed top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-5"
-      style={{ left: "24px" }}
+      className="hidden md:flex fixed -translate-y-1/2 z-30 flex-col items-center gap-5"
+      style={{ left: "24px", top: "calc(50% + var(--exp-center-offset, 35px))" }}
       aria-label="Experience timeline navigation"
     >
       {/* Background connecting line — centered on the dot column.

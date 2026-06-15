@@ -71,10 +71,11 @@ export default function ExperiencePage() {
   // stops near one, but scrolling past the last entry to the footer is
   // allowed instead of being yanked back up.
   //
-  // NO scrollPaddingTop: with center snap alignment, any scroll padding would
-  // offset the snap resting point away from the scrollIntoView({block:
-  // "center"}) target, causing a visible double-jump after every scroll.
-  // Both must agree on the exact viewport center.
+  // Vertical centering is handled by each section's own paddingTop (= navbar
+  // height) rather than scrollPaddingTop. Because both scroll-snap-align and
+  // scrollIntoView({block:"center"}) operate on the section's border box, they
+  // agree on the same resting point (no double-jump), while the inner padding
+  // shifts the *card* down into the optical centre of the area below the navbar.
   useEffect(() => {
     const html = document.documentElement;
     html.style.scrollSnapType = "y proximity";
@@ -135,6 +136,12 @@ export default function ExperiencePage() {
       className="relative bg-[var(--background)]"
       style={
         {
+          // Fixed navbar height + half of it. Each entry section reserves the
+          // full navbar height as top padding so the centred card lands in the
+          // optical middle of the *visible* area (below the navbar); fixed
+          // overlays (watermark, timeline) shift down by half to match.
+          "--exp-navbar": "70px",
+          "--exp-center-offset": "35px",
           // Width of the fixed left column (sticky heading + timeline).
           "--exp-left-col": "clamp(210px, 23vw, 340px)",
           // How far the card column shifts right of true viewport center.
@@ -154,7 +161,7 @@ export default function ExperiencePage() {
       ────────────────────────────────────────────────────────────────────── */}
       <p
         className={[
-          "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+          "fixed left-1/2 -translate-x-1/2 -translate-y-1/2",
           "pointer-events-none select-none",
           "font-black tracking-widest whitespace-nowrap",
           "text-[13vw] md:text-[11vw]",
@@ -162,6 +169,7 @@ export default function ExperiencePage() {
           "opacity-[0.05] dark:opacity-[0.07]",
           "z-0",
         ].join(" ")}
+        style={{ top: "calc(50% + var(--exp-center-offset))" }}
         aria-hidden="true"
       >
         EXPERIENCE
@@ -232,7 +240,13 @@ export default function ExperiencePage() {
             className="flex items-center justify-center w-full px-4 md:px-8"
             style={{
               minHeight: "100vh",
+              // Reserve the navbar height at the top so the flex-centred card
+              // sits in the middle of the visible area, not behind the navbar.
+              paddingTop: "var(--exp-navbar)",
               scrollSnapAlign: "center",
+              // Stop on each entry instead of flying past several on one flick,
+              // so every scroll settles with one card centred.
+              scrollSnapStop: "always",
             }}
           >
             <ExperienceEntry
