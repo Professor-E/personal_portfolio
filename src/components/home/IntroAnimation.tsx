@@ -29,10 +29,14 @@ export default function IntroAnimation({ onReveal, onComplete }: IntroAnimationP
   const [typed, setTyped] = useState("");
   const [visible, setVisible] = useState(true);
 
-  // Lock scroll while the overlay is up so nothing peeks below it.
+  // Lock scroll while the overlay is up so nothing peeks below it. Also drop the
+  // cold-open splash (set pre-paint in RootLayout): this real overlay is the same
+  // gray and now covers the screen, so the handoff is seamless and the splash is
+  // no longer needed.
   useEffect(() => {
     if (typeof window !== "undefined") {
       document.body.style.overflow = "hidden";
+      document.documentElement.classList.remove("intro-pending");
     }
     return () => {
       if (typeof window !== "undefined") {

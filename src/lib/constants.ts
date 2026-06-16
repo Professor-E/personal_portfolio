@@ -23,6 +23,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
     brandColor: "#009BDE",
     logoPlaceholder: "akamai",
+    logo: "/images/logos/akamai.svg",
   },
   {
     id: "yc-jam-it",
@@ -47,6 +48,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
     brandColor: "#FF6600",
     logoPlaceholder: "yc-jam-it",
+    logo: "/images/logos/yc.svg",
   },
   {
     id: "hamilton-broadcast",
@@ -70,6 +72,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
     brandColor: "#1A1A2E",
     logoPlaceholder: "hamilton-broadcast",
+    logo: "/images/logos/hamilton.jpg",
   },
   {
     id: "mit-splash",
@@ -90,6 +93,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
     brandColor: "#A31F34",
     logoPlaceholder: "mit-splash",
+    logo: "/images/logos/mit.svg",
   },
   {
     id: "argonne",
@@ -110,6 +114,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
     brandColor: "#004B87",
     logoPlaceholder: "argonne",
+    logo: "/images/logos/argonne.svg",
   },
   {
     id: "northwestern-ctd",
@@ -130,6 +135,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
     brandColor: "#4E2A84",
     logoPlaceholder: "northwestern-ctd",
+    logo: "/images/logos/northwestern.svg",
   },
   {
     id: "gbs",
@@ -152,6 +158,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
     brandColor: "#002147",
     logoPlaceholder: "glenbrook-south",
+    logo: "/images/logos/gbs.jpg",
   },
 ];
 

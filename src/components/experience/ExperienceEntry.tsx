@@ -108,9 +108,10 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
           {isActive ? (
             /* ── ACTIVE: [accent bar] [logo 160×160] [content flex-1] ─────── */
             <div className="flex flex-col sm:flex-row gap-6 p-8 items-start">
-              {/* Logo — 160×160, brandColor bg, white initial */}
+              {/* Logo — 160×160. Real logo on a clean white tile when available,
+                  otherwise a brand-colored monogram fallback. */}
               <div
-                className="shrink-0 rounded-2xl flex items-center justify-center"
+                className="shrink-0 rounded-2xl flex items-center justify-center overflow-hidden"
                 style={{
                   // Fluid 112–160px: keeps the content column readable on
                   // narrower desktops where the card shares the row with the
@@ -118,13 +119,27 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
                   width: "clamp(112px, 12vw, 160px)",
                   height: "clamp(112px, 12vw, 160px)",
                   maxWidth: "100%",
-                  backgroundColor: entry.brandColor,
+                  backgroundColor: entry.logo ? "#ffffff" : entry.brandColor,
+                  border: entry.logo ? "1px solid var(--border)" : undefined,
+                  padding: entry.logo ? "clamp(16px, 1.8vw, 24px)" : undefined,
                 }}
-                aria-hidden="true"
               >
-                <span className="text-5xl font-bold text-white select-none">
-                  {entry.company.charAt(0)}
-                </span>
+                {entry.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={entry.logo}
+                    alt={`${entry.company} logo`}
+                    className="w-full h-full object-contain select-none"
+                    draggable={false}
+                  />
+                ) : (
+                  <span
+                    className="text-5xl font-bold text-white select-none"
+                    aria-hidden="true"
+                  >
+                    {entry.company.charAt(0)}
+                  </span>
+                )}
               </div>
 
               {/* Content block — sized by its content (no forced min-height so
@@ -232,17 +247,31 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
             /* ── INACTIVE: compact row — logo 72×72 + name + role ─────────── */
             <div className="flex gap-4 p-6 items-center">
               <div
-                className="shrink-0 rounded-xl flex items-center justify-center"
+                className="shrink-0 rounded-xl flex items-center justify-center overflow-hidden"
                 style={{
                   width: "72px",
                   height: "72px",
-                  backgroundColor: entry.brandColor,
+                  backgroundColor: entry.logo ? "#ffffff" : entry.brandColor,
+                  border: entry.logo ? "1px solid var(--border)" : undefined,
+                  padding: entry.logo ? "10px" : undefined,
                 }}
-                aria-hidden="true"
               >
-                <span className="text-2xl font-bold text-white select-none">
-                  {entry.company.charAt(0)}
-                </span>
+                {entry.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={entry.logo}
+                    alt={`${entry.company} logo`}
+                    className="w-full h-full object-contain select-none"
+                    draggable={false}
+                  />
+                ) : (
+                  <span
+                    className="text-2xl font-bold text-white select-none"
+                    aria-hidden="true"
+                  >
+                    {entry.company.charAt(0)}
+                  </span>
+                )}
               </div>
 
               <div className="flex flex-col gap-1 min-w-0 justify-center">

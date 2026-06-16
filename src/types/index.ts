@@ -28,6 +28,9 @@ export interface ExperienceEntry {
   description: string[];
   brandColor: string;
   logoPlaceholder: string;
+  /** Path to the company/institution logo (public/). When omitted, a
+   *  brand-colored monogram (first letter) is shown as a fallback. */
+  logo?: string;
 }
 
 // ── Projects ─────────────────────────────────────────────────────────────────

@@ -1485,6 +1485,10 @@ main {
 .bg-black\/70{
   background-color: rgb(0 0 0 / 0.7);
 }
+.object-contain{
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
@@ -1899,6 +1903,23 @@ main {
 }
 .ease-out{
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* ── Cold-open intro splash ───────────────────────────────────────────────────
+   Paints the gray intro background instantly on a fresh-session home open so the
+   tan page background never flashes before the React intro overlay mounts.
+   Shown only while <html> carries `.intro-pending` (set by a pre-paint script in
+   RootLayout); removed by IntroAnimation on mount. Unlayered so it overrides the
+   layered body background without needing !important. */
+#intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background-color: var(--text-primary);
+  display: none;
+}
+html.intro-pending #intro-splash {
+  display: block;
 }
 
 /* ── Scrollbar styling ────────────────────────────────────────────────────── */
