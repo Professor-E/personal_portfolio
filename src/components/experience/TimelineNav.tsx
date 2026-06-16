@@ -27,12 +27,14 @@ export default function TimelineNav({ entries, activeIndex, onDotClick, visible 
   const activeBrandColor = entries[activeIndex]?.brandColor ?? "var(--accent)";
 
   return (
-    <nav
-      className="hidden md:flex fixed -translate-y-1/2 z-30 flex-col items-center gap-5 transition-opacity duration-500 ease-out"
+    <motion.nav
+      initial={{ opacity: 0, y: "-50%" }}
+      animate={{ opacity: visible ? 1 : 0, y: "-50%" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="hidden md:flex fixed z-30 flex-col items-center gap-5"
       style={{
         left: "24px",
         top: "calc(50% + var(--exp-center-offset, 35px))",
-        opacity: visible ? 1 : 0,
         pointerEvents: visible ? "auto" : "none",
       }}
       aria-label="Experience timeline navigation"
@@ -78,6 +80,6 @@ export default function TimelineNav({ entries, activeIndex, onDotClick, visible 
           />
         );
       })}
-    </nav>
+    </motion.nav>
   );
 }
