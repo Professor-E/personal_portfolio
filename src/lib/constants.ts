@@ -373,6 +373,18 @@ export const HOBBIES = [
     imagePath: "/hobbies/gym.jpg",
   },
   {
+    id: "hiking",
+    name: "Backpacking & Hiking",
+    monogram: "HK",
+    accentColor: "#4D7C0F",
+    category: "Outdoors",
+    tagline: "Trailheads, summits, and multi-day trips off the grid.",
+    description:
+      "Backpacking and hiking are how I disconnect and reset. I love the planning that goes into a trip — mapping routes, dialing in gear weight, and reading terrain and weather — almost as much as the time on the trail itself. There is a simple, methodical satisfaction in covering ground under your own power and solving small problems as they come, which feels a lot like engineering with a much better view.",
+    chips: ["Trail hiking", "Multi-day trips", "Gear & route planning"],
+    imagePath: "/hobbies/hiking.jpg",
+  },
+  {
     id: "cars",
     name: "Car Work",
     monogram: "CR",
@@ -383,6 +395,18 @@ export const HOBBIES = [
       "Working on cars is a natural extension of my love for hands-on engineering. I enjoy doing my own maintenance and modifications — understanding every system, diagnosing issues from first principles, and improving performance where I can. It is the same mindset as PCB debugging or circuit design, just at a larger, greasier scale.",
     chips: ["Maintenance & repair", "Modifications", "Diagnostics"],
     imagePath: "/hobbies/cars.jpg",
+  },
+  {
+    id: "learning",
+    name: "Learning",
+    monogram: "LN",
+    accentColor: "#4338CA",
+    category: "Growth",
+    tagline: "Online courses, side projects, and chasing curiosity.",
+    description:
+      "I treat learning as a constant, self-directed habit rather than something confined to the classroom. Whether it is working through online courses, picking up a new tool for a side project, or going deep on a topic that caught my attention, I love the process of building understanding from the ground up. Staying curious and teaching myself new skills is what keeps both my engineering work and my interests moving forward.",
+    chips: ["Self-directed", "Online courses", "Side projects"],
+    imagePath: "/hobbies/learning.jpg",
   },
   {
     id: "reading",
