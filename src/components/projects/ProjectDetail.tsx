@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { Project } from "@/lib/constants";
 
 const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
@@ -10,16 +11,32 @@ const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent
  * as the same element growing, then reveals the full description.
  */
 export default function ProjectDetail({ project }: { project: Project }) {
+  const imagePath = "imagePath" in project ? project.imagePath : undefined;
+  // Image headers show the full photo (object-contain) on the site's off-white
+  // backdrop; only the monogram fallback keeps the flat accent color.
+  const headerBackground = imagePath ? "var(--background)" : project.accentColor;
+
   return (
     <div className="flex flex-col">
-      {/* Color header — matches the card's color block so the enlarge is seamless */}
+      {/* Media header — matches the card's block so the enlarge is seamless */}
       <div
         className="relative flex items-end overflow-hidden px-6 py-8 sm:px-10 sm:py-12"
-        style={{ backgroundColor: project.accentColor, minHeight: "180px" }}
+        style={{ backgroundColor: headerBackground, minHeight: "180px" }}
       >
-        <span className="select-none text-6xl font-semibold text-white/85 sm:text-7xl">
-          {project.monogram}
-        </span>
+        {imagePath ? (
+          <Image
+            src={imagePath}
+            alt={project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-contain"
+            priority
+          />
+        ) : (
+          <span className="relative select-none text-6xl font-semibold text-white/85 sm:text-7xl">
+            {project.monogram}
+          </span>
+        )}
         {project.badge && (
           <div className="absolute right-5 top-5 rounded-md bg-black/40 px-3 py-1.5">
             <span className="font-medium tracking-wide text-white" style={{ fontSize: "12px" }}>

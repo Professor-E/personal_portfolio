@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/constants";
@@ -22,6 +23,11 @@ const cardVariants = {
 const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
 
 export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
+  const imagePath = "imagePath" in project ? project.imagePath : undefined;
+  // Image cards show the full photo (object-contain) on the site's off-white
+  // backdrop; only the monogram fallback keeps the flat accent color.
+  const blockBackground = imagePath ? "var(--background)" : project.accentColor;
+
   return (
     <motion.article
       // Shared layout id — the lightbox box grows out of this exact card.
@@ -48,15 +54,25 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
       style={{ backgroundColor: "var(--surface)" }}
       aria-label={`See more about ${project.title}`}
     >
-      {/* ── Color block (decorative, flat) ────────────────────────────────── */}
+      {/* ── Media block (project photo, or flat color + monogram) ─────────── */}
       <div
         className="relative flex items-center justify-center overflow-hidden rounded-t-2xl transition-all duration-200 group-hover:brightness-105 dark:opacity-[0.85]"
-        style={{ backgroundColor: project.accentColor, height: "118px" }}
+        style={{ backgroundColor: blockBackground, height: "118px" }}
         aria-hidden="true"
       >
-        <span className="select-none text-3xl font-medium text-white opacity-70 transition-opacity duration-200 group-hover:opacity-100">
-          {project.monogram}
-        </span>
+        {imagePath ? (
+          <Image
+            src={imagePath}
+            alt={project.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-contain transition-transform duration-200 group-hover:scale-[1.03]"
+          />
+        ) : (
+          <span className="select-none text-3xl font-medium text-white opacity-70 transition-opacity duration-200 group-hover:opacity-100">
+            {project.monogram}
+          </span>
+        )}
 
         {project.badge && (
           <div className="absolute right-3 top-3 rounded-md bg-black/50 px-2.5 py-1">

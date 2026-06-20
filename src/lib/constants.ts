@@ -176,6 +176,7 @@ export const PROJECTS = [
     fullDescription:
       "Co-founded and launched Jam It! on the App Store with direct funding from Y Combinator. Achieved a 5-star rating, over 1,000 views, 53 downloads, and $25 of in-app purchases within 60 days. Designed low-fidelity and high-fidelity prototypes in Figma, built game logic and song compatibility in Swift and SwiftUI, and designed the marketing website in TypeScript, Node.js, and React deployed on Vercel and Cloudflare.",
     badge: "YC Funded",
+    imagePath: "/projects/jam-it.png",
   },
   {
     id: "digital-logic-trainer",
@@ -189,6 +190,7 @@ export const PROJECTS = [
     fullDescription:
       "Designed and manufactured a custom printed circuit board intended as a hands-on educational tool for digital electronics. The board allows students to wire and test logic gates, flip-flops, multiplexers, and combinational circuits using physical jumpers and onboard LEDs. Schematic and layout designed in KiCAD and EasyEDA Pro.",
     badge: null,
+    imagePath: "/projects/digital-logic-trainer.png",
   },
   {
     id: "maine-east-radio",
@@ -202,6 +204,7 @@ export const PROJECTS = [
     fullDescription:
       "Planned, designed, and implemented a complete AM/FM broadcast radio station for Maine East High School as part of work at Hamilton Broadcast Engineering. The station serves over 2,340 listeners. Work included antenna system design, transmitter configuration, studio wiring, and signal path verification using spectrum analyzers and oscilloscopes.",
     badge: null,
+    imagePath: "/projects/maine-east-radio.png",
   },
   {
     id: "tesla-coil",
@@ -215,6 +218,7 @@ export const PROJECTS = [
     fullDescription:
       "Designed and built a solid-state Tesla coil from scratch, including primary and secondary coil winding, resonant frequency tuning, IGBT driver circuit design, and safety interlock systems. Capable of producing 12-inch continuous plasma streamers. All circuit design completed in KiCAD; mathematical resonance calculations performed by hand.",
     badge: null,
+    imagePath: "/projects/tesla-coil.png",
   },
   {
     id: "3d-rocket",
@@ -228,6 +232,7 @@ export const PROJECTS = [
     fullDescription:
       "Designed and 3D printed a multi-stage model rocket with an integrated avionics bay for altimeter-triggered dual-event parachute deployment. The airframe, nose cone, and fins were modeled in Autodesk Fusion 360 and printed on a Prusa MINI+. Recovery system uses a main chute and drogue chute for safe descent.",
     badge: null,
+    imagePath: "/projects/3d-rocket.png",
   },
   {
     id: "bluetooth-drone",
@@ -240,6 +245,127 @@ export const PROJECTS = [
       "Custom quadcopter with Bluetooth control, PID stabilization, and a fully 3D-printed frame.",
     fullDescription:
       "Built a custom quadcopter from scratch with a 3D-printed PLA frame, brushless motors, ESCs, and a flight controller programmed with PID stabilization loops. Control interface implemented over Bluetooth using a custom mobile app. Frame designed in Fusion 360; firmware written in C++ on Arduino.",
+    badge: null,
+  },
+  {
+    id: "maine-south-radio",
+    title: "Maine South Radio Station",
+    monogram: "MS",
+    category: "Hardware",
+    accentColor: "#B91C1C",
+    year: "2023",
+    shortDescription:
+      "Rebuilt and modernized WMTH, the Maine South High School broadcast station, end to end.",
+    fullDescription:
+      "Planned and executed a full rebuild of WMTH, the Maine South High School radio station, as part of work at Hamilton Broadcast Engineering. Work spanned studio teardown and cleanup, equipment-rack rewiring, console and monitor installation, and signal-path verification so the station could return to reliable on-air broadcasting.",
+    badge: null,
+    imagePath: "/projects/maine-south-radio.png",
+  },
+  {
+    id: "electric-longboard",
+    title: "Electric Longboard",
+    monogram: "EL",
+    category: "Hardware",
+    accentColor: "#6D28D9",
+    year: "2023",
+    shortDescription:
+      "Custom-built electric longboard with a belt-drive motor, battery enclosure, and remote throttle control.",
+    fullDescription:
+      "Designed and built an electric longboard from the deck up, integrating a brushless hub/belt-drive motor, a custom lithium battery pack with a sealed enclosure, an electronic speed controller, and a handheld wireless remote for throttle and braking. Tuned acceleration and regenerative braking curves for a smooth, controllable ride.",
+    badge: null,
+    imagePath: "/projects/electric-longboard.png",
+  },
+  {
+    id: "electric-go-kart",
+    title: "Electric Go Kart",
+    monogram: "GK",
+    category: "Hardware",
+    accentColor: "#DC2626",
+    year: "2022",
+    shortDescription:
+      "Battery-powered go kart built on a welded steel frame with a motor controller and custom drivetrain.",
+    fullDescription:
+      "Built a fully electric go kart powered by a series battery pack and a motor controller driving a chain-and-sprocket drivetrain. The project covered frame fabrication, steering and seat mounting, wiring of the power electronics with safety cutoffs, and tuning the drivetrain for usable torque and top speed.",
+    badge: null,
+    imagePath: "/projects/electric-go-kart.png",
+  },
+  {
+    id: "digital-clock",
+    title: "Digital Clock",
+    monogram: "CL",
+    category: "Hardware",
+    accentColor: "#059669",
+    year: "2022",
+    shortDescription:
+      "Microcontroller-driven digital clock with a multiplexed seven-segment display and real-time clock module.",
+    fullDescription:
+      "Designed and built a digital clock around a microcontroller and a DS-series real-time clock module, driving a multiplexed seven-segment display. Implemented timekeeping, alarm, and button-based time-setting logic in C, with a custom-soldered board for the display and driver circuitry.",
+    badge: null,
+  },
+  {
+    id: "3d-guitar",
+    title: "3D Printed Electric Guitar",
+    monogram: "GT",
+    category: "Hardware",
+    accentColor: "#CA8A04",
+    year: "2024",
+    shortDescription:
+      "Playable electric guitar with a 3D-printed honeycomb body, bolt-on neck, and wired single-coil pickups.",
+    fullDescription:
+      "Designed and 3D printed the body of a fully playable electric guitar, featuring a parametric honeycomb-infill cavity for weight reduction and visual effect. Modeled in Fusion 360 and printed in multiple sections, then assembled with a bolt-on neck, pickups, bridge, control electronics, and hardware before final wiring and setup.",
+    badge: null,
+    imagePath: "/projects/3d-guitar.png",
+  },
+  {
+    id: "3d-printing",
+    title: "3D Printing",
+    monogram: "3D",
+    category: "Hardware",
+    accentColor: "#0EA5E9",
+    year: "2019–Present",
+    shortDescription:
+      "Years of additive-manufacturing experience designing, slicing, and printing functional parts and prototypes.",
+    fullDescription:
+      "Extensive hands-on experience with additive manufacturing, from CAD modeling in Fusion 360 to slicing in PrusaSlicer and printing on FDM machines including the Prusa MINI+. Comfortable tuning print settings, designing for printability, and producing both functional engineering parts and prototypes that feed into larger projects.",
+    badge: null,
+  },
+  {
+    id: "jingle",
+    title: "Jingle — Personal AI Assistant",
+    monogram: "JN",
+    category: "Software",
+    accentColor: "#8B5CF6",
+    year: "2025",
+    shortDescription:
+      "Personal AI assistant that handles voice queries, scheduling, and automations across everyday tasks.",
+    fullDescription:
+      "Built Jingle, a personal AI assistant that combines a large language model with voice input and task automation. It handles natural-language queries, scheduling, reminders, and integrations with everyday tools, with a focus on a fast, conversational interface and extensible command handling.",
+    badge: null,
+  },
+  {
+    id: "penny-hockey",
+    title: "Penny Hockey Board",
+    monogram: "PH",
+    category: "Hardware",
+    accentColor: "#92400E",
+    year: "2023",
+    shortDescription:
+      "Handcrafted wooden penny-hockey (knock hockey) board built from scratch for tabletop play.",
+    fullDescription:
+      "Designed and built a wooden penny-hockey board from raw stock, including cutting and finishing the playing surface, rails, and goal slots. The project focused on woodworking, precise measurement, and a smooth, durable finish for fast tabletop gameplay.",
+    badge: null,
+  },
+  {
+    id: "custom-pc",
+    title: "Custom PC",
+    monogram: "PC",
+    category: "Hardware",
+    accentColor: "#1F2937",
+    year: "2021",
+    shortDescription:
+      "Hand-built desktop PC with selected components, cable management, and a tuned cooling setup.",
+    fullDescription:
+      "Researched, selected, and assembled a custom desktop PC from individual components — CPU, GPU, motherboard, memory, storage, power supply, and cooling. Handled the full build including cable management, BIOS configuration, thermal tuning, and OS setup for a balanced performance and reliability target.",
     badge: null,
   },
 ] as const;

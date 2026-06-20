@@ -1023,9 +1023,6 @@ main {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-.mb-1{
-  margin-bottom: 0.25rem;
-}
 .mb-10{
   margin-bottom: 2.5rem;
 }
@@ -1993,6 +1990,11 @@ html.intro-pending #intro-splash {
 }
 .group:hover .group-hover\:translate-x-1{
   --tw-translate-x: 0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.group:hover .group-hover\:scale-\[1\.03\]{
+  --tw-scale-x: 1.03;
+  --tw-scale-y: 1.03;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .group:hover .group-hover\:text-\[var\(--accent\)\]{
