@@ -346,7 +346,7 @@ export const HOBBIES = [
     description:
       "DJing is where engineering meets creativity for me. I mix primarily house and techno on a Pioneer DDJ-FLX4, using Rekordbox for track management and set preparation. I love the technical side — beat matching, EQ transitions, building energy across a set — as much as the musical side. It is one of the few things that completely clears my head after a long day of problem sets.",
     chips: ["Pioneer DDJ-FLX4", "Rekordbox", "House / Techno"],
-    imagePath: "/hobbies/dj.jpg",
+    imagePath: "/hobbies/dj.png",
   },
   {
     id: "skiing",
@@ -358,7 +358,7 @@ export const HOBBIES = [
     description:
       "I have been skiing since I was a kid and it remains one of my favorite ways to spend a winter weekend. I gravitate toward black diamond runs and enjoy pushing my technique on steeper terrain. There is something uniquely satisfying about the combination of speed, precision, and reading the mountain — it scratches the same problem-solving itch that engineering does, just with more adrenaline.",
     chips: ["Alpine skiing", "Black diamonds", "Midwest + Colorado"],
-    imagePath: "/hobbies/skiing.jpg",
+    imagePath: "/hobbies/skiing.png",
   },
   {
     id: "working-out",
@@ -370,7 +370,11 @@ export const HOBBIES = [
     description:
       "I train daily and treat the gym as a non-negotiable part of my routine. Lifting gives me a reliable way to build discipline and mental clarity that carries directly into academic and engineering work. I focus on compound movements and progressive overload, tracking everything methodically — the same approach I apply to projects and problem sets.",
     chips: ["Strength training", "Daily routine", "Progressive overload"],
-    imagePath: "/hobbies/gym.jpg",
+    imagePath: "/hobbies/working-out.png",
+    // Show the whole pizza rather than cropping it to fill the card.
+    imageFit: "contain",
+    // Margins around the contained pizza read as white rather than the accent.
+    imageBackground: "#ffffff",
   },
   {
     id: "hiking",
@@ -382,7 +386,7 @@ export const HOBBIES = [
     description:
       "Backpacking and hiking are how I disconnect and reset. I love the planning that goes into a trip — mapping routes, dialing in gear weight, and reading terrain and weather — almost as much as the time on the trail itself. There is a simple, methodical satisfaction in covering ground under your own power and solving small problems as they come, which feels a lot like engineering with a much better view.",
     chips: ["Trail hiking", "Multi-day trips", "Gear & route planning"],
-    imagePath: "/hobbies/hiking.jpg",
+    imagePath: "/hobbies/hiking.png",
   },
   {
     id: "cars",
@@ -394,7 +398,7 @@ export const HOBBIES = [
     description:
       "Working on cars is a natural extension of my love for hands-on engineering. I enjoy doing my own maintenance and modifications — understanding every system, diagnosing issues from first principles, and improving performance where I can. It is the same mindset as PCB debugging or circuit design, just at a larger, greasier scale.",
     chips: ["Maintenance & repair", "Modifications", "Diagnostics"],
-    imagePath: "/hobbies/cars.jpg",
+    imagePath: "/hobbies/cars.png",
   },
   {
     id: "learning",
@@ -406,7 +410,7 @@ export const HOBBIES = [
     description:
       "I treat learning as a constant, self-directed habit rather than something confined to the classroom. Whether it is working through online courses, picking up a new tool for a side project, or going deep on a topic that caught my attention, I love the process of building understanding from the ground up. Staying curious and teaching myself new skills is what keeps both my engineering work and my interests moving forward.",
     chips: ["Self-directed", "Online courses", "Side projects"],
-    imagePath: "/hobbies/learning.jpg",
+    imagePath: "",
   },
   {
     id: "reading",
@@ -419,7 +423,11 @@ export const HOBBIES = [
     description:
       "I read consistently across engineering, science, biography, and history. Some of my favorites include Electronic Principles by Malvino, which I worked through cover to cover during my time at Hamilton Broadcast Engineering, and biographies of engineers and scientists who applied theory to change the world. Reading is how I fill the gaps between formal coursework and practical work.",
     chips: ["Engineering & science", "Biographies", "History"],
-    imagePath: "/hobbies/reading.jpg",
+    imagePath: "/hobbies/reading.png",
+    // Book cover should be shown in full rather than cropped to fill.
+    imageFit: "contain",
+    // Margins around the contained book read as white rather than the accent.
+    imageBackground: "#ffffff",
   },
   {
     id: "family-friends",
@@ -431,7 +439,7 @@ export const HOBBIES = [
     description:
       "Outside of everything else, time with family and friends is what matters most. I grew up in a close Polish-American household in the Chicago suburbs and that foundation — hard work, loyalty, showing up for the people around you — shapes how I approach everything. The best moments are the simple ones: cooking together, watching the game, or just being present.",
     chips: ["Polish-American", "Chicago suburbs", "Close-knit"],
-    imagePath: "/hobbies/family.jpg",
+    imagePath: "/hobbies/family.png",
   },
 ] as const;
 

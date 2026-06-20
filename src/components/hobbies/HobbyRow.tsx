@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Hobby } from "@/lib/constants";
 
@@ -9,12 +10,9 @@ interface HobbyRowProps {
   isLast: boolean;
 }
 
-// Bottom-up overlay so the white label/name read clearly over the photo.
+// Bottom-up overlay so the white name reads clearly over the photo.
 const IMAGE_GRADIENT =
   "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 45%, transparent 100%)";
-
-// White-on-image label tint (intentional, sits over the dark gradient).
-const LABEL_WHITE = "rgba(255,255,255,0.7)";
 
 // The site has a single --border token; nudge it toward text-secondary so the
 // chip outlines read as slightly stronger than the divider rules.
@@ -29,6 +27,13 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
   // Odd-indexed entries flip the image to the right (desktop only).
   const imageRight = index % 2 === 1;
 
+  // Contained images (e.g. the book cover) can override the card backdrop so
+  // their letterboxed margins read as white instead of the accent color.
+  const cardBackground =
+    "imageBackground" in hobby && hobby.imageBackground
+      ? hobby.imageBackground
+      : hobby.accentColor;
+
   return (
     <motion.div variants={rowVariants}>
       <div
@@ -39,20 +44,33 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
         {/* ── Image card ─────────────────────────────────────────────────── */}
         <div
           className="relative h-[320px] w-full overflow-hidden rounded-2xl sm:w-[52%]"
-          style={{ backgroundColor: hobby.accentColor }}
+          style={{ backgroundColor: cardBackground }}
         >
           {/* Inner content scales on hover; the container clips it (no layout
-              shift). Drop a real photo in here later, e.g.:
-              <Image src={hobby.imagePath} alt={hobby.name} fill className="object-cover" /> */}
+              shift). Falls back to the monogram when no photo is provided. */}
           <motion.div
             className="absolute inset-0 flex items-center justify-center"
-            style={{ backgroundColor: hobby.accentColor }}
+            style={{ backgroundColor: cardBackground }}
             whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <span className="select-none text-5xl font-medium text-white opacity-50">
-              {hobby.monogram}
-            </span>
+            {hobby.imagePath ? (
+              <Image
+                src={hobby.imagePath}
+                alt={hobby.name}
+                fill
+                sizes="(max-width: 640px) 100vw, 52vw"
+                className={
+                  "imageFit" in hobby && hobby.imageFit === "contain"
+                    ? "object-contain"
+                    : "object-cover"
+                }
+              />
+            ) : (
+              <span className="select-none text-5xl font-medium text-white opacity-50">
+                {hobby.monogram}
+              </span>
+            )}
           </motion.div>
 
           {/* Gradient overlay — stays fixed while the block beneath zooms */}
@@ -64,12 +82,6 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
 
           {/* Bottom overlay text */}
           <div className="absolute bottom-0 left-0 right-0 p-5">
-            <p
-              className="mb-1 font-medium uppercase tracking-widest"
-              style={{ fontSize: "11px", color: LABEL_WHITE }}
-            >
-              {hobby.category}
-            </p>
             <p
               className="font-medium leading-tight text-white"
               style={{ fontSize: "24px" }}
