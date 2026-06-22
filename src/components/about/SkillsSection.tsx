@@ -23,7 +23,7 @@ const ROWS = [
   },
   {
     label: "Hardware & Tools",
-    pills: ["Oscilloscope", "DMM", "Frequency Generator", "Laser Engraver", "3D Printer", "Soldering Iron", "Arduino IDE"],
+    pills: ["Oscilloscope", "DMM", "Frequency Generator", "Laser Engraver", "3D Printer", "Soldering Iron"],
   },
   {
     label: "Software",

@@ -73,17 +73,17 @@ export default function ScrollNudge({
   const pillStyle = (brandColor: string): React.CSSProperties => ({
     display: "inline-flex",
     alignItems: "center",
-    gap: "8px",
-    padding: "10px 18px",
+    gap: "9px",
+    padding: "12px 22px",
     borderRadius: "9999px",
     background: "var(--surface)",
-    border: `1.5px solid ${brandColor}66`,
-    boxShadow: `0 4px 18px ${brandColor}30, 0 2px 8px rgba(0,0,0,0.08)`,
+    border: `1.75px solid ${brandColor}66`,
+    boxShadow: `0 5px 21px ${brandColor}30, 0 2px 9px rgba(0,0,0,0.08)`,
     backdropFilter: "blur(10px)",
     WebkitBackdropFilter: "blur(10px)",
     whiteSpace: "nowrap",
     width: "fit-content",
-    fontSize: "13px",
+    fontSize: "14.5px",
     fontWeight: 600,
     cursor: "pointer",
     color: "var(--text-primary)",
@@ -125,8 +125,8 @@ export default function ScrollNudge({
                 >
                   <ChevronUp
                     style={{
-                      width: 16,
-                      height: 16,
+                      width: 18,
+                      height: 18,
                       flexShrink: 0,
                       color: prevEntry?.brandColor,
                     }}
@@ -169,8 +169,8 @@ export default function ScrollNudge({
                   {nextName && <span>{nextName}</span>}
                   <ChevronDown
                     style={{
-                      width: 16,
-                      height: 16,
+                      width: 18,
+                      height: 18,
                       flexShrink: 0,
                       color: nextEntry?.brandColor,
                     }}

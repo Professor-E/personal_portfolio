@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import HeroSection from "@/components/home/HeroSection";
+import CompanyScroll from "@/components/home/CompanyScroll";
 import FeaturedGrid from "@/components/home/FeaturedGrid";
 
 // Load IntroAnimation client-only (uses sessionStorage + Framer Motion)
@@ -62,12 +63,25 @@ export default function HomePage() {
               <HeroSection />
             </motion.div>
 
-            {/* Featured grid — delay 0.15s */}
+            {/* Company / institution marquee — delay 0.15s, above featured work */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 delay: 0.15,
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <CompanyScroll />
+            </motion.div>
+
+            {/* Featured grid — delay 0.3s */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.3,
                 duration: 0.6,
                 ease: [0.22, 1, 0.36, 1],
               }}

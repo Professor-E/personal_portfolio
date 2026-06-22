@@ -18,20 +18,20 @@ import { motion } from "framer-motion";
 
 const CARDS = [
   {
-    id: "high-school",
-    image: "/images/gbs.jpg",
-    label: "High School",
-    institution: "Glenbrook South High School",
-    years: "\u201921 - \u201825",
-    body: "My time at Glenbrook South High School laid the foundation for my passion for engineering and technology. Through academics, extracurricular activities, and hands-on projects, I developed the curiosity and problem-solving mindset that ultimately led me to pursue Electrical Engineering and Computer Science at MIT.",
-  },
-  {
     id: "college",
     image: "/images/mit.jpg",
     label: "College",
     institution: "Massachusetts Institute of Technology",
     years: "\u201925 - \u201829",
     body: "As an Electrical Engineering and Computer Science student at MIT, I am constantly challenged to think critically, collaborate with talented peers, and turn ideas into reality. MIT has given me opportunities to explore hardware, software, research, and entrepreneurship while continuing to grow as both an engineer and a person.",
+  },
+  {
+    id: "high-school",
+    image: "/images/gbs.jpg",
+    label: "High School",
+    institution: "Glenbrook South High School",
+    years: "\u201921 - \u201825",
+    body: "My time at Glenbrook South High School laid the foundation for my passion for engineering and technology. Through academics, extracurricular activities, and hands-on projects, I developed the curiosity and problem-solving mindset that ultimately led me to pursue Electrical Engineering and Computer Science at MIT.",
   },
 ] as const;
 
