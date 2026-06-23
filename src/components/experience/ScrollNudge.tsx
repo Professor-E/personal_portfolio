@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useTime, useTransform } from "framer-motion";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import type { ExperienceEntry } from "@/types";
 
@@ -41,6 +41,11 @@ export default function ScrollNudge({
   const nextEntry = entries[activeIndex + 1];
   const prevName = prevEntry?.company ?? "";
   const nextName = nextEntry?.company ?? "";
+
+  // Shared clock so both pills bob in sync but in opposite directions.
+  const time = useTime();
+  const bobUpY = useTransform(time, (t) => -5 * Math.sin(((t % 1800) / 1800) * Math.PI));
+  const bobDownY = useTransform(time, (t) => 5 * Math.sin(((t % 1800) / 1800) * Math.PI));
 
   // ── Auto-dim after 3 s of inactivity ───────────────────────────────────────
   const resetTimer = () => {
@@ -111,11 +116,8 @@ export default function ScrollNudge({
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              {/* Floating bob — vertical only, never touches centering */}
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-              >
+              {/* Floating bob — driven by shared clock, opposite to down pill */}
+              <motion.div style={{ y: bobUpY }}>
                 <motion.button
                   onClick={onScrollUp}
                   whileHover={{ scale: 1.06, opacity: 1 }}
@@ -155,10 +157,7 @@ export default function ScrollNudge({
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
-              <motion.div
-                animate={{ y: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-              >
+              <motion.div style={{ y: bobDownY }}>
                 <motion.button
                   onClick={onScrollDown}
                   whileHover={{ scale: 1.06, opacity: 1 }}
