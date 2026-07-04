@@ -51,6 +51,29 @@ export const EXPERIENCE: ExperienceEntry[] = [
     logo: "/images/logos/yc.svg",
   },
   {
+    id: "handshake",
+    company: "Handshake AI Fellowship",
+    role: "Electrical Engineering Domain Expert",
+    startDate: "June 2026",
+    endDate: "Present",
+    location: "Glenview, IL (Remote)",
+    summary:
+      "Served as an electrical engineering domain expert for Handshake AI, designing PCBs, circuits, and grading rubrics to train and benchmark AI models.",
+    stats: [
+      { value: "PCB", label: "design & layout" },
+      { value: "Analog + Digital", label: "circuit analysis" },
+      { value: "AI training", label: "rubrics & benchmarks" },
+    ],
+    description: [
+      "Orchestrated electrical engineering tasks revolving around schematic and PCB design, PCB layout, and circuit analysis",
+      "Designed grading rubrics and technical benchmarks for technical tasks and other domain experts to complete",
+      "Completed PCB design, digital and analog circuits, and circuit analysis tasks to help train AI with feedback",
+    ],
+    brandColor: "#7FA000",
+    logoPlaceholder: "handshake",
+    logo: "/images/logos/handshake.png",
+  },
+  {
     id: "hamilton-broadcast",
     company: "Hamilton Broadcast Engineering, LLC",
     role: "Electronics & Biomedical Technician",

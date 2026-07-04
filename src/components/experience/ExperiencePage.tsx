@@ -11,7 +11,7 @@ import ScrollNudge from "./ScrollNudge";
 
 // ── Display order ──────────────────────────────────────────────────────────────
 const DISPLAY_ORDER = [
-  "akamai", "yc-jam-it", "hamilton-broadcast", "mit-splash",
+  "akamai", "yc-jam-it", "handshake", "hamilton-broadcast", "mit-splash",
   "argonne", "northwestern-ctd", "gbs",
 ];
 
