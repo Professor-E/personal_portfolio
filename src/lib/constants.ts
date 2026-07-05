@@ -324,6 +324,7 @@ export const PROJECTS = [
     fullDescription:
       "Designed and built a digital clock around a microcontroller and a DS-series real-time clock module, driving a multiplexed seven-segment display. Implemented timekeeping, alarm, and button-based time-setting logic in C, with a custom-soldered board for the display and driver circuitry.",
     badge: null,
+    imagePath: "/projects/digital-clock.png",
   },
   {
     id: "3d-guitar",
@@ -351,6 +352,7 @@ export const PROJECTS = [
     fullDescription:
       "Extensive hands-on experience with additive manufacturing, from CAD modeling in Fusion 360 to slicing in PrusaSlicer and printing on FDM machines including the Prusa MINI+. Comfortable tuning print settings, designing for printability, and producing both functional engineering parts and prototypes that feed into larger projects.",
     badge: null,
+    imagePath: "/projects/3d-printing.png",
   },
   {
     id: "jingle",
