@@ -14,14 +14,31 @@ export default function ActivityDetail({ activity }: { activity: Extracurricular
     <div className="flex flex-col gap-6 px-6 py-8 sm:px-10 sm:py-10">
       {/* Header — icon + name + date */}
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+        {/* Boolean() wrapping keeps the fallback typed (not narrowed to
+            `never`) even now that every entry happens to have an image, so a
+            future image-less entry still degrades gracefully. */}
         <div
-          className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl"
-          style={{ backgroundColor: activity.accentColor }}
+          className="flex h-20 w-20 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl"
+          style={{
+            backgroundColor: Boolean(activity.imagePath) ? "#ffffff" : activity.accentColor,
+            border: Boolean(activity.imagePath) ? "1px solid var(--border)" : undefined,
+          }}
           aria-hidden="true"
         >
-          <span className="select-none text-3xl font-semibold text-white">
-            {activity.monogram}
-          </span>
+          {Boolean(activity.imagePath) ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={activity.imagePath}
+              alt=""
+              className="h-full w-full object-contain select-none"
+              style={{ padding: "10px" }}
+              draggable={false}
+            />
+          ) : (
+            <span className="select-none text-3xl font-semibold text-white">
+              {activity.monogram}
+            </span>
+          )}
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-2">

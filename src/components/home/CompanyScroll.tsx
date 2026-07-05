@@ -11,6 +11,7 @@
 const COMPANIES = [
   { name: "Akamai Technologies",          color: "#009BDE" },
   { name: "Y Combinator / Jam It!",       color: "#FF6600" },
+  { name: "Handshake AI Fellowship",      color: "#7FA000" },
   { name: "Hamilton Broadcast Eng.",      color: "#1A1A2E" },
   { name: "MIT",                          color: "#A31F34" },
   { name: "Argonne National Laboratory",  color: "#004B87" },

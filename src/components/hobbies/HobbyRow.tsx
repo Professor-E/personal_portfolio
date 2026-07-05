@@ -54,7 +54,10 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
             whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {hobby.imagePath ? (
+            {/* Every hobby currently has a real photo, but the check is kept
+                (via Boolean(), so TS doesn't narrow the fallback to `never`)
+                so a future hobby without an image still degrades gracefully. */}
+            {Boolean(hobby.imagePath) ? (
               <Image
                 src={hobby.imagePath}
                 alt={hobby.name}

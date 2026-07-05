@@ -559,7 +559,11 @@ export const HOBBIES = [
     description:
       "I treat learning as a constant, self-directed habit rather than something confined to the classroom. Whether it is working through online courses, picking up a new tool for a side project, or going deep on a topic that caught my attention, I love the process of building understanding from the ground up. Staying curious and teaching myself new skills is what keeps both my engineering work and my interests moving forward.",
     chips: ["Self-directed", "Online courses", "Side projects"],
-    imagePath: "",
+    imagePath: "/hobbies/learning.png",
+    // Book cover should be shown in full rather than cropped to fill.
+    imageFit: "contain",
+    // Margins around the contained cover read as white rather than the accent.
+    imageBackground: "#ffffff",
   },
   {
     id: "reading",
@@ -613,6 +617,7 @@ export const EXTRACURRICULARS = [
       { value: "7", label: "subsets" },
       { value: "$1,000+", label: "fundraised" },
     ],
+    imagePath: "/extracurriculars/engineering-club.png",
   },
   {
     id: "vex-robotics",
@@ -631,6 +636,7 @@ export const EXTRACURRICULARS = [
       { value: "100+", label: "competitors organized" },
       { value: "60%", label: "drivetrain efficiency gain" },
     ],
+    imagePath: "/extracurriculars/vex-robotics.png",
   },
   {
     id: "science-olympiad",
@@ -649,6 +655,7 @@ export const EXTRACURRICULARS = [
       { value: "9th", label: "State" },
       { value: "+6", label: "rank improvement" },
     ],
+    imagePath: "/extracurriculars/science-olympiad.png",
   },
   {
     id: "math-team",
@@ -666,6 +673,7 @@ export const EXTRACURRICULARS = [
       { value: "10th", label: "in State" },
       { value: "8th", label: "national (Math Madness)" },
     ],
+    imagePath: "/extracurriculars/math-team.png",
   },
   {
     id: "tutor",
@@ -684,6 +692,7 @@ export const EXTRACURRICULARS = [
       { value: "300+", label: "hours" },
       { value: "+1–2", label: "grade levels avg" },
     ],
+    imagePath: "/extracurriculars/tutor.png",
   },
   {
     id: "glenviews-got-steam",
@@ -702,6 +711,7 @@ export const EXTRACURRICULARS = [
       { value: "10", label: "local schools" },
       { value: "$1,000+", label: "raised for public library" },
     ],
+    imagePath: "/extracurriculars/glenviews-got-steam.png",
   },
   {
     id: "jv-swim",
@@ -716,6 +726,7 @@ export const EXTRACURRICULARS = [
     fullDescription:
       "I competed as a JV swimmer specializing in long-distance free stroke events. I also swam breaststroke, backstroke, and butterfly. I served as a team representative, demonstrated proper swimming technique to newer teammates, and participated in both team and individual training exercises. During this period I obtained my Red Cross lifeguard and CPR certifications while helping teach other swimmers proper lifeguarding techniques and emergency response procedures.",
     stats: [],
+    imagePath: "/extracurriculars/jv-swim.png",
   },
   {
     id: "habitat-for-humanity",
@@ -730,6 +741,7 @@ export const EXTRACURRICULARS = [
     fullDescription:
       "I participated in a week-long Habitat for Humanity build trip to Manistique, Michigan, serving as a group leader. Our team primed and painted the interior and exterior of a residential home, refurbished a dormitory shelter, cleaned a local park of weeds and debris, assisted in cleaning a local business's dining area, and cooked meals for the families we were serving. I helped direct the work and coordinate volunteers throughout the week.",
     stats: [],
+    imagePath: "/extracurriculars/habitat-for-humanity.png",
   },
 ] as const;
 

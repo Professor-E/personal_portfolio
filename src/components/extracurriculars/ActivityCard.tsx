@@ -56,15 +56,32 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
       }}
       aria-label={`See more about ${activity.name}`}
     >
-      {/* ── Left: icon block ───────────────────────────────────────────────── */}
+      {/* ── Left: icon block — real logo when available, monogram fallback ──
+          Boolean() wrapping keeps the fallback typed (not narrowed to
+          `never`) even now that every entry happens to have an image, so a
+          future image-less entry still degrades gracefully. */}
       <div
-        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl transition-[filter] duration-200 group-hover:brightness-105"
-        style={{ backgroundColor: activity.accentColor }}
+        className="flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl transition-[filter] duration-200 group-hover:brightness-105"
+        style={{
+          backgroundColor: Boolean(activity.imagePath) ? "#ffffff" : activity.accentColor,
+          border: Boolean(activity.imagePath) ? "1px solid var(--border)" : undefined,
+        }}
         aria-hidden="true"
       >
-        <span className="select-none text-base font-medium text-white">
-          {activity.monogram}
-        </span>
+        {Boolean(activity.imagePath) ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={activity.imagePath}
+            alt=""
+            className="h-full w-full object-contain select-none"
+            style={{ padding: "6px" }}
+            draggable={false}
+          />
+        ) : (
+          <span className="select-none text-base font-medium text-white">
+            {activity.monogram}
+          </span>
+        )}
       </div>
 
       {/* ── Center: main content ─────────────────────────────────────────── */}

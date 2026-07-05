@@ -977,6 +977,12 @@ main {
 .top-\[70px\]{
   top: 70px;
 }
+.bottom-3{
+  bottom: 0.75rem;
+}
+.left-3{
+  left: 0.75rem;
+}
 .z-0{
   z-index: 0;
 }
@@ -1148,6 +1154,9 @@ main {
 }
 .h-full{
   height: 100%;
+}
+.h-px{
+  height: 1px;
 }
 .max-h-\[calc\(100vh-70px-140px\)\]{
   max-height: calc(100vh - 70px - 140px);

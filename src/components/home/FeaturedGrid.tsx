@@ -6,8 +6,9 @@ import Link from "next/link";
 import Lightbox from "@/components/common/Lightbox";
 
 /**
- * Featured work grid — Figma node 616:516
- * 3×3 layout: Experience (row 1), Projects (row 2), Activities (row 3)
+ * Recent work grid — Figma node 616:516
+ * 3×4 layout: Experience (row 1), Projects (row 2), Extracurriculars (row 3),
+ * Hobbies (row 4)
  *
  * Card (Pillbox) — Figma nodes 616:518–616:560
  *   bg: var(--surface)   rounded-[20px]
@@ -22,101 +23,176 @@ import Lightbox from "@/components/common/Lightbox";
 interface FeaturedItem {
   id: string;
   title: string;
-  category: "Experience" | "Project" | "Activity";
+  category: "Experience" | "Project" | "Extracurricular" | "Hobby";
   brandColor: string;
   description: string;
   link: string;
+  /** Logo/cover art rendered on a white tile, object-contain (no cropping). */
+  logo?: string;
+  /** Real photo — fills the image block, object-cover (may crop). */
+  image?: string;
+  /** Override the default white-tile padding around `logo` (e.g. to show a
+   *  book cover larger than a wide company wordmark). */
+  logoPadding?: string;
 }
 
-// Row 1 — Experience
-// Row 2 — Projects
-// Row 3 — Activities
+const CATEGORY_EXPLORE_LABEL: Record<FeaturedItem["category"], string> = {
+  Experience: "experience",
+  Project: "projects",
+  Extracurricular: "extracurriculars",
+  Hobby: "hobbies",
+};
+
+// Row order + labels for the section dividers that replace the old per-card badge.
+const CATEGORY_ORDER: FeaturedItem["category"][] = [
+  "Experience",
+  "Project",
+  "Extracurricular",
+  "Hobby",
+];
+
+const CATEGORY_LABEL: Record<FeaturedItem["category"], string> = {
+  Experience: "Experience",
+  Project: "Projects",
+  Extracurricular: "Extracurriculars",
+  Hobby: "Hobbies",
+};
+
+// Row 1 — Experience (most recent)
+// Row 2 — Projects (most recent)
+// Row 3 — Extracurriculars
+// Row 4 — Hobbies
 const FEATURED_ITEMS: FeaturedItem[] = [
   // ── Experience ────────────────────────────────────────────────────────────
+  {
+    id: "akamai",
+    title: "Akamai Technologies",
+    category: "Experience",
+    brandColor: "#009BDE",
+    logo: "/images/logos/akamai.svg",
+    description:
+      "Built a TypeScript CLI tool that streamlined SDK integration for Akamai's Bot & Abuse Protection platform across five mobile frameworks.",
+    link: "/experience",
+  },
+  {
+    id: "handshake",
+    title: "Handshake AI Fellowship",
+    category: "Experience",
+    brandColor: "#7FA000",
+    logo: "/images/logos/handshake.png",
+    description:
+      "Served as an electrical engineering domain expert for Handshake AI, designing PCBs, circuits, and grading rubrics to train and benchmark AI models.",
+    link: "/experience",
+  },
   {
     id: "yc",
     title: "Y Combinator / Jam It!",
     category: "Experience",
     brandColor: "#FF6600",
+    logo: "/images/logos/yc.svg",
     description:
-      "Co-founded Jam It!, a social DJ platform, as part of Y Combinator's batch. Led product development and go-to-market strategy.",
-    link: "/experience",
-  },
-  {
-    id: "argonne",
-    title: "Argonne National Laboratory",
-    category: "Experience",
-    brandColor: "#004B87",
-    description:
-      "Research assistant at a U.S. Department of Energy national lab — conducting experiments, collecting data, and contributing to analysis pipelines.",
-    link: "/experience",
-  },
-  {
-    id: "northwestern",
-    title: "Northwestern University CTD",
-    category: "Experience",
-    brandColor: "#4E2A84",
-    description:
-      "Assistant teacher at Northwestern's Center for Talent Development, mentoring high-achieving students in advanced STEM subjects.",
+      "Co-founded and launched Jam It! on the App Store with direct funding from Y Combinator, owning UI/UX, backend, and the marketing site.",
     link: "/experience",
   },
 
   // ── Projects ──────────────────────────────────────────────────────────────
   {
-    id: "jam-it",
-    title: "Jam It!",
-    category: "Project",
-    brandColor: "#FF6600",
-    description:
-      "A real-time collaborative DJ platform enabling social music experiences, built with React, Node.js, and WebSockets.",
-    link: "/projects",
-  },
-  {
-    id: "radio",
-    title: "Maine East Radio Station",
-    category: "Project",
-    brandColor: "#C0392B",
-    description:
-      "Rebuilt and upgraded the broadcast infrastructure for a high school radio station — including RF systems and audio electronics.",
-    link: "/projects",
-  },
-  {
-    id: "logic-trainer",
+    id: "digital-logic-trainer",
     title: "Digital Logic Trainer",
     category: "Project",
-    brandColor: "#27AE60",
+    brandColor: "#2563EB",
+    image: "/projects/digital-logic-trainer.png",
     description:
-      "Educational PCB board for learning combinational and sequential logic circuits, designed from scratch in KiCad.",
+      "Custom PCB teaching tool for digital logic gates, flip-flops, and combinational circuits.",
+    link: "/projects",
+  },
+  {
+    id: "maine-east-radio",
+    title: "Maine East Radio Station",
+    category: "Project",
+    brandColor: "#0D9488",
+    image: "/projects/maine-east-radio.png",
+    description:
+      "Designed and built a full broadcast radio station for Maine East High School, now serving 2,340+ listeners.",
+    link: "/projects",
+  },
+  {
+    id: "tesla-coil",
+    title: "Tesla Coil",
+    category: "Project",
+    brandColor: "#7C3AED",
+    image: "/projects/tesla-coil.png",
+    description:
+      "Hand-wound solid-state Tesla coil (SSTC) capable of producing 12-inch plasma streamers.",
     link: "/projects",
   },
 
-  // ── Activities ────────────────────────────────────────────────────────────
+  // ── Extracurriculars ──────────────────────────────────────────────────────
   {
     id: "engineering-club",
     title: "Engineering Club",
-    category: "Activity",
-    brandColor: "#2C3E50",
+    category: "Extracurricular",
+    brandColor: "#E85D20",
+    logo: "/extracurriculars/engineering-club.png",
     description:
-      "Active member and project leader of Glenbrook South's Engineering Club — building, mentoring, and competing.",
-    link: "/activities",
+      "Led the largest non-volunteering club of 124 members with 7 active subsets — Maker Events, MakerFaire, VEX Robotics, and more.",
+    link: "/extracurriculars",
   },
   {
-    id: "vex",
+    id: "vex-robotics",
     title: "VEX Robotics",
-    category: "Activity",
-    brandColor: "#E74C3C",
+    category: "Extracurricular",
+    brandColor: "#2563EB",
+    logo: "/extracurriculars/vex-robotics.png",
     description:
-      "Team captain in VEX Robotics, achieving 5th place at the state competition through design, programming, and strategy.",
-    link: "/activities",
+      "Team captain, hardware engineer, and programmer. Led a team of 7, placed 5th in State, and automated drivetrain code for a 60% efficiency gain.",
+    link: "/extracurriculars",
   },
   {
     id: "science-olympiad",
     title: "Science Olympiad",
-    category: "Activity",
-    brandColor: "#3498DB",
+    category: "Extracurricular",
+    brandColor: "#0D9488",
+    logo: "/extracurriculars/science-olympiad.png",
     description:
-      "Placed 2nd at Regionals and 9th at State, competing in science and engineering events across multiple disciplines.",
-    link: "/activities",
+      "Led and managed a team of 30. Placed 2nd at Regionals and 9th in State, improving team placement by 6 positions.",
+    link: "/extracurriculars",
+  },
+
+  // ── Hobbies ───────────────────────────────────────────────────────────────
+  {
+    id: "learning",
+    title: "Learning",
+    category: "Hobby",
+    brandColor: "#4338CA",
+    // Book cover — white tile + object-contain (like the logo cards) reads
+    // better than a full-bleed crop would for a portrait cover. Smaller
+    // padding than the default logo tiles so the cover reads larger.
+    logo: "/hobbies/learning.png",
+    logoPadding: "clamp(10px, 2vw, 18px)",
+    description:
+      "Self-directed habit of building understanding from the ground up — online courses, side projects, and chasing curiosity.",
+    link: "/hobbies",
+  },
+  {
+    id: "dj",
+    title: "DJing",
+    category: "Hobby",
+    brandColor: "#7C3AED",
+    image: "/hobbies/dj.png",
+    description:
+      "Pioneer DDJ-FLX4 — mixing house and techno, using Rekordbox for track management and set preparation.",
+    link: "/hobbies",
+  },
+  {
+    id: "skiing",
+    title: "Skiing",
+    category: "Hobby",
+    brandColor: "#0369A1",
+    image: "/hobbies/skiing.png",
+    description:
+      "Black diamonds and long runs — chasing the combination of speed, precision, and reading the mountain.",
+    link: "/hobbies",
   },
 ];
 
@@ -165,19 +241,36 @@ function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void 
       }}
       aria-label={`See more about ${item.title}`}
     >
-      {/* ── Colored image placeholder (brand color, not #c2c2c2 per spec) ── */}
+      {/* ── Image block — logo tile / photo / brand-color placeholder ──────
+          Category is now conveyed by the row's section divider, so no
+          per-card badge is rendered here. */}
       <div className="flex flex-col gap-6 flex-1">
         <div
-          className="w-full rounded-[20px] shrink-0 flex items-center justify-center"
+          className="relative w-full rounded-[20px] shrink-0 flex items-center justify-center overflow-hidden"
           style={{
-            backgroundColor: item.brandColor,
+            backgroundColor: item.logo ? "#ffffff" : item.image ? "transparent" : item.brandColor,
+            border: item.logo ? `1px solid ${item.brandColor}33` : undefined,
             height: "clamp(180px, 25vw, 301px)",
           }}
         >
-          {/* Category badge */}
-          <span className="text-white text-[12px] font-bold px-3 py-1 rounded-full bg-black/20">
-            {item.category}
-          </span>
+          {item.logo ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={item.logo}
+              alt={`${item.title} logo`}
+              className="w-full h-full object-contain select-none"
+              style={{ padding: item.logoPadding ?? "clamp(28px, 6vw, 48px)" }}
+              draggable={false}
+            />
+          ) : item.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-full object-cover select-none"
+              draggable={false}
+            />
+          ) : null}
         </div>
 
         {/* ── Description block ─────────────────────────────────────────── */}
@@ -206,6 +299,25 @@ function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void 
         See more →
       </span>
     </motion.div>
+  );
+}
+
+// ── Row divider — labels each category row instead of the old per-card badge ──
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-4 mb-6">
+      <h3
+        className="font-semibold text-[var(--text-primary)] whitespace-nowrap"
+        style={{ fontSize: "clamp(19px, 2vw, 24px)" }}
+      >
+        {label}
+      </h3>
+      <div
+        className="h-px flex-1"
+        style={{ backgroundColor: "var(--border)" }}
+        aria-hidden="true"
+      />
+    </div>
   );
 }
 
@@ -249,7 +361,7 @@ function FeaturedDetail({ item }: { item: FeaturedItem }) {
           className="mt-2 inline-flex w-fit items-center gap-2 rounded-[12px] border-2 px-6 py-3 font-bold transition-colors"
           style={{ borderColor: item.brandColor, color: item.brandColor }}
         >
-          Explore {item.category === "Experience" ? "experience" : item.category === "Project" ? "projects" : "activities"} →
+          Explore {CATEGORY_EXPLORE_LABEL[item.category]} →
         </Link>
       </div>
     </div>
@@ -273,33 +385,45 @@ export default function FeaturedGrid() {
   }
 
   return (
-    <section className="w-full px-6 md:px-12 lg:px-20 py-2.5" aria-label="Featured work">
+    <section className="w-full px-6 md:px-12 lg:px-20 py-2.5" aria-label="Recent work">
       {/* Section heading */}
-      <p
-        className="font-medium text-[var(--text-secondary)] mb-6"
-        style={{ fontSize: "14px" }}
+      <h2
+        className="font-semibold text-[var(--text-primary)] mb-8"
+        style={{ fontSize: "clamp(28px, 3.4vw, 40px)" }}
       >
-        Featured Work
-      </p>
+        Recent Work
+      </h2>
 
-      {/* 3-col desktop / 2-col tablet / 1-col mobile grid */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        {FEATURED_ITEMS.map((item) => (
-          <PillboxCard
-            key={item.id}
-            item={item}
-            onOpen={() => {
-              setDirection(0);
-              setActiveId(item.id);
-            }}
-          />
-        ))}
-      </motion.div>
+      {/* One 3-col desktop / 2-col tablet / 1-col mobile grid per category,
+          each preceded by a labeled divider instead of a per-card badge. */}
+      <div className="flex flex-col gap-12">
+        {CATEGORY_ORDER.map((category) => {
+          const items = FEATURED_ITEMS.filter((item) => item.category === category);
+          if (items.length === 0) return null;
+          return (
+            <div key={category}>
+              <SectionDivider label={CATEGORY_LABEL[category]} />
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
+                {items.map((item) => (
+                  <PillboxCard
+                    key={item.id}
+                    item={item}
+                    onOpen={() => {
+                      setDirection(0);
+                      setActiveId(item.id);
+                    }}
+                  />
+                ))}
+              </motion.div>
+            </div>
+          );
+        })}
+      </div>
 
       {/* ── Enlarged detail lightbox ──────────────────────────────────────── */}
       <Lightbox
