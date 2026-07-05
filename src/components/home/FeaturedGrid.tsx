@@ -385,7 +385,7 @@ export default function FeaturedGrid() {
   }
 
   return (
-    <section className="w-full px-6 md:px-12 lg:px-20 py-2.5" aria-label="Recent work">
+    <section className="w-full px-8 md:px-16 lg:px-24 py-2.5" aria-label="Recent work">
       {/* Section heading */}
       <h2
         className="font-semibold text-[var(--text-primary)] mb-8"

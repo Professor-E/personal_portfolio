@@ -7,11 +7,14 @@
  * The list is doubled so the CSS animation loops seamlessly.
  */
 
-// Companies and institutions worked at — names + brand colors from constants.ts
+// Companies and institutions worked at — names + brand colors from constants.ts.
+// Handshake is the one deliberate exception: constants.ts / the Experience page
+// use #7FA000, but the marquee uses Handshake's actual trademark "Voltage Lime"
+// (#D3FB52) since this text is purely on display here.
 const COMPANIES = [
   { name: "Akamai Technologies",          color: "#009BDE" },
   { name: "Y Combinator / Jam It!",       color: "#FF6600" },
-  { name: "Handshake AI Fellowship",      color: "#7FA000" },
+  { name: "Handshake AI Fellowship",      color: "#D3FB52" },
   { name: "Hamilton Broadcast Eng.",      color: "#1A1A2E" },
   { name: "MIT",                          color: "#A31F34" },
   { name: "Argonne National Laboratory",  color: "#004B87" },
@@ -35,8 +38,9 @@ export default function CompanyScroll() {
               className="font-medium whitespace-nowrap px-10"
               style={{
                 fontSize: "clamp(18px, 2.5vw, 32px)",
+                // Full-opacity brand color — matches the Experience page exactly
+                // (no dimming), rather than blending toward the background.
                 color: company.color,
-                opacity: 0.85,
               }}
             >
               {company.name}
