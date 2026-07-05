@@ -50,31 +50,41 @@ export default function HomePage() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col bg-[var(--background)] pb-8"
           >
-            {/* Hero — delay 0 */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0,
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <HeroSection />
-            </motion.div>
+            {/* ── First viewport — hero centered, marquee pinned to the very
+                bottom of the screen. calc(100vh - 70px) matches the fixed
+                navbar offset (see globals.css `main { padding-top: 70px }`)
+                so this block occupies exactly one full screen, and the user
+                has to scroll to reach "Recent Work" below. ─────────────── */}
+            <div className="flex flex-col" style={{ minHeight: "calc(100vh - 70px)" }}>
+              {/* Hero — delay 0. flex-1 fills the space above the marquee and
+                  centers the hero content vertically within it. */}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0,
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="flex-1 flex items-center justify-center"
+              >
+                <HeroSection />
+              </motion.div>
 
-            {/* Company / institution marquee — delay 0.15s, above featured work */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.15,
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <CompanyScroll />
-            </motion.div>
+              {/* Company / institution marquee — delay 0.15s, pinned to the
+                  bottom of the first viewport, full width. */}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.15,
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <CompanyScroll />
+              </motion.div>
+            </div>
 
             {/* Featured grid — delay 0.3s */}
             <motion.div

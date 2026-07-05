@@ -1,7 +1,5 @@
 {
-  "/experience/page": "app/experience/page.js",
-  "/projects/page": "app/projects/page.js",
-  "/hobbies/page": "app/hobbies/page.js",
-  "/extracurriculars/page": "app/extracurriculars/page.js",
-  "/contact/page": "app/contact/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/home/page": "app/home/page.js",
+  "/projects/page": "app/projects/page.js"
 }

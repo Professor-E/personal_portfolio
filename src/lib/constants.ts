@@ -366,6 +366,7 @@ export const PROJECTS = [
     fullDescription:
       "Built Jingle, a personal AI assistant that combines a large language model with voice input and task automation. It handles natural-language queries, scheduling, reminders, and integrations with everyday tools, with a focus on a fast, conversational interface and extensible command handling.",
     badge: null,
+    imagePath: "/projects/jingle.png",
   },
   {
     id: "penny-hockey",
@@ -379,6 +380,7 @@ export const PROJECTS = [
     fullDescription:
       "Designed and built a wooden penny-hockey board from raw stock, including cutting and finishing the playing surface, rails, and goal slots. The project focused on woodworking, precise measurement, and a smooth, durable finish for fast tabletop gameplay.",
     badge: null,
+    imagePath: "/projects/penny-hockey.png",
   },
   {
     id: "custom-pc",
@@ -392,6 +394,7 @@ export const PROJECTS = [
     fullDescription:
       "Researched, selected, and assembled a custom desktop PC from individual components — CPU, GPU, motherboard, memory, storage, power supply, and cooling. Handled the full build including cable management, BIOS configuration, thermal tuning, and OS setup for a balanced performance and reliability target.",
     badge: null,
+    imagePath: "/projects/custom-pc.png",
   },
 ] as const;
 
