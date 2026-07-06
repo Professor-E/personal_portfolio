@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { Download } from "lucide-react";
 import { EASE_OUT } from "@/lib/motion";
 
 /**
@@ -118,7 +118,7 @@ export default function HeroSection() {
         >
           <a
             href="/resume.pdf"
-            download
+            download="Resume - Dominik Grzeszczak.pdf"
             className="group inline-flex items-center justify-center gap-2 font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 active:translate-y-0 active:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
             style={{
               backgroundColor: "var(--accent)",
@@ -132,12 +132,11 @@ export default function HeroSection() {
             }}
           >
             Download Resume
-            {/* Nudge exceeds the button's -translate-y-0.5 lift so the arrow
-                visibly dips instead of the transforms cancelling out. */}
-            <ArrowDown
+            {/* No extra transform — the icon rides the button's
+                -translate-y-0.5 hover lift so text and icon float up together. */}
+            <Download
               size={18}
               strokeWidth={2.5}
-              className="transition-transform duration-200 group-hover:translate-y-1"
               aria-hidden="true"
             />
           </a>

@@ -84,11 +84,13 @@ export default function HeroSection() {
           }}
         >
           View my work
-          {/* No extra transform — the arrow rides the button's -translate-y-0.5
-              hover lift so text and arrow move up together. */}
+          {/* Dip exceeds the button's -translate-y-0.5 lift so the arrow
+              visibly moves down on hover — a "scroll down" cue. Matches the
+              Download Resume arrow on the About page. */}
           <ArrowDown
             size={18}
             strokeWidth={2.5}
+            className="transition-transform duration-200 group-hover:translate-y-1"
             aria-hidden="true"
           />
         </a>
