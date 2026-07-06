@@ -10,18 +10,11 @@ interface ActivityCardProps {
   onOpen: () => void;
 }
 
-// No dedicated tertiary / border-secondary tokens exist — derive them from the
-// secondary tokens exactly like the Projects page so the two pages stay visually
-// in sync while still tracking light/dark mode.
-const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
-const BORDER_SECONDARY =
-  "color-mix(in srgb, var(--text-secondary) 45%, var(--border))";
-
 // Entry / exit variants drive the staggered list-in and filter-out. The parent
 // list owns the stagger via staggerChildren.
 const entryVariants = {
   hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
@@ -49,7 +42,7 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
       )}
       style={{ backgroundColor: "var(--surface)", borderColor: "var(--border)" }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = BORDER_SECONDARY;
+        e.currentTarget.style.borderColor = "var(--border-strong)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)";
@@ -93,7 +86,7 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
           </h3>
           <span
             className="mt-0.5 flex-shrink-0 text-[11px] leading-none"
-            style={{ color: TEXT_TERTIARY }}
+            style={{ color: "var(--text-tertiary)" }}
           >
             {activity.dateRange}
           </span>
@@ -134,7 +127,7 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
               <span
                 key={`${stat.value}-${stat.label}`}
                 className="text-[11px] leading-none"
-                style={{ color: TEXT_TERTIARY }}
+                style={{ color: "var(--text-tertiary)" }}
               >
                 <span className="font-medium text-[var(--text-secondary)]">
                   {stat.value}
@@ -150,7 +143,7 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
           className="mt-4 flex items-center justify-between border-t pt-3"
           style={{ borderColor: "var(--border)" }}
         >
-          <span className="text-[11px] leading-none" style={{ color: TEXT_TERTIARY }}>
+          <span className="text-[11px] leading-none" style={{ color: "var(--text-tertiary)" }}>
             {activity.category}
           </span>
 

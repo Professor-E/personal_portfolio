@@ -35,7 +35,7 @@ export default function FilterPills({ active, onChange, options }: FilterPillsPr
               "border-[0.5px] transition-colors duration-150",
               isActive
                 ? "border-transparent text-white"
-                : "border-[color-mix(in_srgb,var(--text-secondary)_45%,var(--border))] text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--text-primary)]"
+                : "border-[var(--border-strong)] text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--text-primary)]"
             )}
             style={isActive ? { backgroundColor: "var(--accent)" } : undefined}
           >

@@ -8,12 +8,6 @@ interface FilterPillsProps {
   options: string[];
 }
 
-// "border-secondary" — a slightly stronger hairline than the faint default
-// --border, derived the same way the Projects page does so both pages share
-// one visual language without a dedicated token existing.
-const BORDER_SECONDARY =
-  "color-mix(in srgb, var(--text-secondary) 45%, var(--border))";
-
 /**
  * FilterPills — category filter row for the Extracurriculars page. Kept separate
  * from the Projects pills so each page can be styled and extended independently.
@@ -45,7 +39,7 @@ export default function FilterPills({ active, onChange, options }: FilterPillsPr
             style={
               isActive
                 ? { backgroundColor: "var(--accent)" }
-                : { borderColor: BORDER_SECONDARY }
+                : { borderColor: "var(--border-strong)" }
             }
           >
             {option}

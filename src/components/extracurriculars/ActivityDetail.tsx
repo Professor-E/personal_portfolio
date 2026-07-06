@@ -2,8 +2,6 @@
 
 import type { Extracurricular } from "@/lib/constants";
 
-const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
-
 /**
  * Full activity detail rendered inside the enlarged lightbox. Mirrors the
  * card's visual language (accent icon + roles) so the shared-layout enlarge
@@ -48,7 +46,7 @@ export default function ActivityDetail({ activity }: { activity: Extracurricular
           >
             {activity.name}
           </h2>
-          <span className="text-[13px] leading-none" style={{ color: TEXT_TERTIARY }}>
+          <span className="text-[13px] leading-none" style={{ color: "var(--text-tertiary)" }}>
             {activity.dateRange} · {activity.category}
           </span>
 
@@ -93,7 +91,7 @@ export default function ActivityDetail({ activity }: { activity: Extracurricular
               >
                 {stat.value}
               </span>
-              <span className="text-[13px] leading-snug" style={{ color: TEXT_TERTIARY }}>
+              <span className="text-[13px] leading-snug" style={{ color: "var(--text-tertiary)" }}>
                 {stat.label}
               </span>
             </div>

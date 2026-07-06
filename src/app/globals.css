@@ -80,6 +80,21 @@ html.intro-pending #intro-splash {
 }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
+
+  /* Site-wide: neutralize scroll smoothing plus (nearly) all CSS transitions
+     and animations for users who request reduced motion, without breaking
+     layout-affecting one-off animations (Framer Motion handles its own
+     reduced-motion behavior separately via useReducedMotion where used). */
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ── Scrollbar styling ────────────────────────────────────────────────────── */

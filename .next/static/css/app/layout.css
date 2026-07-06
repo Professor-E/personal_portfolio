@@ -273,9 +273,11 @@
   --surface:        #ffffff;
   --text-primary:   #1a1a1a;
   --text-secondary: #5f5e5a;
+  --text-tertiary:  color-mix(in srgb, var(--text-secondary) 70%, transparent);
   --accent:         #0a6cff;
   --accent-hover:   #0c447c;
   --border:         #e8e7e2;
+  --border-strong:  color-mix(in srgb, var(--text-secondary) 45%, var(--border));
 
   /* Typography — Font Family */
   --font-inter: "Inter", sans-serif;
@@ -338,9 +340,11 @@
   --surface:        #1c1c1b;
   --text-primary:   #f5f5f0;
   --text-secondary: #a09e99;
+  --text-tertiary:  color-mix(in srgb, var(--text-secondary) 70%, transparent);
   --accent:         #3d8bff;
   --accent-hover:   #60a5fa;
   --border:         #2e2e2b;
+  --border-strong:  color-mix(in srgb, var(--text-secondary) 45%, var(--border));
 }
 
 /*!*****************************************************************************************************************************************************************************************************************************************************************!*\
@@ -1128,9 +1132,6 @@ main {
 .h-\[162px\]{
   height: 162px;
 }
-.h-\[240px\]{
-  height: 240px;
-}
 .h-\[2px\]{
   height: 2px;
 }
@@ -1448,11 +1449,11 @@ main {
 .border-t{
   border-top-width: 1px;
 }
-.border-\[color-mix\(in_srgb\2c var\(--text-secondary\)_45\%\2c var\(--border\)\)\]{
-  border-color: color-mix(in srgb,var(--text-secondary) 45%,var(--border));
-}
 .border-\[var\(--border\)\]{
   border-color: var(--border);
+}
+.border-\[var\(--border-strong\)\]{
+  border-color: var(--border-strong);
 }
 .border-transparent{
   border-color: transparent;
@@ -1647,9 +1648,6 @@ main {
 }
 .pt-\[70px\]{
   padding-top: 70px;
-}
-.pb-12{
-  padding-bottom: 3rem;
 }
 .text-center{
   text-align: center;
@@ -1957,6 +1955,21 @@ html.intro-pending #intro-splash {
 }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
+
+  /* Site-wide: neutralize scroll smoothing plus (nearly) all CSS transitions
+     and animations for users who request reduced motion, without breaking
+     layout-affecting one-off animations (Framer Motion handles its own
+     reduced-motion behavior separately via useReducedMotion where used). */
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ── Scrollbar styling ────────────────────────────────────────────────────── */
@@ -2147,10 +2160,6 @@ html.intro-pending #intro-splash {
     display: none;
   }
 
-  .md\:h-\[480px\]{
-    height: 480px;
-  }
-
   .md\:w-\[212px\]{
     width: 212px;
   }
@@ -2195,11 +2204,6 @@ html.intro-pending #intro-splash {
     gap: 60px;
   }
 
-  .md\:px-12{
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-
   .md\:px-16{
     padding-left: 4rem;
     padding-right: 4rem;
@@ -2239,11 +2243,6 @@ html.intro-pending #intro-splash {
 
   .lg\:grid-cols-3{
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .lg\:px-20{
-    padding-left: 5rem;
-    padding-right: 5rem;
   }
 
   .lg\:px-24{

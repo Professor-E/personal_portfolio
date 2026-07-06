@@ -25,7 +25,7 @@ export default function HeroSection() {
         className="shrink-0"
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Layered soft glow behind the image */}
         <div
@@ -71,8 +71,8 @@ export default function HeroSection() {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.5, ease: "easeOut" }}
-          className="font-bold text-[var(--text-primary)]"
+          transition={{ delay: 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="font-medium text-[var(--text-primary)]"
           style={{ fontSize: "clamp(28px, 3.5vw, 48px)", lineHeight: "normal" }}
         >
           Electrical Engineer, Computer Scientist, Builder, and Problem
@@ -83,7 +83,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: 48 }}
-          transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
+          transition={{ delay: 0.4, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="my-4 rounded-full"
           style={{ height: "2px", backgroundColor: "var(--accent)" }}
           aria-hidden="true"
@@ -93,7 +93,7 @@ export default function HeroSection() {
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.5, ease: "easeOut" }}
+          transition={{ delay: 0.35, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="font-normal text-[var(--text-secondary)] max-w-[597px]"
           style={{ fontSize: "18px", lineHeight: 1.6 }}
         >
@@ -109,7 +109,7 @@ export default function HeroSection() {
           href="/resume.pdf"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45, duration: 0.5, ease: "easeOut" }}
+          transition={{ delay: 0.45, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center justify-center font-medium text-white transition-opacity hover:opacity-85 active:opacity-75 mt-6"
           style={{
             backgroundColor: "var(--text-primary)",

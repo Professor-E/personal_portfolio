@@ -44,8 +44,8 @@ export default function SkillsSection() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="font-bold text-[var(--text-primary)]"
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="font-semibold text-[var(--text-primary)]"
         style={{ fontSize: "32px", lineHeight: "normal" }}
       >
         Skills &amp; Tools
@@ -62,7 +62,7 @@ export default function SkillsSection() {
           <div key={label}>
             <motion.p
               variants={itemVariants}
-              transition={{ delay: rowIdx * 0.08, duration: 0.4, ease: "easeOut" }}
+              transition={{ delay: rowIdx * 0.08, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)] mb-2"
             >
               {label}
@@ -75,7 +75,7 @@ export default function SkillsSection() {
                   transition={{
                     delay: rowIdx * 0.08 + pillIdx * 0.025,
                     duration: 0.35,
-                    ease: "easeOut",
+                    ease: [0.22, 1, 0.36, 1],
                   }}
                   whileHover={{
                     scale: 1.05,

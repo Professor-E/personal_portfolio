@@ -4,13 +4,9 @@ import { motion } from "framer-motion";
 import { HOBBIES } from "@/lib/constants";
 import HobbyRow from "@/components/hobbies/HobbyRow";
 
-// No dedicated --text-tertiary token exists; derive a muted tone from the
-// secondary token so it still tracks light/dark mode (matches other pages).
-const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
-
 const headingVariants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const listVariants = {
@@ -32,7 +28,7 @@ export default function HobbiesPage() {
         >
           <p
             className="font-medium uppercase tracking-widest"
-            style={{ fontSize: "12px", color: TEXT_TERTIARY }}
+            style={{ fontSize: "12px", color: "var(--text-tertiary)" }}
           >
             Outside of work
           </p>

@@ -60,7 +60,7 @@ function MobileDotNav({
 // ── Page entry animation ───────────────────────────────────────────────────────
 const pageVariants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -346,7 +346,7 @@ export default function ExperiencePage() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: revealCards ? 1 : 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         aria-hidden="true"
       >
         <p
@@ -384,7 +384,7 @@ export default function ExperiencePage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={revealCards ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="relative md:sticky md:top-[94px] z-10 pointer-events-none"
         style={{ overflow: "visible" }}
       >

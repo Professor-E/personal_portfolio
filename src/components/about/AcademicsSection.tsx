@@ -48,8 +48,8 @@ export default function AcademicsSection() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="font-bold text-[var(--text-primary)]"
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="font-semibold text-[var(--text-primary)]"
         style={{ fontSize: "32px", lineHeight: "normal" }}
       >
         Academics
@@ -65,7 +65,7 @@ export default function AcademicsSection() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.12, duration: 0.5, ease: "easeOut" }}
+            transition={{ delay: i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Inner wrapper: hover scale only (spring) */}
             <motion.div

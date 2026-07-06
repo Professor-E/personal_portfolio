@@ -55,7 +55,7 @@ const SOCIAL = [
 const NAV_LINKS = [
   { label: "Experience",        href: "/experience" },
   { label: "Projects",          href: "/projects" },
-  { label: "Extracurriculars",  href: "/activities" },
+  { label: "Extracurriculars",  href: "/extracurriculars" },
   { label: "Hobbies",           href: "/hobbies" },
   { label: "About Me",          href: "/about" },
 ] as const;

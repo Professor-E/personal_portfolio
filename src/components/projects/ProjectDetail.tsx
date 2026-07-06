@@ -3,8 +3,6 @@
 import Image from "next/image";
 import type { Project } from "@/lib/constants";
 
-const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
-
 /**
  * Full project detail rendered inside the enlarged lightbox. Mirrors the card's
  * visual language (color header + monogram) so the shared-layout enlarge reads
@@ -59,7 +57,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
           >
             {project.category}
           </span>
-          <span className="font-medium leading-none" style={{ fontSize: "13px", color: TEXT_TERTIARY }}>
+          <span className="font-medium leading-none" style={{ fontSize: "13px", color: "var(--text-tertiary)" }}>
             {project.year}
           </span>
         </div>

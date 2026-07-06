@@ -149,7 +149,7 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
                 <div className="flex-1 flex flex-col gap-2">
                   {/* Company name — H2, bold */}
                   <h2
-                    className="font-bold text-[var(--text-primary)] leading-tight"
+                    className="font-semibold text-[var(--text-primary)] leading-tight"
                     style={{
                       fontSize: "clamp(20px, 2.4vw, 32px)",
                       wordBreak: "break-word",

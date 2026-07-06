@@ -6,6 +6,8 @@ import { ArrowRight } from "lucide-react";
 /**
  * Hero section — Figma node 616:505
  * Layout: flex-col items-center justify-center, min-h-492px
+ * Horizontal padding: px-8 md:px-16 lg:px-24 — sitewide standard (Projects page
+ * reference), matching FeaturedGrid directly below on this same page.
  */
 export default function HeroSection() {
   return (
@@ -18,7 +20,7 @@ export default function HeroSection() {
           down slightly from the original 64px cap so the line breaks cleanly
           into exactly two balanced lines ("…and practice." on line two). */}
       <h1
-        className="font-medium text-[var(--text-primary)] text-center leading-[1.05] max-w-[1250px] px-6"
+        className="font-medium text-[var(--text-primary)] text-center leading-[1.05] max-w-[1250px] px-8 md:px-16 lg:px-24"
         style={{ fontSize: "clamp(30px, 5vw, 58px)", textWrap: "balance" }}
       >
         Hello, I&apos;m Dominik — I build things{" "}
@@ -29,7 +31,7 @@ export default function HeroSection() {
       {/* ── Subtitle ──────────────────────────────────────────────────── */}
       {/* Body-large: regular weight, relaxed leading for a calm, minimal feel */}
       <p
-        className="font-normal text-[var(--text-secondary)] text-center max-w-[620px] px-6 md:px-12 lg:px-20"
+        className="font-normal text-[var(--text-secondary)] text-center max-w-[620px] px-8 md:px-16 lg:px-24"
         style={{ fontSize: "clamp(16px, 1.6vw, 20px)", lineHeight: 1.6 }}
       >
         Electronics, software, and a constant quench for knowledge. Here&apos;s

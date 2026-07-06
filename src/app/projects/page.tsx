@@ -11,13 +11,9 @@ import Lightbox from "@/components/common/Lightbox";
 
 const FILTER_OPTIONS = ["All", "Hardware", "Software", "Research"];
 
-// No dedicated --text-tertiary token exists; derive a muted tone from the
-// secondary token so it still tracks light/dark mode.
-const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
-
 const headingVariants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const gridVariants = {
@@ -62,7 +58,7 @@ export default function ProjectsPage() {
         >
           <p
             className="font-medium uppercase tracking-widest"
-            style={{ fontSize: "12px", color: TEXT_TERTIARY }}
+            style={{ fontSize: "12px", color: "var(--text-tertiary)" }}
           >
             What I&apos;ve built
           </p>

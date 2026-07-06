@@ -15,12 +15,8 @@ interface ProjectCardProps {
 // compete. The parent grid drives the stagger via staggerChildren.
 const cardVariants = {
   hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } },
 };
-
-// No dedicated --text-tertiary token exists; derive a muted tone from the
-// secondary token so it still tracks light/dark mode.
-const TEXT_TERTIARY = "color-mix(in srgb, var(--text-secondary) 70%, transparent)";
 
 export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
   const imagePath = "imagePath" in project ? project.imagePath : undefined;
@@ -129,7 +125,7 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
         <div className="mt-auto flex items-center justify-between">
           <span
             className="font-medium leading-none"
-            style={{ fontSize: "11px", color: TEXT_TERTIARY }}
+            style={{ fontSize: "11px", color: "var(--text-tertiary)" }}
           >
             {project.year}
           </span>

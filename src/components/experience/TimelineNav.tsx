@@ -30,7 +30,7 @@ export default function TimelineNav({ entries, activeIndex, onDotClick, visible 
     <motion.nav
       initial={{ opacity: 0, y: "-50%" }}
       animate={{ opacity: visible ? 1 : 0, y: "-50%" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className="hidden md:flex fixed z-30 flex-col items-center gap-5"
       style={{
         left: "24px",

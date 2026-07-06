@@ -3,7 +3,6 @@
 import HeroSection from "./HeroSection";
 import AcademicsSection from "./AcademicsSection";
 import SkillsSection from "./SkillsSection";
-import MemoriesSection from "./MemoriesSection";
 
 /**
  * AboutPage — main container.
@@ -11,10 +10,9 @@ import MemoriesSection from "./MemoriesSection";
  * Content locked to Figma node 616:669; Skills & Tools added here after being
  * moved off the Experience page. Section order:
  *   1. Hero (Figma) → 2. Skills & Tools (moved) → 3. Academics (Figma)
- *   → 4. Memories (Figma)
  *
  * Each section animates itself (hero on load, the rest via whileInView).
- * Section order: Hero → Skills & Tools → Academics → Memories.
+ * Section order: Hero → Skills & Tools → Academics.
  */
 export default function AboutPage() {
   return (
@@ -23,7 +21,6 @@ export default function AboutPage() {
       <HeroSection />
       <SkillsSection />
       <AcademicsSection />
-      <MemoriesSection />
     </main>
   );
 }

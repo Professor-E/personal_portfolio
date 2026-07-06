@@ -20,7 +20,7 @@ const CHIP_BORDER = "color-mix(in srgb, var(--text-secondary) 30%, var(--border)
 
 const rowVariants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
