@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import HeroSection from "@/components/home/HeroSection";
 import CompanyScroll from "@/components/home/CompanyScroll";
 import FeaturedGrid from "@/components/home/FeaturedGrid";
+import { EASE_OUT } from "@/lib/motion";
 
 // Load IntroAnimation client-only (uses sessionStorage + Framer Motion)
 const IntroAnimation = dynamic(
@@ -47,7 +48,7 @@ export default function HomePage() {
             key="home-content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
             className="flex flex-col bg-[var(--background)] pb-8"
           >
             {/* ── First viewport — hero centered, marquee pinned to the very
@@ -65,7 +66,7 @@ export default function HomePage() {
                 transition={{
                   delay: 0,
                   duration: 0.6,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: EASE_OUT,
                 }}
                 className="flex-1 flex items-center justify-center"
               >
@@ -80,7 +81,7 @@ export default function HomePage() {
                 transition={{
                   delay: 0.15,
                   duration: 0.6,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: EASE_OUT,
                 }}
               >
                 <CompanyScroll />

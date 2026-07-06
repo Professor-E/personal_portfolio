@@ -104,11 +104,13 @@ function Field({ id, label, error, shakeKey, children }: FieldProps) {
 }
 
 // ── Shared input base style ────────────────────────────────────────────────────
-// h-12 (48px) for text inputs — achieved via explicit height on the element
+// h-12 (48px) for text inputs — achieved via explicit height on the element.
+// Rest state: quiet background fill + hairline border; focus swaps to the
+// surface color with an accent border + soft ring (see focusStyle below).
 const inputBaseStyle: React.CSSProperties = {
-  backgroundColor: "color-mix(in srgb, var(--text-secondary) 15%, var(--background))",
-  border: "1px solid transparent",
-  borderRadius: "8px",
+  backgroundColor: "var(--background)",
+  border: "1px solid var(--border)",
+  borderRadius: "10px",
   padding: "0 14px",
   fontSize: "16px",
   fontFamily: "inherit",
@@ -131,7 +133,7 @@ const textareaBaseStyle: React.CSSProperties = {
 const focusStyle: React.CSSProperties = {
   borderColor: "var(--accent)",
   backgroundColor: "var(--surface)",
-  boxShadow: "0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent)",
+  boxShadow: "0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent)",
 };
 
 // ── ContactForm ────────────────────────────────────────────────────────────────
@@ -329,17 +331,19 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={disabled}
-          className="flex items-center justify-center font-bold text-white w-full transition-opacity mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]"
+          className="flex items-center justify-center font-bold text-white w-full transition-all duration-200 mt-6 hover:opacity-95 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]"
           style={{
             backgroundColor: "var(--accent)",
-            borderRadius: "20px",
+            borderRadius: "12px",
             height: "48px",
-            fontSize: "18px",
+            fontSize: "16px",
             letterSpacing: "0.3px",
             border: "none",
             cursor: disabled ? "not-allowed" : "pointer",
             opacity: disabled ? 0.7 : 1,
             flexShrink: 0,
+            boxShadow:
+              "0 8px 20px -8px color-mix(in srgb, var(--accent) 55%, transparent)",
           }}
         >
           {isLoading ? (

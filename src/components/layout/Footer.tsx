@@ -114,7 +114,7 @@ export default function Footer() {
 
         {/* ── Center column — Navigate (Figma node 627:371) ────────────── */}
         {/* w-[212px] h-[162px] p-[10px] justify-between in Figma */}
-        <div className="flex flex-col gap-2.5 md:w-[212px]">
+        <div className="flex flex-col gap-3 md:w-[212px]">
           {/* Heading — Figma node 627:372: Inter Bold 14px, text-primary */}
           <p
             className="font-bold leading-none"
@@ -137,7 +137,7 @@ export default function Footer() {
 
         {/* ── Right column — Get in touch (Figma node 627:378) ─────────── */}
         {/* h-[87px] p-[10px] justify-between in Figma */}
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col gap-3">
           {/* Heading — Figma node 627:379: Inter Bold 14px, text-primary */}
           <p
             className="font-bold leading-none"
@@ -167,7 +167,7 @@ export default function Footer() {
       {/* px-[24px] py-[10px], flex items-center justify-between           */}
       {/* Figma shows NO divider between columns and this strip — no border */}
       <div
-        className="max-w-[1440px] mx-auto px-6 py-2.5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3"
+        className="max-w-[1440px] mx-auto px-6 pt-2.5 pb-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3"
       >
         {/* Copyright — Figma node 627:383: Inter Medium 12px, text-secondary */}
         <p

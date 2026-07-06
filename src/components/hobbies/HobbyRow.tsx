@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Hobby } from "@/lib/constants";
+import { fadeUp } from "@/lib/motion";
 
 interface HobbyRowProps {
   hobby: Hobby;
@@ -14,17 +15,10 @@ interface HobbyRowProps {
 const IMAGE_GRADIENT =
   "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 45%, transparent 100%)";
 
-// The site has a single --border token; nudge it toward text-secondary so the
-// chip outlines read as slightly stronger than the divider rules.
-const CHIP_BORDER = "color-mix(in srgb, var(--text-secondary) 30%, var(--border))";
-
 // Rows already on screen when the page loads (even partially cut off) fade in
 // immediately; rows further down fade in — all together, no stagger — the
 // moment they're scrolled into view (see `whileInView` below).
-const rowVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
-};
+const rowVariants = fadeUp;
 
 export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
   // Odd-indexed entries flip the image to the right (desktop only).
@@ -45,13 +39,13 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
       variants={rowVariants}
     >
       <div
-        className={`mb-8 flex flex-col gap-6 sm:flex-row ${
+        className={`flex flex-col gap-6 sm:flex-row sm:gap-10 ${
           imageRight ? "sm:flex-row-reverse" : ""
         }`}
       >
         {/* ── Image card ─────────────────────────────────────────────────── */}
         <div
-          className="relative h-[320px] w-full overflow-hidden rounded-2xl sm:w-[52%]"
+          className="relative h-[320px] w-full overflow-hidden rounded-2xl sm:w-[52%] shadow-[var(--shadow-md)]"
           style={{ backgroundColor: cardBackground }}
         >
           {/* Inner content scales on hover; the container clips it (no layout
@@ -113,7 +107,7 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
 
           <h2
             className="mb-2 font-medium leading-snug text-[var(--text-primary)]"
-            style={{ fontSize: "22px" }}
+            style={{ fontSize: "24px" }}
           >
             {hobby.name}
           </h2>
@@ -126,30 +120,16 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
           </p>
 
           <p
-            className="mb-5 leading-relaxed text-[var(--text-secondary)]"
+            className="leading-relaxed text-[var(--text-secondary)]"
             style={{ fontSize: "14px" }}
           >
             {hobby.description}
           </p>
-
-          {hobby.chips.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {hobby.chips.map((chip) => (
-                <span
-                  key={chip}
-                  className="rounded-full border px-3 py-1 text-[var(--text-secondary)]"
-                  style={{ fontSize: "11px", borderColor: CHIP_BORDER }}
-                >
-                  {chip}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
       {!isLast && (
-        <hr className="my-8 border-t" style={{ borderColor: "var(--border)" }} />
+        <hr className="my-10 border-t" style={{ borderColor: "var(--border)" }} />
       )}
     </motion.div>
   );

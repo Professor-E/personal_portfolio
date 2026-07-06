@@ -12,7 +12,7 @@ import SkillsSection from "./SkillsSection";
  *   1. Hero (Figma) → 2. Skills & Tools (moved) → 3. Academics (Figma)
  *
  * Each section animates itself (hero on load, the rest via whileInView).
- * Section order: Hero → Skills & Tools → Academics.
+ * No page-level title header — the hero heading leads the page directly.
  */
 export default function AboutPage() {
   return (

@@ -3,11 +3,9 @@
 import { motion } from "framer-motion";
 import { HOBBIES } from "@/lib/constants";
 import HobbyRow from "@/components/hobbies/HobbyRow";
+import { fadeUp } from "@/lib/motion";
 
-const headingVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
+const headingVariants = fadeUp;
 
 export default function HobbiesPage() {
   return (
@@ -30,7 +28,10 @@ export default function HobbiesPage() {
 
           <h1
             className="mt-3 font-medium leading-none text-[var(--text-primary)]"
-            style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
+            style={{
+              fontSize: "clamp(36px, 5vw, 64px)",
+              letterSpacing: "var(--tracking-display)",
+            }}
           >
             Hobbies
           </h1>

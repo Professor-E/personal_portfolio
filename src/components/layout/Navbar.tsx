@@ -2,17 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 /**
- * Navbar — Figma node 627:340
+ * Navbar — Figma node 627:340, elevated to a frosted liquid-glass bar.
  *
  * Height:      70px
- * Background:  var(--background, #fafaf7) — solid, no blur, no border, no shadow
+ * Background:  translucent var(--background) + backdrop blur (frosted glass)
+ * Border:      hairline var(--border) bottom edge — fades in after ~8px scroll
  * Logo:        "Dominik Grzeszczak" — Inter SemiBold 18px, var(--text-primary)
  * Tabs:        Inter Medium 16px — default var(--text-secondary), active var(--accent)
  * Tab gap:     24px
@@ -34,6 +35,17 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Hairline bottom border appears only once the page is scrolled, so the bar
+  // reads as part of the page at rest and as a frosted layer once content
+  // slides beneath it.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   function isActive(href: string) {
     if (href === "/") return pathname === "/" || pathname === "/home";
@@ -42,11 +54,14 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Fixed navbar bar ─────────────────────────────────────────────── */}
-      {/* Figma: h-70px, bg:var(--background), px-24px, no border, no shadow */}
+      {/* ── Fixed navbar bar — frosted glass over the scrolling page ──────── */}
       <nav
-        className="fixed top-0 left-0 right-0 z-50 h-[70px]"
-        style={{ backgroundColor: "var(--background)" }}
+        className="fixed top-0 left-0 right-0 z-50 h-[70px] backdrop-blur-md transition-[border-color] duration-300"
+        style={{
+          backgroundColor: "color-mix(in srgb, var(--background) 80%, transparent)",
+          borderBottom: "1px solid",
+          borderBottomColor: scrolled ? "var(--border)" : "transparent",
+        }}
       >
         <div className="flex items-center justify-between h-full px-6 max-w-[1440px] mx-auto">
 

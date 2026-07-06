@@ -84,5 +84,16 @@ export const spacing = {
   "3xl": "64px",
 } as const;
 
-export const tokens = { colors, typography, radius, spacing } as const;
+// ── Additive tokens (post-Figma) — mirrors the additive block in tokens.css ──
+export const shadows = {
+  sm: "0 1px 2px rgba(0, 0, 0, 0.04)",
+  md: "0 1px 2px rgba(0, 0, 0, 0.04), 0 6px 20px rgba(0, 0, 0, 0.07)",
+  lg: "0 2px 4px rgba(0, 0, 0, 0.06), 0 14px 32px rgba(0, 0, 0, 0.12)",
+} as const;
+
+export const tracking = {
+  display: "-0.02em",
+} as const;
+
+export const tokens = { colors, typography, radius, spacing, shadows, tracking } as const;
 export type Tokens = typeof tokens;

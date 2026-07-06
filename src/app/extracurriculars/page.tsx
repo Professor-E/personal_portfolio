@@ -8,6 +8,7 @@ import ActivityCard from "@/components/extracurriculars/ActivityCard";
 import ActivityDetail from "@/components/extracurriculars/ActivityDetail";
 import FilterPills from "@/components/extracurriculars/FilterPills";
 import Lightbox from "@/components/common/Lightbox";
+import { fadeUp } from "@/lib/motion";
 
 const FILTER_OPTIONS = [
   "All",
@@ -16,10 +17,7 @@ const FILTER_OPTIONS = [
   "Community & Volunteering",
 ];
 
-const headingVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
+const headingVariants = fadeUp;
 
 export default function ExtracurricularsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
@@ -66,7 +64,10 @@ export default function ExtracurricularsPage() {
 
           <h1
             className="mt-3 font-medium leading-none text-[var(--text-primary)]"
-            style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
+            style={{
+              fontSize: "clamp(36px, 5vw, 64px)",
+              letterSpacing: "var(--tracking-display)",
+            }}
           >
             Extracurriculars
           </h1>

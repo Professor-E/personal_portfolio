@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { EASE_OUT } from "@/lib/motion";
 
 /**
  * Academics section — content locked to Figma node 616:680 (text verbatim).
@@ -48,7 +49,7 @@ export default function AcademicsSection() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.7, ease: EASE_OUT }}
         className="font-semibold text-[var(--text-primary)]"
         style={{ fontSize: "32px", lineHeight: "normal" }}
       >
@@ -65,7 +66,7 @@ export default function AcademicsSection() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: i * 0.12, duration: 0.7, ease: EASE_OUT }}
           >
             {/* Inner wrapper: hover scale only (spring) */}
             <motion.div

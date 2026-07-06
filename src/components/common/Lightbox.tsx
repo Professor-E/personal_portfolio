@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronUp, ChevronDown, X } from "lucide-react";
 
@@ -76,6 +76,34 @@ export default function Lightbox({
   onNext,
   children,
 }: LightboxProps) {
+  // ── Shared-layout attachment ──────────────────────────────────────────────
+  // framer-motion captures `layoutId` at mount, so it can't follow the active
+  // item as the user navigates with the arrows. If we kept the id, closing
+  // after navigation would morph the box back into the ORIGINAL card — the
+  // wrong one. Instead: the box stays attached to the originating card until
+  // the first navigation, then detaches (remounts without a layoutId) and
+  // closes with a plain centered fade. Re-attaches fresh on every open.
+  const [detached, setDetached] = useState(false);
+  const wasOpenRef = useRef(false);
+  const prevKeyRef = useRef(contentKey);
+  const openLayoutIdRef = useRef(layoutId);
+
+  // Render-phase capture on the opening render (before first paint), so the
+  // open morph starts from the correct card and the box is re-attached even
+  // if the previous session ended detached.
+  if (isOpen && !wasOpenRef.current) {
+    openLayoutIdRef.current = layoutId;
+    if (detached) setDetached(false);
+  }
+
+  useEffect(() => {
+    if (isOpen && wasOpenRef.current && prevKeyRef.current !== contentKey) {
+      setDetached(true);
+    }
+    prevKeyRef.current = contentKey;
+    wasOpenRef.current = isOpen;
+  }, [isOpen, contentKey]);
+
   // ── Keyboard: Escape closes, ← / → navigate ──────────────────────────────
   useEffect(() => {
     if (!isOpen) return;
@@ -121,9 +149,18 @@ export default function Lightbox({
             onClick={onClose}
           >
             {/* The enlarging box — shares layoutId with the originating card so
-                it grows smoothly from its previous size to 90% of the viewport. */}
+                it grows smoothly from its previous size to 90% of the viewport.
+                After arrow navigation it detaches (remounts, same fixed rect, so
+                the swap is invisible) and closes with a centered fade instead of
+                morphing back into the wrong card. */}
             <motion.div
-              layoutId={layoutId}
+              key={detached ? "lightbox-detached" : "lightbox-attached"}
+              layoutId={detached ? undefined : openLayoutIdRef.current}
+              exit={
+                detached
+                  ? { opacity: 0, scale: 0.96, transition: { duration: 0.22, ease: "easeOut" } }
+                  : undefined
+              }
               onClick={(e) => e.stopPropagation()}
               transition={{ type: "spring", stiffness: 260, damping: 30 }}
               className="relative overflow-hidden rounded-3xl bg-[var(--surface)] shadow-2xl"

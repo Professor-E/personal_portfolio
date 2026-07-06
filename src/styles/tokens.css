@@ -84,3 +84,26 @@
   --border:         #2e2e2b;
   --border-strong:  color-mix(in srgb, var(--text-secondary) 45%, var(--border));
 }
+
+/* ── Additive tokens (post-Figma; used by non-Experience surfaces only) ───── */
+:root {
+  /* Elevation scale — soft, layered shadows shared by all cards */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.04), 0 6px 20px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.06), 0 14px 32px rgba(0, 0, 0, 0.12);
+
+  /* Negative tracking for large display headings only */
+  --tracking-display: -0.02em;
+
+  /* Skill pill tints (About page) — derived from the accent color */
+  --skill-pill-bg:     color-mix(in srgb, var(--accent) 6%, transparent);
+  --skill-pill-border: color-mix(in srgb, var(--accent) 18%, transparent);
+  --skill-pill-hover:  color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.dark {
+  /* Slightly more opaque pill tints so they stay legible on dark surfaces */
+  --skill-pill-bg:     color-mix(in srgb, var(--accent) 10%, transparent);
+  --skill-pill-border: color-mix(in srgb, var(--accent) 25%, transparent);
+  --skill-pill-hover:  color-mix(in srgb, var(--accent) 16%, transparent);
+}

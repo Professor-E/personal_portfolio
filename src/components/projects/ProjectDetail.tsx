@@ -1,30 +1,56 @@
 "use client";
 
+import Image from "next/image";
 import type { Project } from "@/lib/constants";
 
 /**
  * Full project detail rendered inside the enlarged lightbox.
  *
- * The header is a single, consistent accent-blue band across every project
- * (not the project's own photo) — the photo's aspect ratio never matches the
- * header box, so enlarging it used to read as the picture "shrinking" into a
- * letterboxed frame. A flat, unified brand header plus the project's
- * monogram reads cleaner and ties every enlarged project back to the same
- * site accent used on CTAs and links elsewhere.
+ * When the project has a real photo, the header shows it full-bleed
+ * (object-cover, so it always fills the band — no letterboxing) beneath a
+ * soft bottom gradient that keeps the monogram legible. Projects without a
+ * photo fall back to the flat accent band + monogram.
  */
 export default function ProjectDetail({ project }: { project: Project }) {
+  const imagePath = "imagePath" in project ? project.imagePath : undefined;
+
   return (
     <div className="flex flex-col">
-      {/* Media header — one consistent color across every project */}
+      {/* Media header — real photo when available, accent band otherwise */}
       <div
         className="relative flex items-end overflow-hidden px-6 py-8 sm:px-10 sm:py-12"
-        style={{ backgroundColor: "var(--accent)", minHeight: "180px" }}
+        style={{
+          backgroundColor: "var(--accent)",
+          minHeight: imagePath ? "260px" : "180px",
+        }}
       >
+        {imagePath && (
+          <>
+            <Image
+              src={imagePath}
+              alt={project.title}
+              fill
+              sizes="90vw"
+              className="object-cover"
+              priority
+            />
+            {/* Bottom gradient keeps the overlaid monogram/badge legible */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.12) 45%, transparent 100%)",
+              }}
+              aria-hidden="true"
+            />
+          </>
+        )}
+
         <span className="relative select-none text-6xl font-semibold text-white/85 sm:text-7xl">
           {project.monogram}
         </span>
         {project.badge && (
-          <div className="absolute right-5 top-5 rounded-md bg-black/20 px-3 py-1.5">
+          <div className="absolute right-5 top-5 rounded-md bg-black/25 px-3 py-1.5 backdrop-blur-sm">
             <span className="font-medium tracking-wide text-white" style={{ fontSize: "12px" }}>
               {project.badge}
             </span>

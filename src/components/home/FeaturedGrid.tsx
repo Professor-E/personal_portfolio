@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Lightbox from "@/components/common/Lightbox";
+import { fadeUp } from "@/lib/motion";
 
 /**
  * Recent work grid — Figma node 616:516
@@ -203,14 +204,8 @@ const containerVariants = {
   show: {},
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
+// Canonical site-wide fade + rise entrance (see src/lib/motion.ts).
+const cardVariants = fadeUp;
 
 // ── Single Pillbox card ────────────────────────────────────────────────────────
 function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void }) {
@@ -219,7 +214,7 @@ function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void 
       // Shared layout id — the lightbox box grows out of this exact card.
       layoutId={`featured-${item.id}`}
       variants={cardVariants}
-      whileHover={{ scale: 1.025, transition: { duration: 0.2 } }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
       onClick={onOpen}
       role="button"
       tabIndex={0}
@@ -229,12 +224,12 @@ function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void 
           onOpen();
         }
       }}
-      className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[20px] bg-[var(--surface)] dark:bg-[var(--surface)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+      className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[20px] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-md)] transition-[border-color,box-shadow] duration-200 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       style={{
-        boxShadow: "2px 4px 4px 0px rgba(0,0,0,0.25)",
-        padding: "24px 48px",
-        // On mobile/tablet use natural height; on desktop match Figma 647px
-        minHeight: "clamp(480px, 45vw, 647px)",
+        padding: "24px 28px",
+        // On mobile/tablet use natural height; capped lower than the original
+        // Figma 647px so the cards read lighter and less bulky.
+        minHeight: "clamp(440px, 40vw, 580px)",
       }}
       aria-label={`See more about ${item.title}`}
     >
@@ -272,10 +267,10 @@ function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void 
 
         {/* ── Description block ─────────────────────────────────────────── */}
         <div className="flex flex-col gap-3">
-          {/* Title — Inter Medium 32px (Figma node 616:522) */}
+          {/* Title — Inter Medium, capped at 28px to balance the lighter card */}
           <p
             className="font-medium text-[var(--text-primary)] w-full"
-            style={{ fontSize: "clamp(20px, 2.5vw, 32px)", lineHeight: 1 }}
+            style={{ fontSize: "clamp(20px, 2.2vw, 28px)", lineHeight: 1.15 }}
           >
             {item.title}
           </p>
@@ -300,12 +295,14 @@ function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void 
 }
 
 // ── Row divider — labels each category row instead of the old per-card badge ──
+// Eyebrow treatment mirrors the inner pages' page-header eyebrows for a
+// consistent sitewide rhythm.
 function SectionDivider({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-4 mb-6">
       <h3
-        className="font-semibold text-[var(--text-primary)] whitespace-nowrap"
-        style={{ fontSize: "clamp(19px, 2vw, 24px)" }}
+        className="font-semibold uppercase tracking-widest whitespace-nowrap"
+        style={{ fontSize: "13px", color: "var(--text-secondary)" }}
       >
         {label}
       </h3>
@@ -382,11 +379,19 @@ export default function FeaturedGrid() {
   }
 
   return (
-    <section className="w-full px-8 md:px-16 lg:px-24 py-2.5" aria-label="Recent work">
-      {/* Section heading */}
+    <section
+      id="recent-work"
+      className="w-full px-8 md:px-16 lg:px-24 py-2.5"
+      aria-label="Recent work"
+    >
+      {/* Section heading — medium weight + display tracking, matching the
+          inner pages' title treatment */}
       <h2
-        className="font-semibold text-[var(--text-primary)] mb-8"
-        style={{ fontSize: "clamp(28px, 3.4vw, 40px)" }}
+        className="font-medium text-[var(--text-primary)] mb-8"
+        style={{
+          fontSize: "clamp(28px, 3.4vw, 40px)",
+          letterSpacing: "var(--tracking-display)",
+        }}
       >
         Recent Work
       </h2>

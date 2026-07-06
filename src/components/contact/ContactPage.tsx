@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import ContactInfo from "./ContactInfo";
 import ContactForm from "./ContactForm";
+import { EASE_OUT } from "@/lib/motion";
 
 /**
  * Contact Me page — viewport layout
@@ -35,7 +36,7 @@ const itemVariants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.7, ease: EASE_OUT },
   },
 };
 
@@ -70,6 +71,7 @@ export default function ContactPage() {
             style={{
               fontSize: "clamp(36px, 5vw, 64px)",
               color: "var(--text-primary)",
+              letterSpacing: "var(--tracking-display)",
             }}
           >
             Get in touch
@@ -93,9 +95,9 @@ export default function ContactPage() {
         {/*   overflow-hidden also clips both panels to the rounded corners.  */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col md:flex-row items-stretch w-full max-w-[1100px] mx-auto rounded-[20px] overflow-hidden"
+          className="flex flex-col md:flex-row items-stretch w-full max-w-[1100px] mx-auto rounded-[20px] overflow-hidden border border-[var(--border)]"
           style={{
-            boxShadow: "0px 4px 4px 0px rgba(0,0,0,0.25)",
+            boxShadow: "var(--shadow-lg)",
             maxHeight: "calc(100vh - 70px - 140px)",
           }}
         >

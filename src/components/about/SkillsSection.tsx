@@ -1,11 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { EASE_OUT } from "@/lib/motion";
 
 /**
  * Skills & Tools section — moved here from the Experience page.
  * Organized into labeled rows of pills with a staggered whileInView entrance
  * (0.08s per row, 0.025s per pill within a row) and a spring hover scale.
+ * Pill tint tokens (--skill-pill-*) live in src/styles/tokens.css.
  */
 
 const ROWS = [
@@ -44,7 +46,7 @@ export default function SkillsSection() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.7, ease: EASE_OUT }}
         className="font-semibold text-[var(--text-primary)]"
         style={{ fontSize: "32px", lineHeight: "normal" }}
       >
@@ -62,7 +64,7 @@ export default function SkillsSection() {
           <div key={label}>
             <motion.p
               variants={itemVariants}
-              transition={{ delay: rowIdx * 0.08, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: rowIdx * 0.08, duration: 0.4, ease: EASE_OUT }}
               className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)] mb-2"
             >
               {label}
@@ -75,7 +77,7 @@ export default function SkillsSection() {
                   transition={{
                     delay: rowIdx * 0.08 + pillIdx * 0.025,
                     duration: 0.35,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: EASE_OUT,
                   }}
                   whileHover={{
                     scale: 1.05,
@@ -97,21 +99,6 @@ export default function SkillsSection() {
           </div>
         ))}
       </motion.div>
-
-      {/* Pill tint tokens — derived from the accent color, slightly more
-          opaque in dark mode so they stay legible against the darker surface */}
-      <style>{`
-        :root {
-          --skill-pill-bg: color-mix(in srgb, var(--accent) 6%, transparent);
-          --skill-pill-border: color-mix(in srgb, var(--accent) 18%, transparent);
-          --skill-pill-hover: color-mix(in srgb, var(--accent) 12%, transparent);
-        }
-        .dark {
-          --skill-pill-bg: color-mix(in srgb, var(--accent) 10%, transparent);
-          --skill-pill-border: color-mix(in srgb, var(--accent) 25%, transparent);
-          --skill-pill-hover: color-mix(in srgb, var(--accent) 16%, transparent);
-        }
-      `}</style>
     </section>
   );
 }

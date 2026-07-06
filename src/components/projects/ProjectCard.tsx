@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/constants";
+import { fadeUp } from "@/lib/motion";
 
 interface ProjectCardProps {
   project: Project;
@@ -16,10 +17,7 @@ interface ProjectCardProps {
 // page loads (even partially cut off) fade in immediately; cards further
 // down fade in — all together, no stagger — the moment they're scrolled
 // into view (see `whileInView` below).
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
+const cardVariants = fadeUp;
 
 export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
   const imagePath = "imagePath" in project ? project.imagePath : undefined;
@@ -50,8 +48,8 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
         "group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border",
         "transition-[border-color,box-shadow] duration-200",
         "border-[var(--border)] hover:border-[color-mix(in_srgb,var(--text-secondary)_55%,var(--border))]",
-        "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_20px_rgba(0,0,0,0.07)]",
-        "hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_14px_32px_rgba(0,0,0,0.12)]",
+        "shadow-[var(--shadow-md)]",
+        "hover:shadow-[var(--shadow-lg)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       )}
       style={{ backgroundColor: "var(--surface)" }}
@@ -60,7 +58,7 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
       {/* ── Media block (project photo, or flat color + monogram) ─────────── */}
       <div
         className="relative flex items-center justify-center overflow-hidden rounded-t-2xl transition-all duration-200 group-hover:brightness-105 dark:opacity-[0.85]"
-        style={{ backgroundColor: blockBackground, height: "118px" }}
+        style={{ backgroundColor: blockBackground, height: "150px" }}
         aria-hidden="true"
       >
         {imagePath ? (

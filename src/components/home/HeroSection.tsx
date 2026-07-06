@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowDown } from "lucide-react";
 
 /**
  * Hero section — Figma node 616:505
@@ -21,7 +21,11 @@ export default function HeroSection() {
           into exactly two balanced lines ("…and practice." on line two). */}
       <h1
         className="font-medium text-[var(--text-primary)] text-center leading-[1.05] max-w-[1250px] px-8 md:px-16 lg:px-24"
-        style={{ fontSize: "clamp(30px, 5vw, 58px)", textWrap: "balance" }}
+        style={{
+          fontSize: "clamp(30px, 5vw, 58px)",
+          textWrap: "balance",
+          letterSpacing: "var(--tracking-display)",
+        }}
       >
         Hello, I&apos;m Dominik — I build things{" "}
         <br className="hidden md:block" />
@@ -38,29 +42,45 @@ export default function HeroSection() {
         a look at the work I&apos;m most proud of.
       </p>
 
-      {/* ── CTA Button — compact, refined ─────────────────────────────── */}
-      <Link
-        href="/contact"
-        className="group mt-1 inline-flex items-center justify-center gap-2 font-bold text-[var(--surface)] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 active:translate-y-0 active:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
-        style={{
-          backgroundColor: "var(--accent)",
-          borderRadius: "12px",
-          height: "52px",
-          padding: "0 28px",
-          fontSize: "16px",
-          lineHeight: 1,
-          boxShadow:
-            "0 8px 20px -8px color-mix(in srgb, var(--accent) 55%, transparent)",
-        }}
-      >
-        Get in touch
-        <ArrowRight
-          size={18}
-          strokeWidth={2.5}
-          className="transition-transform duration-200 group-hover:translate-x-0.5"
-          aria-hidden="true"
-        />
-      </Link>
+      {/* ── CTA row — primary button + quiet secondary link ───────────── */}
+      <div className="mt-1 flex flex-col sm:flex-row items-center gap-5 sm:gap-7">
+        <Link
+          href="/contact"
+          className="group inline-flex items-center justify-center gap-2 font-bold text-[var(--surface)] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 active:translate-y-0 active:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+          style={{
+            backgroundColor: "var(--accent)",
+            borderRadius: "12px",
+            height: "52px",
+            padding: "0 28px",
+            fontSize: "16px",
+            lineHeight: 1,
+            boxShadow:
+              "0 8px 20px -8px color-mix(in srgb, var(--accent) 55%, transparent)",
+          }}
+        >
+          Get in touch
+          <ArrowRight
+            size={18}
+            strokeWidth={2.5}
+            className="transition-transform duration-200 group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+        </Link>
+
+        {/* Secondary — quiet text link that scrolls to the Recent Work grid */}
+        <a
+          href="#recent-work"
+          className="group inline-flex items-center gap-1.5 font-medium text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+          style={{ fontSize: "15px", lineHeight: 1 }}
+        >
+          View my work
+          <ArrowDown
+            size={15}
+            className="transition-transform duration-200 group-hover:translate-y-0.5"
+            aria-hidden="true"
+          />
+        </a>
+      </div>
     </section>
   );
 }
