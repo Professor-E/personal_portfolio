@@ -84,12 +84,11 @@ export default function HeroSection() {
           }}
         >
           View my work
-          {/* Nudge must exceed the button's own -translate-y-0.5 hover lift,
-              otherwise the two transforms cancel and the arrow looks frozen. */}
+          {/* No extra transform — the arrow rides the button's -translate-y-0.5
+              hover lift so text and arrow move up together. */}
           <ArrowDown
             size={18}
             strokeWidth={2.5}
-            className="transition-transform duration-200 group-hover:translate-y-1"
             aria-hidden="true"
           />
         </a>
