@@ -11,11 +11,14 @@ interface ProjectCardProps {
   onOpen: () => void;
 }
 
-// Entry / exit variants — kept calm and quick so cards coexist rather than
-// compete. The parent grid drives the stagger via staggerChildren.
+// Same fade+rise shape used for every entrance animation on the site (see
+// `headingVariants` in the page header). Cards already on screen when the
+// page loads (even partially cut off) fade in immediately; cards further
+// down fade in — all together, no stagger — the moment they're scrolled
+// into view (see `whileInView` below).
 const cardVariants = {
-  hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
@@ -28,6 +31,9 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
     <motion.article
       // Shared layout id — the lightbox box grows out of this exact card.
       layoutId={`project-${project.id}`}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: "some" }}
       variants={cardVariants}
       exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.15, ease: "easeOut" } }}
       whileHover={{ y: -4 }}
@@ -41,7 +47,7 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
         }
       }}
       className={cn(
-        "group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border",
+        "group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border",
         "transition-[border-color,box-shadow] duration-200",
         "border-[var(--border)] hover:border-[color-mix(in_srgb,var(--text-secondary)_55%,var(--border))]",
         "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_20px_rgba(0,0,0,0.07)]",

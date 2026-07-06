@@ -57,9 +57,10 @@ export default function HomePage() {
                 has to scroll to reach "Recent Work" below. ─────────────── */}
             <div className="flex flex-col" style={{ minHeight: "calc(100vh - 70px)" }}>
               {/* Hero — delay 0. flex-1 fills the space above the marquee and
-                  centers the hero content vertically within it. */}
+                  centers the hero content vertically within it. Same fade+rise
+                  shape (y: 20, 0.6s) used for every page's entrance animation. */}
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   delay: 0,
@@ -74,7 +75,7 @@ export default function HomePage() {
               {/* Company / institution marquee — delay 0.15s, pinned to the
                   bottom of the first viewport, full width. */}
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   delay: 0.15,
@@ -86,18 +87,10 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-            {/* Featured grid — delay 0.3s */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.3,
-                duration: 0.6,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <FeaturedGrid />
-            </motion.div>
+            {/* Featured grid — no outer wrapper here. FeaturedGrid drives its
+                own reveal per row (fades in on load if already on screen,
+                fades in on scroll otherwise) so it isn't double-animated. */}
+            <FeaturedGrid />
           </motion.div>
         </AnimatePresence>
       ) : (

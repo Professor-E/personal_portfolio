@@ -21,11 +21,6 @@ const headingVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const listVariants = {
-  hidden: {},
-  show: { transition: { delayChildren: 0.2, staggerChildren: 0.06 } },
-};
-
 export default function ExtracurricularsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -114,13 +109,7 @@ export default function ExtracurricularsPage() {
             </p>
           </div>
         ) : (
-          <motion.div
-            layout
-            variants={listVariants}
-            initial="hidden"
-            animate="show"
-            className="flex flex-col gap-4 pb-16"
-          >
+          <motion.div layout className="flex flex-col gap-4 pb-16">
             <AnimatePresence mode="popLayout">
               {filtered.map((activity) => (
                 <ActivityCard

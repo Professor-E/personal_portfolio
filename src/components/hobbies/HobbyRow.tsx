@@ -18,9 +18,12 @@ const IMAGE_GRADIENT =
 // chip outlines read as slightly stronger than the divider rules.
 const CHIP_BORDER = "color-mix(in srgb, var(--text-secondary) 30%, var(--border))";
 
+// Rows already on screen when the page loads (even partially cut off) fade in
+// immediately; rows further down fade in — all together, no stagger — the
+// moment they're scrolled into view (see `whileInView` below).
 const rowVariants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
@@ -35,7 +38,12 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
       : hobby.accentColor;
 
   return (
-    <motion.div variants={rowVariants}>
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: "some" }}
+      variants={rowVariants}
+    >
       <div
         className={`mb-8 flex flex-col gap-6 sm:flex-row ${
           imageRight ? "sm:flex-row-reverse" : ""

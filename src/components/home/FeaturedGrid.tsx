@@ -196,22 +196,19 @@ const FEATURED_ITEMS: FeaturedItem[] = [
   },
 ];
 
-// ── Stagger container for the grid rows ───────────────────────────────────────
+// ── Fade-in container for the grid rows ───────────────────────────────────────
+// All cards in a row fade in together (no stagger) — see `cardVariants` below.
 const containerVariants = {
   hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
+  show: {},
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -403,10 +400,17 @@ export default function FeaturedGrid() {
           return (
             <div key={category}>
               <SectionDivider label={CATEGORY_LABEL[category]} />
+              {/* Each category row fades in together the moment any part of it
+                  is on screen — `amount: "some"` means a row that's already
+                  partially visible when the page loads fades in right away,
+                  and rows further down fade in (all at once, no stagger) as
+                  they're scrolled into view. `once: true` stops it from
+                  re-triggering if the user scrolls back up past it. */}
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
-                animate="show"
+                whileInView="show"
+                viewport={{ once: true, amount: "some" }}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               >
                 {items.map((item) => (

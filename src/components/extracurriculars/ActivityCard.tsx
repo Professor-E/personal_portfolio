@@ -10,11 +10,14 @@ interface ActivityCardProps {
   onOpen: () => void;
 }
 
-// Entry / exit variants drive the staggered list-in and filter-out. The parent
-// list owns the stagger via staggerChildren.
+// Same fade+rise shape used for every entrance animation on the site (see
+// `headingVariants` in the page header). Rows already on screen when the
+// page loads (even partially cut off) fade in immediately; rows further
+// down fade in — all together, no stagger — the moment they're scrolled
+// into view (see `whileInView` below).
 const entryVariants = {
-  hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
@@ -22,6 +25,9 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
     <motion.div
       // Shared layout id — the lightbox box grows out of this exact card.
       layoutId={`activity-${activity.id}`}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: "some" }}
       variants={entryVariants}
       exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.15, ease: "easeOut" } }}
       whileHover={{ y: -4 }}

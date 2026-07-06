@@ -1468,11 +1468,11 @@ main {
 .bg-black\/10{
   background-color: rgb(0 0 0 / 0.1);
 }
+.bg-black\/20{
+  background-color: rgb(0 0 0 / 0.2);
+}
 .bg-black\/25{
   background-color: rgb(0 0 0 / 0.25);
-}
-.bg-black\/40{
-  background-color: rgb(0 0 0 / 0.4);
 }
 .bg-black\/50{
   background-color: rgb(0 0 0 / 0.5);

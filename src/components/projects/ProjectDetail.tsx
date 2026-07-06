@@ -1,42 +1,30 @@
 "use client";
 
-import Image from "next/image";
 import type { Project } from "@/lib/constants";
 
 /**
- * Full project detail rendered inside the enlarged lightbox. Mirrors the card's
- * visual language (color header + monogram) so the shared-layout enlarge reads
- * as the same element growing, then reveals the full description.
+ * Full project detail rendered inside the enlarged lightbox.
+ *
+ * The header is a single, consistent accent-blue band across every project
+ * (not the project's own photo) — the photo's aspect ratio never matches the
+ * header box, so enlarging it used to read as the picture "shrinking" into a
+ * letterboxed frame. A flat, unified brand header plus the project's
+ * monogram reads cleaner and ties every enlarged project back to the same
+ * site accent used on CTAs and links elsewhere.
  */
 export default function ProjectDetail({ project }: { project: Project }) {
-  const imagePath = "imagePath" in project ? project.imagePath : undefined;
-  // Image headers show the full photo (object-contain) on the site's off-white
-  // backdrop; only the monogram fallback keeps the flat accent color.
-  const headerBackground = imagePath ? "var(--background)" : project.accentColor;
-
   return (
     <div className="flex flex-col">
-      {/* Media header — matches the card's block so the enlarge is seamless */}
+      {/* Media header — one consistent color across every project */}
       <div
         className="relative flex items-end overflow-hidden px-6 py-8 sm:px-10 sm:py-12"
-        style={{ backgroundColor: headerBackground, minHeight: "180px" }}
+        style={{ backgroundColor: "var(--accent)", minHeight: "180px" }}
       >
-        {imagePath ? (
-          <Image
-            src={imagePath}
-            alt={project.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="object-contain"
-            priority
-          />
-        ) : (
-          <span className="relative select-none text-6xl font-semibold text-white/85 sm:text-7xl">
-            {project.monogram}
-          </span>
-        )}
+        <span className="relative select-none text-6xl font-semibold text-white/85 sm:text-7xl">
+          {project.monogram}
+        </span>
         {project.badge && (
-          <div className="absolute right-5 top-5 rounded-md bg-black/40 px-3 py-1.5">
+          <div className="absolute right-5 top-5 rounded-md bg-black/20 px-3 py-1.5">
             <span className="font-medium tracking-wide text-white" style={{ fontSize: "12px" }}>
               {project.badge}
             </span>

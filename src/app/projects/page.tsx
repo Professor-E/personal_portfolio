@@ -16,11 +16,6 @@ const headingVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const gridVariants = {
-  hidden: {},
-  show: { transition: { delayChildren: 0.25, staggerChildren: 0.05 } },
-};
-
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -113,10 +108,7 @@ export default function ProjectsPage() {
         ) : (
           <motion.div
             layout
-            variants={gridVariants}
-            initial="hidden"
-            animate="show"
-            className="grid grid-cols-1 items-start gap-6 pb-16 sm:grid-cols-2 lg:grid-cols-3"
+            className="grid grid-cols-1 gap-6 pb-16 sm:grid-cols-2 lg:grid-cols-3"
           >
             <AnimatePresence mode="popLayout">
               {filtered.map((project) => (

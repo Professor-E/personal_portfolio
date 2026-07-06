@@ -9,11 +9,6 @@ const headingVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const listVariants = {
-  hidden: {},
-  show: { transition: { delayChildren: 0.2, staggerChildren: 0.08 } },
-};
-
 export default function HobbiesPage() {
   return (
     <div className="min-h-[calc(100vh-70px)] bg-[var(--background)]">
@@ -54,13 +49,8 @@ export default function HobbiesPage() {
           />
         </motion.header>
 
-        {/* ── Hobby rows ────────────────────────────────────────────────── */}
-        <motion.div
-          variants={listVariants}
-          initial="hidden"
-          animate="show"
-          className="pb-16"
-        >
+        {/* ── Hobby rows — each slides in independently on scroll ─────────── */}
+        <div className="pb-16">
           {HOBBIES.map((hobby, i) => (
             <HobbyRow
               key={hobby.id}
@@ -69,7 +59,7 @@ export default function HobbiesPage() {
               isLast={i === HOBBIES.length - 1}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );
