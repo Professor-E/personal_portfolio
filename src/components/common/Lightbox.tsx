@@ -77,32 +77,40 @@ export default function Lightbox({
   children,
 }: LightboxProps) {
   // ── Shared-layout attachment ──────────────────────────────────────────────
-  // framer-motion captures `layoutId` at mount, so it can't follow the active
-  // item as the user navigates with the arrows. If we kept the id, closing
-  // after navigation would morph the box back into the ORIGINAL card — the
-  // wrong one. Instead: the box stays attached to the originating card until
-  // the first navigation, then detaches (remounts without a layoutId) and
-  // closes with a plain centered fade. Re-attaches fresh on every open.
-  const [detached, setDetached] = useState(false);
+  // framer-motion captures `layoutId` at mount, so the box stays attached to
+  // the card it opened from for its whole session — even if the user arrow-
+  // navigates to another item, closing morphs back into the ORIGINAL card.
+  // That's a small visual compromise, made deliberately: the previous design
+  // "detached" the box on navigation by remounting it under a different React
+  // key, and a key swap on a mounted AnimatePresence child spawns a zombie
+  // exiting child whose exit never completes — which blocks AnimatePresence
+  // from ever unmounting ANYTHING afterwards. The invisible overlay then
+  // swallowed every click on the page (the "site freezes after closing" bug).
   const wasOpenRef = useRef(false);
-  const prevKeyRef = useRef(contentKey);
   const openLayoutIdRef = useRef(layoutId);
 
   // Render-phase capture on the opening render (before first paint), so the
-  // open morph starts from the correct card and the box is re-attached even
-  // if the previous session ended detached.
+  // open morph starts from the correct card.
   if (isOpen && !wasOpenRef.current) {
     openLayoutIdRef.current = layoutId;
-    if (detached) setDetached(false);
   }
 
   useEffect(() => {
-    if (isOpen && wasOpenRef.current && prevKeyRef.current !== contentKey) {
-      setDetached(true);
-    }
-    prevKeyRef.current = contentKey;
     wasOpenRef.current = isOpen;
-  }, [isOpen, contentKey]);
+  }, [isOpen]);
+
+  // ── Failsafe: hard-reset the presence tree shortly after close ───────────
+  // Belt and braces for the bug above: 800ms after closing (longer than any
+  // exit animation), remount AnimatePresence by bumping its key. If some code
+  // path ever leaves an invisible zombie overlay behind again, this sweeps it
+  // out of the DOM instead of letting it block clicks forever. Reopening
+  // cancels the pending reset, so a live session is never interrupted.
+  const [presenceEpoch, setPresenceEpoch] = useState(0);
+  useEffect(() => {
+    if (isOpen) return;
+    const timer = setTimeout(() => setPresenceEpoch((n) => n + 1), 800);
+    return () => clearTimeout(timer);
+  }, [isOpen]);
 
   // ── Keyboard: Escape closes, ← / → navigate ──────────────────────────────
   useEffect(() => {
@@ -127,147 +135,145 @@ export default function Lightbox({
     };
   }, [isOpen]);
 
+  // Each overlay layer is a SEPARATE keyed child of AnimatePresence (never a
+  // single fragment). With a fragment, one stalled exit animation anywhere in
+  // the subtree kept the whole overlay — including the invisible full-screen
+  // stage — mounted forever, silently blocking every click on the page (navbar
+  // tabs included). As independent children, each layer unmounts on its own,
+  // and the stage is pointer-events-none so it can never swallow clicks.
   return (
-    <AnimatePresence>
+    <AnimatePresence key={presenceEpoch}>
+      {/* ── Backdrop — grays everything out, click closes ──────────────── */}
       {isOpen && (
-        <>
-          {/* ── Backdrop — grays everything out, click closes ──────────────── */}
+        <motion.div
+          key="lightbox-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          onClick={onClose}
+          className="fixed inset-0 z-[90] bg-black/70 backdrop-blur-sm"
+          aria-hidden="true"
+        />
+      )}
+
+      {/* ── Centered stage — pointer-events-none, so clicks in the padding
+          around the box fall through to the backdrop (which closes). ────── */}
+      {isOpen && (
+        <motion.div
+          key="lightbox-stage"
+          className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+        >
+          {/* The enlarging box — shares layoutId with the card it opened from,
+              so it grows smoothly from that card to 90% of the viewport and
+              morphs back into it on close. The key is stable for the whole
+              open/close session; it is NEVER swapped while mounted (see the
+              zombie-exit note above). */}
           <motion.div
-            key="lightbox-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            onClick={onClose}
-            className="fixed inset-0 z-[90] bg-black/70 backdrop-blur-sm"
-            aria-hidden="true"
-          />
-
-          {/* ── Centered stage (click-outside the box also closes) ─────────── */}
-          <div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
-            onClick={onClose}
+            key="lightbox-box"
+            layoutId={openLayoutIdRef.current}
+            transition={{ type: "spring", stiffness: 260, damping: 30 }}
+            className="pointer-events-auto relative overflow-hidden rounded-3xl bg-[var(--surface)] shadow-2xl"
+            style={{
+              // Arrows now live on the top/bottom, freeing the horizontal
+              // space so the enlarged box can be much wider.
+              width: "90vw",
+              height: "90vh",
+              maxWidth: "1500px",
+            }}
+            role="dialog"
+            aria-modal="true"
           >
-            {/* The enlarging box — shares layoutId with the originating card so
-                it grows smoothly from its previous size to 90% of the viewport.
-                After arrow navigation it detaches (remounts, same fixed rect, so
-                the swap is invisible) and closes with a centered fade instead of
-                morphing back into the wrong card. */}
-            <motion.div
-              key={detached ? "lightbox-detached" : "lightbox-attached"}
-              layoutId={detached ? undefined : openLayoutIdRef.current}
-              exit={
-                detached
-                  ? { opacity: 0, scale: 0.96, transition: { duration: 0.22, ease: "easeOut" } }
-                  : undefined
-              }
-              onClick={(e) => e.stopPropagation()}
-              transition={{ type: "spring", stiffness: 260, damping: 30 }}
-              className="relative overflow-hidden rounded-3xl bg-[var(--surface)] shadow-2xl"
-              style={{
-                // Arrows now live on the top/bottom, freeing the horizontal
-                // space so the enlarged box can be much wider.
-                width: "90vw",
-                height: "90vh",
-                maxWidth: "1500px",
-              }}
-              role="dialog"
-              aria-modal="true"
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/10 text-[var(--text-primary)] backdrop-blur transition-colors hover:bg-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 dark:bg-white/10 dark:hover:bg-white/20"
             >
-              {/* Close button */}
-              <button
-                type="button"
-                onClick={onClose}
-                aria-label="Close"
-                className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/10 text-[var(--text-primary)] backdrop-blur transition-colors hover:bg-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 dark:bg-white/10 dark:hover:bg-white/20"
-              >
-                <X size={18} />
-              </button>
+              <X size={18} />
+            </button>
 
-              {/* Scrollable content area — slides on prev/next navigation */}
-              <div className="h-full w-full overflow-y-auto overflow-x-hidden">
-                <AnimatePresence mode="wait" custom={direction} initial={false}>
-                  <motion.div
-                    key={contentKey}
-                    custom={direction}
-                    variants={contentVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    className="min-h-full"
-                  >
-                    {children}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* ── Top / bottom navigation arrows ─────────────────────────────
-              Centered horizontally, floating just inside the top and bottom
-              edges of the box — exactly like the Experience page's vertical
-              scroll-nudge pills (chevron + label + gentle bob). Top = previous,
-              bottom = next. Keeping them vertical frees the horizontal space so
-              the enlarged box can be wider. ──────────────────────────────── */}
-          {showArrows && (
-            <>
-              <div
-                className="fixed left-1/2 z-[110] -translate-x-1/2"
-                style={{ top: "calc(5vh + 12px)" }}
-                onClick={(e) => e.stopPropagation()}
+            {/* Scrollable content area — slides in on prev/next navigation.
+                Deliberately NOT a nested AnimatePresence: a mode="wait"
+                presence inside the closing overlay deadlocked the outer
+                AnimatePresence's exit bookkeeping, leaving the invisible
+                backdrop mounted forever and freezing all interactivity.
+                A key remount with an enter-only slide keeps the directional
+                cue without registering any nested exit animations. */}
+            <div className="h-full w-full overflow-y-auto overflow-x-hidden">
+              <motion.div
+                key={contentKey}
+                custom={direction}
+                variants={contentVariants}
+                initial={direction === 0 ? false : "enter"}
+                animate="center"
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className="min-h-full"
               >
-                <motion.div
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.06 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={onPrev}
-                    style={arrowPillStyle(accentColor)}
-                    aria-label={prevLabel ? `Previous: ${prevLabel}` : "Previous"}
-                    className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
-                  >
-                    <ChevronUp
-                      style={{ width: 16, height: 16, flexShrink: 0, color: accentColor }}
-                    />
-                    {prevLabel && <span className="truncate">{prevLabel}</span>}
-                  </motion.button>
-                </motion.div>
-              </div>
+                {children}
+              </motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
 
-              <div
-                className="fixed left-1/2 z-[110] -translate-x-1/2"
-                style={{ bottom: "calc(5vh + 12px)" }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.06 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={onNext}
-                    style={arrowPillStyle(accentColor)}
-                    aria-label={nextLabel ? `Next: ${nextLabel}` : "Next"}
-                    className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
-                  >
-                    {nextLabel && <span className="truncate">{nextLabel}</span>}
-                    <ChevronDown
-                      style={{ width: 16, height: 16, flexShrink: 0, color: accentColor }}
-                    />
-                  </motion.button>
-                </motion.div>
-              </div>
-            </>
-          )}
-        </>
+      {/* ── Top / bottom navigation arrows ─────────────────────────────
+          Centered horizontally, floating just inside the top and bottom
+          edges of the box — exactly like the Experience page's vertical
+          scroll-nudge pills (chevron + label + gentle bob). Top = previous,
+          bottom = next. Keeping them vertical frees the horizontal space so
+          the enlarged box can be wider. ──────────────────────────────── */}
+      {isOpen && showArrows && (
+        <motion.div
+          key="lightbox-arrow-prev"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="fixed left-1/2 z-[110]"
+          style={{ top: "calc(5vh + 12px)", x: "-50%" }}
+        >
+          <motion.button
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={onPrev}
+            style={arrowPillStyle(accentColor)}
+            aria-label={prevLabel ? `Previous: ${prevLabel}` : "Previous"}
+            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
+          >
+            <ChevronUp
+              style={{ width: 16, height: 16, flexShrink: 0, color: accentColor }}
+            />
+            {prevLabel && <span className="truncate">{prevLabel}</span>}
+          </motion.button>
+        </motion.div>
+      )}
+
+      {isOpen && showArrows && (
+        <motion.div
+          key="lightbox-arrow-next"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="fixed left-1/2 z-[110]"
+          style={{ bottom: "calc(5vh + 12px)", x: "-50%" }}
+        >
+          <motion.button
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={onNext}
+            style={arrowPillStyle(accentColor)}
+            aria-label={nextLabel ? `Next: ${nextLabel}` : "Next"}
+            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
+          >
+            {nextLabel && <span className="truncate">{nextLabel}</span>}
+            <ChevronDown
+              style={{ width: 16, height: 16, flexShrink: 0, color: accentColor }}
+            />
+          </motion.button>
+        </motion.div>
       )}
     </AnimatePresence>
   );

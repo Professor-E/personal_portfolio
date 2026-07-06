@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 import { EASE_OUT } from "@/lib/motion";
 
 /**
@@ -104,25 +105,43 @@ export default function HeroSection() {
           engineering, and entrepreneurship.
         </motion.p>
 
-        {/* CTA — Figma nodes 616:676/677, verbatim */}
-        <motion.a
-          href="/resume.pdf"
-          download
+        {/* CTA — Figma nodes 616:676/677, verbatim. Styled to match the
+            homepage "Get in touch" button: same size, weight, accent glow,
+            lift-on-hover, and an arrow that nudges (down, since it downloads).
+            The entrance animation lives on the wrapper so framer-motion's
+            inline transform never fights the CSS hover lift on the <a>. */}
+        <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45, duration: 0.7, ease: EASE_OUT }}
-          className="flex items-center justify-center font-medium text-white transition-opacity hover:opacity-85 active:opacity-75 mt-6"
-          style={{
-            backgroundColor: "var(--accent)",
-            borderRadius: "12px",
-            height: "49px",
-            padding: "20px",
-            fontSize: "14px",
-            lineHeight: 1,
-          }}
+          className="mt-6"
         >
-          Download Resume
-        </motion.a>
+          <a
+            href="/resume.pdf"
+            download
+            className="group inline-flex items-center justify-center gap-2 font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 active:translate-y-0 active:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+            style={{
+              backgroundColor: "var(--accent)",
+              borderRadius: "12px",
+              height: "52px",
+              padding: "0 28px",
+              fontSize: "16px",
+              lineHeight: 1,
+              boxShadow:
+                "0 8px 20px -8px color-mix(in srgb, var(--accent) 55%, transparent)",
+            }}
+          >
+            Download Resume
+            {/* Nudge exceeds the button's -translate-y-0.5 lift so the arrow
+                visibly dips instead of the transforms cancelling out. */}
+            <ArrowDown
+              size={18}
+              strokeWidth={2.5}
+              className="transition-transform duration-200 group-hover:translate-y-1"
+              aria-hidden="true"
+            />
+          </a>
+        </motion.div>
       </div>
     </section>
   );

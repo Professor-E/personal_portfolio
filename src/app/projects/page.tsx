@@ -17,6 +17,11 @@ const headingVariants = fadeUp;
 export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [activeId, setActiveId] = useState<string | null>(null);
+  // Open state is tracked separately from the active item: on close we only
+  // flip this flag and KEEP `activeId`, so the lightbox content stays mounted
+  // and stable while the exit/morph-back animation plays. Nulling the id
+  // mid-exit swapped the content and left the overlay stuck on screen.
+  const [isOpen, setIsOpen] = useState(false);
   const [direction, setDirection] = useState<number>(0);
 
   const filtered = PROJECTS.filter(
@@ -26,6 +31,7 @@ export default function ProjectsPage() {
   function handleFilterChange(next: string) {
     setActiveFilter(next);
     // A card hidden by the new filter shouldn't stay logically "open".
+    setIsOpen(false);
     setActiveId(null);
   }
 
@@ -119,6 +125,7 @@ export default function ProjectsPage() {
                   onOpen={() => {
                     setDirection(0);
                     setActiveId(project.id);
+                    setIsOpen(true);
                   }}
                 />
               ))}
@@ -129,7 +136,7 @@ export default function ProjectsPage() {
 
       {/* ── Enlarged detail lightbox ──────────────────────────────────────── */}
       <Lightbox
-        isOpen={activeProject !== null}
+        isOpen={isOpen && activeProject !== null}
         layoutId={`project-${activeId}`}
         contentKey={activeId ?? ""}
         accentColor={activeProject?.accentColor}
@@ -145,7 +152,7 @@ export default function ProjectsPage() {
             ? filtered[(activeIndex + 1) % filtered.length].title
             : undefined
         }
-        onClose={() => setActiveId(null)}
+        onClose={() => setIsOpen(false)}
         onPrev={() => navigate(-1)}
         onNext={() => navigate(1)}
       >

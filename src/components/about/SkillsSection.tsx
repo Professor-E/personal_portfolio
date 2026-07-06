@@ -33,9 +33,26 @@ const ROWS = [
   },
 ] as const;
 
-const itemVariants = {
+// The stagger delay lives INSIDE the `visible` variant (via `custom`) instead
+// of on the component's `transition` prop — a component-level transition also
+// applies to whileHover, which made the hover scale wait out the entrance
+// delay (up to ~0.5s on later pills) before responding.
+const labelVariants = {
   hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay, duration: 0.4, ease: EASE_OUT },
+  }),
+};
+
+const pillVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay, duration: 0.35, ease: EASE_OUT },
+  }),
 };
 
 export default function SkillsSection() {
@@ -63,8 +80,8 @@ export default function SkillsSection() {
         {ROWS.map(({ label, pills }, rowIdx) => (
           <div key={label}>
             <motion.p
-              variants={itemVariants}
-              transition={{ delay: rowIdx * 0.08, duration: 0.4, ease: EASE_OUT }}
+              variants={labelVariants}
+              custom={rowIdx * 0.08}
               className="text-xs font-semibold uppercase tracking-widest text-[var(--text-secondary)] mb-2"
             >
               {label}
@@ -73,15 +90,12 @@ export default function SkillsSection() {
               {pills.map((pill, pillIdx) => (
                 <motion.span
                   key={`${label}-${pill}`}
-                  variants={itemVariants}
-                  transition={{
-                    delay: rowIdx * 0.08 + pillIdx * 0.025,
-                    duration: 0.35,
-                    ease: EASE_OUT,
-                  }}
+                  variants={pillVariants}
+                  custom={rowIdx * 0.08 + pillIdx * 0.025}
                   whileHover={{
                     scale: 1.05,
                     backgroundColor: "var(--skill-pill-hover)",
+                    transition: { duration: 0.15, ease: "easeOut" },
                   }}
                   className="skill-pill inline-flex items-center text-sm font-medium text-[var(--text-primary)] cursor-default"
                   style={{

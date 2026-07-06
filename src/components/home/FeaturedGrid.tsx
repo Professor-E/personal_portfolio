@@ -365,6 +365,11 @@ function FeaturedDetail({ item }: { item: FeaturedItem }) {
 // ── Grid export ───────────────────────────────────────────────────────────────
 export default function FeaturedGrid() {
   const [activeId, setActiveId] = useState<string | null>(null);
+  // Open state is tracked separately from the active item: on close we only
+  // flip this flag and KEEP `activeId`, so the lightbox content stays mounted
+  // and stable while the exit/morph-back animation plays. Nulling the id
+  // mid-exit swapped the content and left the overlay stuck on screen.
+  const [isOpen, setIsOpen] = useState(false);
   const [direction, setDirection] = useState<number>(0);
 
   const activeIndex = FEATURED_ITEMS.findIndex((it) => it.id === activeId);
@@ -425,6 +430,7 @@ export default function FeaturedGrid() {
                     onOpen={() => {
                       setDirection(0);
                       setActiveId(item.id);
+                      setIsOpen(true);
                     }}
                   />
                 ))}
@@ -436,7 +442,7 @@ export default function FeaturedGrid() {
 
       {/* ── Enlarged detail lightbox ──────────────────────────────────────── */}
       <Lightbox
-        isOpen={activeItem !== null}
+        isOpen={isOpen && activeItem !== null}
         layoutId={`featured-${activeId}`}
         contentKey={activeId ?? ""}
         accentColor={activeItem?.brandColor}
@@ -448,7 +454,7 @@ export default function FeaturedGrid() {
         nextLabel={
           activeIndex >= 0 ? FEATURED_ITEMS[(activeIndex + 1) % len].title : undefined
         }
-        onClose={() => setActiveId(null)}
+        onClose={() => setIsOpen(false)}
         onPrev={() => navigate(-1)}
         onNext={() => navigate(1)}
       >

@@ -22,6 +22,11 @@ const headingVariants = fadeUp;
 export default function ExtracurricularsPage() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [activeId, setActiveId] = useState<string | null>(null);
+  // Open state is tracked separately from the active item: on close we only
+  // flip this flag and KEEP `activeId`, so the lightbox content stays mounted
+  // and stable while the exit/morph-back animation plays. Nulling the id
+  // mid-exit swapped the content and left the overlay stuck on screen.
+  const [isOpen, setIsOpen] = useState(false);
   const [direction, setDirection] = useState<number>(0);
 
   const filtered = EXTRACURRICULARS.filter(
@@ -31,6 +36,7 @@ export default function ExtracurricularsPage() {
   function handleFilterChange(next: string) {
     setActiveFilter(next);
     // A card hidden by the new filter shouldn't stay logically "open".
+    setIsOpen(false);
     setActiveId(null);
   }
 
@@ -119,6 +125,7 @@ export default function ExtracurricularsPage() {
                   onOpen={() => {
                     setDirection(0);
                     setActiveId(activity.id);
+                    setIsOpen(true);
                   }}
                 />
               ))}
@@ -129,7 +136,7 @@ export default function ExtracurricularsPage() {
 
       {/* ── Enlarged detail lightbox ──────────────────────────────────────── */}
       <Lightbox
-        isOpen={activeActivity !== null}
+        isOpen={isOpen && activeActivity !== null}
         layoutId={`activity-${activeId}`}
         contentKey={activeId ?? ""}
         accentColor={activeActivity?.accentColor}
@@ -145,7 +152,7 @@ export default function ExtracurricularsPage() {
             ? filtered[(activeIndex + 1) % filtered.length].name
             : undefined
         }
-        onClose={() => setActiveId(null)}
+        onClose={() => setIsOpen(false)}
         onPrev={() => navigate(-1)}
         onNext={() => navigate(1)}
       >
