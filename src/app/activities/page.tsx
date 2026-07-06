@@ -1,8 +1,7 @@
-// Padding normalized to match Projects page: px-8 md:px-16 lg:px-24
+import { redirect } from "next/navigation";
+
+// This route was superseded by /extracurriculars, which is what the Navbar
+// and Footer actually link to. Redirect so old links/bookmarks still resolve.
 export default function ActivitiesPage() {
-  return (
-    <main className="min-h-screen flex items-center justify-center px-8 md:px-16 lg:px-24">
-      <p className="text-2xl font-semibold text-gray-400">Activities</p>
-    </main>
-  );
+  redirect("/extracurriculars");
 }

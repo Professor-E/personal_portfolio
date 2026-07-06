@@ -232,7 +232,7 @@ function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void 
           onOpen();
         }
       }}
-      className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[20px] bg-[var(--surface)] dark:bg-[var(--surface)]"
+      className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[20px] bg-[var(--surface)] dark:bg-[var(--surface)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       style={{
         boxShadow: "2px 4px 4px 0px rgba(0,0,0,0.25)",
         padding: "24px 48px",
@@ -358,7 +358,7 @@ function FeaturedDetail({ item }: { item: FeaturedItem }) {
 
         <Link
           href={item.link}
-          className="mt-2 inline-flex w-fit items-center gap-2 rounded-[12px] border-2 px-6 py-3 font-bold transition-colors"
+          className="mt-2 inline-flex w-fit items-center gap-2 rounded-[12px] border-2 px-6 py-3 font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
           style={{ borderColor: item.brandColor, color: item.brandColor }}
         >
           Explore {CATEGORY_EXPLORE_LABEL[item.category]} →

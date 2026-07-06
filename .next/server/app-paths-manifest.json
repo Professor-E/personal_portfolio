@@ -1,10 +1,8 @@
 {
-  "/home/page": "app/home/page.js",
-  "/page": "app/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/hobbies/page": "app/hobbies/page.js",
   "/projects/page": "app/projects/page.js",
   "/extracurriculars/page": "app/extracurriculars/page.js",
-  "/hobbies/page": "app/hobbies/page.js",
-  "/about/page": "app/about/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/experience/page": "app/experience/page.js"
+  "/experience/page": "app/experience/page.js",
+  "/about/page": "app/about/page.js"
 }

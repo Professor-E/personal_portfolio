@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useId } from "react";
+import { useState, useId, isValidElement, cloneElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, Loader2 } from "lucide-react";
 
@@ -52,6 +52,7 @@ interface FieldProps {
 }
 
 function Field({ id, label, error, shakeKey, children }: FieldProps) {
+  const errorId = `${id}-error`;
   return (
     <motion.div
       className="flex flex-col w-full"
@@ -65,7 +66,7 @@ function Field({ id, label, error, shakeKey, children }: FieldProps) {
         className="font-medium mb-2"
         style={{
           fontSize: "11px",
-          color: "rgba(95,94,90,0.8)",
+          color: "var(--text-secondary)",
           letterSpacing: "1.6px",
           textTransform: "uppercase",
           lineHeight: "normal",
@@ -73,11 +74,19 @@ function Field({ id, label, error, shakeKey, children }: FieldProps) {
       >
         {label} *
       </label>
-      {children}
+      {/* aria-invalid / aria-describedby are wired via cloneElement so callers
+          can keep passing a plain <input>/<textarea> as children. */}
+      {isValidElement(children)
+        ? cloneElement(children as React.ReactElement<Record<string, unknown>>, {
+            "aria-invalid": error ? "true" : undefined,
+            "aria-describedby": error ? errorId : undefined,
+          })
+        : children}
       {/* Inline error */}
       <AnimatePresence>
         {error && (
           <motion.p
+            id={errorId}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -97,9 +106,9 @@ function Field({ id, label, error, shakeKey, children }: FieldProps) {
 // ── Shared input base style ────────────────────────────────────────────────────
 // h-12 (48px) for text inputs — achieved via explicit height on the element
 const inputBaseStyle: React.CSSProperties = {
-  backgroundColor: "rgba(196,196,196,0.35)",
+  backgroundColor: "color-mix(in srgb, var(--text-secondary) 15%, var(--background))",
   border: "1px solid transparent",
-  borderRadius: "5px",
+  borderRadius: "8px",
   padding: "0 14px",
   fontSize: "16px",
   fontFamily: "inherit",
@@ -122,7 +131,7 @@ const textareaBaseStyle: React.CSSProperties = {
 const focusStyle: React.CSSProperties = {
   borderColor: "var(--accent)",
   backgroundColor: "var(--surface)",
-  boxShadow: "0 0 0 3px rgba(10,108,255,0.25)",
+  boxShadow: "0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent)",
 };
 
 // ── ContactForm ────────────────────────────────────────────────────────────────
@@ -179,6 +188,8 @@ export default function ContactForm() {
       <AnimatePresence mode="wait">
         <motion.div
           key="success"
+          role="status"
+          aria-live="polite"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -206,7 +217,7 @@ export default function ContactForm() {
           </div>
           <button
             onClick={reset}
-            className="font-medium transition-colors mt-2"
+            className="font-medium transition-colors mt-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]"
             style={{
               fontSize: "12px",
               color: "var(--accent)",
@@ -318,7 +329,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={disabled}
-          className="flex items-center justify-center font-bold text-white w-full transition-opacity mt-6"
+          className="flex items-center justify-center font-bold text-white w-full transition-opacity mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]"
           style={{
             backgroundColor: "var(--accent)",
             borderRadius: "20px",

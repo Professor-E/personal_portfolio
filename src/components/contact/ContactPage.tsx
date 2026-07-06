@@ -17,12 +17,10 @@ import ContactForm from "./ContactForm";
  *     (140px = heading h1 64px + gap 12px + subtitle ~25px + mb-8 32px ≈ 133px, rounded up)
  *   • Footer is NOT in this section — guaranteed below the fold
  *
- * SECTION 2 — footer (normal document flow):
- *   • Sits directly after Section 1
- *   • Only visible when user scrolls past 100vh
- *   • No changes to footer content or styling
+ * The global Footer (rendered by RootLayout, not here) sits directly after
+ * this page and is only visible once the user scrolls past 100vh.
  *
- * Page root: flex-col, NO overflow:hidden — scroll to footer is allowed
+ * Page root: flex-col, NO overflow:hidden — scroll to the footer is allowed.
  */
 
 const containerVariants = {

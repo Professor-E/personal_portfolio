@@ -38,7 +38,8 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
         "group flex w-full cursor-pointer flex-row items-start gap-5 overflow-hidden rounded-2xl border p-5",
         "transition-[border-color,box-shadow] duration-200",
         "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_20px_rgba(0,0,0,0.07)]",
-        "hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_14px_32px_rgba(0,0,0,0.12)]"
+        "hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_14px_32px_rgba(0,0,0,0.12)]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       )}
       style={{ backgroundColor: "var(--surface)", borderColor: "var(--border)" }}
       onMouseEnter={(e) => {

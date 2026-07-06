@@ -142,7 +142,7 @@ export default function Lightbox({
                 type="button"
                 onClick={onClose}
                 aria-label="Close"
-                className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/10 text-[var(--text-primary)] backdrop-blur transition-colors hover:bg-black/20 dark:bg-white/10 dark:hover:bg-white/20"
+                className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/10 text-[var(--text-primary)] backdrop-blur transition-colors hover:bg-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 dark:bg-white/10 dark:hover:bg-white/20"
               >
                 <X size={18} />
               </button>
@@ -186,23 +186,19 @@ export default function Lightbox({
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  <motion.div
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                  <motion.button
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={onPrev}
+                    style={arrowPillStyle(accentColor)}
+                    aria-label={prevLabel ? `Previous: ${prevLabel}` : "Previous"}
+                    className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
                   >
-                    <motion.button
-                      whileHover={{ scale: 1.06 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={onPrev}
-                      style={arrowPillStyle(accentColor)}
-                      aria-label={prevLabel ? `Previous: ${prevLabel}` : "Previous"}
-                    >
-                      <ChevronUp
-                        style={{ width: 16, height: 16, flexShrink: 0, color: accentColor }}
-                      />
-                      {prevLabel && <span className="truncate">{prevLabel}</span>}
-                    </motion.button>
-                  </motion.div>
+                    <ChevronUp
+                      style={{ width: 16, height: 16, flexShrink: 0, color: accentColor }}
+                    />
+                    {prevLabel && <span className="truncate">{prevLabel}</span>}
+                  </motion.button>
                 </motion.div>
               </div>
 
@@ -217,23 +213,19 @@ export default function Lightbox({
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  <motion.div
-                    animate={{ y: [0, 5, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+                  <motion.button
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={onNext}
+                    style={arrowPillStyle(accentColor)}
+                    aria-label={nextLabel ? `Next: ${nextLabel}` : "Next"}
+                    className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
                   >
-                    <motion.button
-                      whileHover={{ scale: 1.06 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={onNext}
-                      style={arrowPillStyle(accentColor)}
-                      aria-label={nextLabel ? `Next: ${nextLabel}` : "Next"}
-                    >
-                      {nextLabel && <span className="truncate">{nextLabel}</span>}
-                      <ChevronDown
-                        style={{ width: 16, height: 16, flexShrink: 0, color: accentColor }}
-                      />
-                    </motion.button>
-                  </motion.div>
+                    {nextLabel && <span className="truncate">{nextLabel}</span>}
+                    <ChevronDown
+                      style={{ width: 16, height: 16, flexShrink: 0, color: accentColor }}
+                    />
+                  </motion.button>
                 </motion.div>
               </div>
             </>

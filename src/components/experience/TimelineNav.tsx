@@ -65,7 +65,7 @@ export default function TimelineNav({ entries, activeIndex, onDotClick, visible 
             onClick={() => onDotClick(idx)}
             aria-label={`Go to ${entry.company}`}
             title={entry.company}
-            className="relative z-10 rounded-full cursor-pointer focus:outline-none"
+            className="relative z-10 rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
             animate={{
               width: isActive ? 12 : 8,
               height: isActive ? 12 : 8,

@@ -45,7 +45,8 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
         "transition-[border-color,box-shadow] duration-200",
         "border-[var(--border)] hover:border-[color-mix(in_srgb,var(--text-secondary)_55%,var(--border))]",
         "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_6px_20px_rgba(0,0,0,0.07)]",
-        "hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_14px_32px_rgba(0,0,0,0.12)]"
+        "hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_14px_32px_rgba(0,0,0,0.12)]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       )}
       style={{ backgroundColor: "var(--surface)" }}
       aria-label={`See more about ${project.title}`}

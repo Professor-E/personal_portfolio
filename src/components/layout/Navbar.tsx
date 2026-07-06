@@ -66,8 +66,10 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
                   "text-[16px] font-medium leading-none whitespace-nowrap transition-colors duration-150",
+                  "rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
                   isActive(item.href)
                     ? "text-[var(--accent)]"
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -86,7 +88,8 @@ export default function Navbar() {
             <button
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Toggle menu"
-              className="flex items-center justify-center w-9 h-9 rounded-md transition-colors duration-150"
+              aria-expanded={menuOpen}
+              className="flex items-center justify-center w-9 h-9 rounded-md transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
               style={{
                 color: menuOpen ? "var(--text-primary)" : "var(--text-secondary)",
               }}
@@ -115,9 +118,11 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
                     "py-3 text-[16px] font-medium transition-colors duration-150",
                     "border-b last:border-0",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
                     isActive(item.href)
                       ? "text-[var(--accent)]"
                       : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"

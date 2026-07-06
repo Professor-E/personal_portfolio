@@ -44,7 +44,7 @@ function MobileDotNav({
           key={entry.id}
           onClick={() => onDotClick(idx)}
           aria-label={`Go to ${entry.company}`}
-          className="rounded-full transition-all duration-200"
+          className="rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
           style={{
             width: idx === activeIndex ? 14 : 9,
             height: idx === activeIndex ? 14 : 9,

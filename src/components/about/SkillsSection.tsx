@@ -79,7 +79,7 @@ export default function SkillsSection() {
                   }}
                   whileHover={{
                     scale: 1.05,
-                    backgroundColor: "rgba(59,130,246,0.12)",
+                    backgroundColor: "var(--skill-pill-hover)",
                   }}
                   className="skill-pill inline-flex items-center text-sm font-medium text-[var(--text-primary)] cursor-default"
                   style={{
@@ -98,15 +98,18 @@ export default function SkillsSection() {
         ))}
       </motion.div>
 
-      {/* Pill tint tokens — slightly more opaque in dark mode */}
+      {/* Pill tint tokens — derived from the accent color, slightly more
+          opaque in dark mode so they stay legible against the darker surface */}
       <style>{`
         :root {
-          --skill-pill-bg: rgba(59,130,246,0.06);
-          --skill-pill-border: rgba(59,130,246,0.18);
+          --skill-pill-bg: color-mix(in srgb, var(--accent) 6%, transparent);
+          --skill-pill-border: color-mix(in srgb, var(--accent) 18%, transparent);
+          --skill-pill-hover: color-mix(in srgb, var(--accent) 12%, transparent);
         }
         .dark {
-          --skill-pill-bg: rgba(59,130,246,0.10);
-          --skill-pill-border: rgba(59,130,246,0.25);
+          --skill-pill-bg: color-mix(in srgb, var(--accent) 10%, transparent);
+          --skill-pill-border: color-mix(in srgb, var(--accent) 25%, transparent);
+          --skill-pill-hover: color-mix(in srgb, var(--accent) 16%, transparent);
         }
       `}</style>
     </section>

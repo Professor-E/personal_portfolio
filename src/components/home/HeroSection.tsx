@@ -41,7 +41,7 @@ export default function HeroSection() {
       {/* ── CTA Button — compact, refined ─────────────────────────────── */}
       <Link
         href="/contact"
-        className="group mt-1 inline-flex items-center justify-center gap-2 font-bold text-[var(--surface)] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 active:translate-y-0 active:opacity-90"
+        className="group mt-1 inline-flex items-center justify-center gap-2 font-bold text-[var(--surface)] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 active:translate-y-0 active:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
         style={{
           backgroundColor: "var(--accent)",
           borderRadius: "12px",

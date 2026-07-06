@@ -33,6 +33,7 @@ export default function FilterPills({ active, onChange, options }: FilterPillsPr
             className={cn(
               "shrink-0 whitespace-nowrap rounded-full px-3.5 py-1 text-[13px] font-medium",
               "border-[0.5px] transition-colors duration-150",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
               isActive
                 ? "border-transparent text-white"
                 : "border-[var(--border-strong)] text-[var(--text-secondary)] hover:bg-[var(--surface)] hover:text-[var(--text-primary)]"

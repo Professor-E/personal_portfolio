@@ -1,9 +1,10 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+
 /**
- * Standalone social links row.
- * Can be embedded in ContactInfo or used elsewhere on the page.
- * Icons: GitHub, LinkedIn, Email — each opens in new tab or mailto.
+ * Standalone social links row — the single source of truth for the site's
+ * social icons (GitHub, LinkedIn, Instagram, Email). Used on the Contact page.
  */
 
 interface SocialLink {
@@ -65,26 +66,27 @@ const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 interface SocialLinksProps {
-  /** Icon + label color */
+  /** Icon + label color (inline style). Omit and use `linkClassName` instead
+   *  when you need a Tailwind `hover:` treatment — inline color would block it. */
   color?: string;
   /** Gap between items */
   gap?: number;
   /** Show text labels alongside icons */
   showLabels?: boolean;
   className?: string;
+  /** Extra classes applied to each link — use for color + hover treatments. */
+  linkClassName?: string;
 }
 
 export default function SocialLinks({
-  color = "var(--text-secondary)",
+  color,
   gap = 16,
   showLabels = false,
   className,
+  linkClassName,
 }: SocialLinksProps) {
   return (
-    <div
-      className={`flex items-center flex-wrap ${className ?? ""}`}
-      style={{ gap }}
-    >
+    <div className={cn("flex items-center flex-wrap", className)} style={{ gap }}>
       {SOCIAL_LINKS.map((link) => (
         <a
           key={link.id}
@@ -92,8 +94,12 @@ export default function SocialLinks({
           target={link.external ? "_blank" : undefined}
           rel={link.external ? "noopener noreferrer" : undefined}
           aria-label={link.label}
-          className="flex items-center gap-2 transition-colors duration-150"
-          style={{ color }}
+          className={cn(
+            "flex items-center gap-2 rounded-sm transition-colors duration-150",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2",
+            linkClassName
+          )}
+          style={color ? { color } : undefined}
         >
           {link.icon}
           {showLabels && (

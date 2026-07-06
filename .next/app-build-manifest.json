@@ -16,6 +16,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/home/page.js"
     ],
+    "/experience/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/experience/page.js"
+    ],
     "/projects/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -35,11 +40,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/about/page.js"
-    ],
-    "/experience/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/experience/page.js"
     ],
     "/contact/page": [
       "static/chunks/webpack.js",

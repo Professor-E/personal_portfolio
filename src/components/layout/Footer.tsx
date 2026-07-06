@@ -8,7 +8,7 @@
  * Top section:  flex items-start justify-between, px-[24px] py-[10px]
  * Left col:     Dominik Grzeszczak — Inter Bold 14px text-primary
  *               subtitle — Inter Medium 12px text-secondary
- *               icon row — gap-[10px], Github + Linkedin + Mail
+ *               icon row — gap-[10px], Github + Linkedin + Instagram + Mail
  * Center col:   w-[212px], "Navigate" Bold 14px, links Medium 12px text-secondary
  * Right col:    "Get in touch" Bold 14px, desc Medium 12px text-secondary, email accent
  * Bottom strip: px-[24px] py-[10px], copyright Medium 12px text-secondary,
@@ -51,13 +51,15 @@ const SOCIAL = [
   },
 ] as const;
 
-// ── Navigate links (Figma node 627:371) ──────────────────────────────────────
+// ── Navigate links (Figma node 627:371) — mirrors the Navbar's full tab set ──
 const NAV_LINKS = [
+  { label: "Homepage",          href: "/" },
   { label: "Experience",        href: "/experience" },
   { label: "Projects",          href: "/projects" },
   { label: "Extracurriculars",  href: "/extracurriculars" },
   { label: "Hobbies",           href: "/hobbies" },
   { label: "About Me",          href: "/about" },
+  { label: "Contact Me",        href: "/contact" },
 ] as const;
 
 export default function Footer() {
@@ -90,7 +92,7 @@ export default function Footer() {
             Electrical Engineering &amp; Computer Science @ MIT
           </p>
 
-          {/* Social icon row — Figma node 627:367: gap-[10px], 3 icons */}
+          {/* Social icon row — Figma node 627:367: gap-[10px], 4 icons */}
           <div className="flex items-center" style={{ gap: "10px" }}>
             {SOCIAL.map(({ id, label, href, icon: Icon, external }) => (
               <motion.a
@@ -99,9 +101,9 @@ export default function Footer() {
                 aria-label={label}
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
-                whileHover={{ scale: 1.1, color: "var(--accent)" }}
+                whileHover={{ color: "var(--accent)" }}
                 transition={{ duration: 0.15 }}
-                className="block"
+                className="block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--border)]"
                 style={{ color: "var(--text-secondary)" }}
               >
                 <Icon size={16} />
@@ -125,7 +127,7 @@ export default function Footer() {
             <Link
               key={href}
               href={href}
-              className="font-medium leading-none transition-colors duration-150 hover:text-[var(--accent)]"
+              className="font-medium leading-none transition-colors duration-150 hover:text-[var(--accent)] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--border)]"
               style={{ fontSize: "12px", color: "var(--text-secondary)" }}
             >
               {label}
@@ -153,7 +155,7 @@ export default function Footer() {
           {/* Email — Figma node 627:381: Inter Medium 12px, var(--accent) */}
           <a
             href="mailto:dominikgrzeszczak28@gmail.com"
-            className="font-medium leading-none hover:underline transition-colors duration-150"
+            className="font-medium leading-none hover:underline transition-colors duration-150 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--border)]"
             style={{ fontSize: "12px", color: "var(--accent)" }}
           >
             dominikgrzeszczak28@gmail.com
@@ -178,7 +180,7 @@ export default function Footer() {
         {/* Back to top — Figma node 627:384–385: Inter Medium 12px, text-primary */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-1 font-medium leading-none transition-colors duration-150 hover:text-[var(--accent)] cursor-pointer"
+          className="flex items-center gap-1 font-medium leading-none transition-colors duration-150 hover:text-[var(--accent)] cursor-pointer rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--border)]"
           style={{ fontSize: "12px", color: "var(--text-primary)" }}
           aria-label="Back to top"
         >

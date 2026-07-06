@@ -32,7 +32,7 @@ export default function HeroSection() {
           className="rounded-full"
           style={{
             boxShadow:
-              "0 0 0 12px rgba(59,130,246,0.06), 0 0 0 24px rgba(99,102,241,0.03)",
+              "0 0 0 12px color-mix(in srgb, var(--accent) 6%, transparent), 0 0 0 24px color-mix(in srgb, var(--accent) 3%, transparent)",
           }}
         >
           {/* Gradient ring border */}
@@ -41,7 +41,7 @@ export default function HeroSection() {
             style={{
               border: "3px solid transparent",
               background:
-                "linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(135deg, #3B82F6, #6366F1) border-box",
+                "linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(135deg, var(--accent), var(--accent-hover)) border-box",
             }}
           >
             <Image
@@ -104,16 +104,16 @@ export default function HeroSection() {
         </motion.p>
 
         {/* CTA — Figma nodes 616:676/677, verbatim */}
-        {/* TODO: point href at the actual resume file when available */}
         <motion.a
           href="/resume.pdf"
+          download
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center justify-center font-medium text-white transition-opacity hover:opacity-85 active:opacity-75 mt-6"
           style={{
-            backgroundColor: "var(--text-primary)",
-            borderRadius: "10px",
+            backgroundColor: "var(--accent)",
+            borderRadius: "12px",
             height: "49px",
             padding: "20px",
             fontSize: "14px",

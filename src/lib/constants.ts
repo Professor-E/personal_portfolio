@@ -751,14 +751,3 @@ export const EXTRACURRICULARS = [
 ] as const;
 
 export type Extracurricular = (typeof EXTRACURRICULARS)[number];
-
-// ── Navigation ────────────────────────────────────────────────────────────────
-export const NAV_TABS = [
-  { id: "home",       label: "Home",        href: "/home" },
-  { id: "experience", label: "Experience",  href: "/experience" },
-  { id: "projects",   label: "Projects",    href: "/projects" },
-  { id: "activities", label: "Activities",  href: "/activities" },
-  { id: "hobbies",    label: "Hobbies",     href: "/hobbies" },
-  { id: "about",      label: "About Me",    href: "/about" },
-  { id: "contact",    label: "Contact",     href: "/contact" },
-] as const;
