@@ -1782,6 +1782,9 @@ main {
 .text-\[var\(--text-secondary\)\]{
   color: var(--text-secondary);
 }
+.text-\[var\(--text-tertiary\)\]{
+  color: var(--text-tertiary);
+}
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -2033,6 +2036,9 @@ html.intro-playing #nav-logo-name {
 .hover\:text-\[var\(--text-primary\)\]:hover{
   color: var(--text-primary);
 }
+.hover\:text-\[var\(--text-secondary\)\]:hover{
+  color: var(--text-secondary);
+}
 .hover\:text-white:hover{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -2099,10 +2105,6 @@ html.intro-playing #nav-logo-name {
 }
 .group:hover .group-hover\:translate-x-1{
   --tw-translate-x: 0.25rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-.group:hover .group-hover\:translate-y-1{
-  --tw-translate-y: 0.25rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .group:hover .group-hover\:scale-\[1\.03\]{
