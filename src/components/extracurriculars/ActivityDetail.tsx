@@ -69,7 +69,7 @@ export default function ActivityDetail({ activity }: { activity: Extracurricular
 
       <div
         className="h-[2px] w-16 rounded-full"
-        style={{ backgroundColor: `${activity.accentColor}99` }}
+        style={{ backgroundColor: `${categoryColor}99` }}
         aria-hidden="true"
       />
 

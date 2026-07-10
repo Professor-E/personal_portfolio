@@ -115,7 +115,7 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
         {/* Animated accent underline — grows on hover */}
         <div
           className="mb-2.5 mt-1.5 h-[1.5px] w-0 transition-[width] duration-[250ms] ease-out group-hover:w-full"
-          style={{ backgroundColor: `${project.accentColor}99` }}
+          style={{ backgroundColor: `${categoryColor}99` }}
           aria-hidden="true"
         />
 

@@ -72,7 +72,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
         <div
           className="h-[2px] w-16 rounded-full"
-          style={{ backgroundColor: `${project.accentColor}99` }}
+          style={{ backgroundColor: `${categoryColor}99` }}
           aria-hidden="true"
         />
 
