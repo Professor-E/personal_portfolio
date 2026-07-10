@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import type { Extracurricular } from "@/lib/constants";
+import { EXTRACURRICULAR_CATEGORY_COLORS, type Extracurricular } from "@/lib/constants";
 import { fadeUp } from "@/lib/motion";
 
 interface ActivityCardProps {
@@ -19,6 +19,12 @@ interface ActivityCardProps {
 const entryVariants = fadeUp;
 
 export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
+  // Category tag color is fixed per category (Leadership/Competition/
+  // Community & Volunteering), independent of this activity's own
+  // individual accentColor (which still drives its role pills/stat chips).
+  const categoryColor =
+    EXTRACURRICULAR_CATEGORY_COLORS[activity.category] ?? activity.accentColor;
+
   return (
     <motion.div
       // Shared layout id — the lightbox box grows out of this exact card.
@@ -97,20 +103,17 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
           </span>
         </div>
 
-        {/* Role badge row */}
+        {/* Category tag (fixed per-category color) */}
         <div className="mb-3 mt-2 flex flex-wrap gap-1.5">
-          {activity.roles.map((role) => (
-            <span
-              key={role}
-              className="rounded-full px-2.5 py-0.5 text-[11px] font-medium leading-none"
-              style={{
-                backgroundColor: `${activity.accentColor}18`,
-                color: activity.accentColor,
-              }}
-            >
-              {role}
-            </span>
-          ))}
+          <span
+            className="rounded-full px-2.5 py-0.5 text-[11px] font-medium leading-none"
+            style={{
+              backgroundColor: `${categoryColor}18`,
+              color: categoryColor,
+            }}
+          >
+            {activity.category}
+          </span>
         </div>
 
         {/* Animated accent underline — grows on hover */}
@@ -125,33 +128,56 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
           {activity.shortDescription}
         </p>
 
-        {/* Stat pills row — inline text, no borders */}
-        {activity.stats.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-3">
-            {activity.stats.map((stat) => (
+        {/* Role + stat chips — the headline "who I was" and "what I achieved"
+            info, bordered and tinted so it pops and reads at a glance
+            without opening the lightbox. */}
+        {(activity.roles.length > 0 || activity.stats.length > 0) && (
+          <div className="mt-3 flex flex-wrap items-stretch gap-2">
+            {activity.roles.map((role) => (
               <span
-                key={`${stat.value}-${stat.label}`}
-                className="text-[11px] leading-none"
-                style={{ color: "var(--text-tertiary)" }}
+                key={role}
+                className="inline-flex items-center rounded-lg border px-3 py-1.5 text-[12px] font-semibold leading-none"
+                style={{
+                  backgroundColor: `${categoryColor}1f`,
+                  borderColor: `${categoryColor}40`,
+                  color: categoryColor,
+                }}
               >
-                <span className="font-medium text-[var(--text-secondary)]">
-                  {stat.value}
-                </span>{" "}
-                {stat.label}
+                {role}
               </span>
+            ))}
+            {activity.stats.map((stat) => (
+              <div
+                key={`${stat.value}-${stat.label}`}
+                className="flex flex-col gap-0.5 rounded-lg border px-3 py-1.5"
+                style={{
+                  backgroundColor: `${categoryColor}1f`,
+                  borderColor: `${categoryColor}40`,
+                }}
+              >
+                <span
+                  className="font-bold leading-none"
+                  style={{ fontSize: "14px", color: categoryColor }}
+                >
+                  {stat.value}
+                </span>
+                <span
+                  className="font-medium leading-none text-[var(--text-secondary)]"
+                  style={{ fontSize: "10.5px" }}
+                >
+                  {stat.label}
+                </span>
+              </div>
             ))}
           </div>
         )}
 
-        {/* Footer row — category tag + see more */}
+        {/* Footer row — see more, pinned bottom-right (category now shown as
+            a tag above, so it isn't repeated here) */}
         <div
-          className="mt-4 flex items-center justify-between border-t pt-3"
+          className="mt-4 flex items-center justify-end border-t pt-3"
           style={{ borderColor: "var(--border)" }}
         >
-          <span className="text-[11px] leading-none" style={{ color: "var(--text-tertiary)" }}>
-            {activity.category}
-          </span>
-
           <span className="flex items-center gap-1 text-[12px] font-medium leading-none text-[var(--accent)]">
             See more
             <span

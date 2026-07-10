@@ -10,7 +10,7 @@ import FilterPills from "@/components/projects/FilterPills";
 import Lightbox from "@/components/common/Lightbox";
 import { fadeUp } from "@/lib/motion";
 
-const FILTER_OPTIONS = ["All", "Hardware", "Software", "Research"];
+const FILTER_OPTIONS = ["All", "Hardware", "Software"];
 
 const headingVariants = fadeUp;
 

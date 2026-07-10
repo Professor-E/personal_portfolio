@@ -400,6 +400,15 @@ export const PROJECTS = [
 
 export type Project = (typeof PROJECTS)[number];
 
+// Fixed per-category colors for the Projects page — every project in a given
+// category shows the same tag color, regardless of that project's own
+// individual accentColor (which still drives its card's other accents).
+export const PROJECT_CATEGORY_COLORS: Record<string, string> = {
+  Hardware: "#2563EB",
+  Software: "#EA580C",
+  Research: "#7C3AED",
+};
+
 // ── Activities ────────────────────────────────────────────────────────────────
 export const ACTIVITIES: ActivityEntry[] = [
   {
@@ -751,3 +760,13 @@ export const EXTRACURRICULARS = [
 ] as const;
 
 export type Extracurricular = (typeof EXTRACURRICULARS)[number];
+
+// Fixed per-category colors for the Extracurriculars page — every activity in
+// a given category shows the same tag, role-pill, and stat-chip color,
+// regardless of that activity's own individual accentColor (which still
+// drives its icon background and hover underline).
+export const EXTRACURRICULAR_CATEGORY_COLORS: Record<string, string> = {
+  Leadership: "#2563EB",
+  Competition: "#EA580C",
+  "Community & Volunteering": "#16A34A",
+};

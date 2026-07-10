@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import type { Project } from "@/lib/constants";
+import { PROJECT_CATEGORY_COLORS, type Project } from "@/lib/constants";
 import { fadeUp } from "@/lib/motion";
 
 interface ProjectCardProps {
@@ -24,6 +24,9 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
   // Image cards show the full photo (object-contain) on the site's off-white
   // backdrop; only the monogram fallback keeps the flat accent color.
   const blockBackground = imagePath ? "var(--background)" : project.accentColor;
+  // Category tag color is fixed per category (Hardware/Software/Research),
+  // independent of this project's own individual accentColor.
+  const categoryColor = PROJECT_CATEGORY_COLORS[project.category] ?? project.accentColor;
 
   return (
     <motion.article
@@ -94,8 +97,8 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
           className="mb-3 inline-flex self-start items-center rounded-full px-2.5 py-0.5 font-medium leading-none"
           style={{
             fontSize: "11px",
-            backgroundColor: `${project.accentColor}18`,
-            color: project.accentColor,
+            backgroundColor: `${categoryColor}18`,
+            color: categoryColor,
           }}
         >
           {project.category}

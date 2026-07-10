@@ -1341,6 +1341,9 @@ main {
 .justify-between{
   justify-content: space-between;
 }
+.gap-0\.5{
+  gap: 0.125rem;
+}
 .gap-1{
   gap: 0.25rem;
 }
@@ -1379,13 +1382,6 @@ main {
 }
 .gap-\[24px\]{
   gap: 24px;
-}
-.gap-x-10{
-  -moz-column-gap: 2.5rem;
-       column-gap: 2.5rem;
-}
-.gap-y-4{
-  row-gap: 1rem;
 }
 .space-y-24 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
@@ -1441,6 +1437,9 @@ main {
 }
 .rounded-full{
   border-radius: 9999px;
+}
+.rounded-lg{
+  border-radius: 12px;
 }
 .rounded-md{
   border-radius: 8px;

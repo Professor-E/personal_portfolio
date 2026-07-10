@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { Project } from "@/lib/constants";
+import { PROJECT_CATEGORY_COLORS, type Project } from "@/lib/constants";
 
 /**
  * Full project detail rendered inside the enlarged lightbox.
@@ -13,6 +13,7 @@ import type { Project } from "@/lib/constants";
  */
 export default function ProjectDetail({ project }: { project: Project }) {
   const imagePath = "imagePath" in project ? project.imagePath : undefined;
+  const categoryColor = PROJECT_CATEGORY_COLORS[project.category] ?? project.accentColor;
 
   return (
     <div className="flex flex-col">
@@ -51,8 +52,8 @@ export default function ProjectDetail({ project }: { project: Project }) {
             className="inline-flex items-center rounded-full px-3 py-1 font-medium leading-none"
             style={{
               fontSize: "12px",
-              backgroundColor: `${project.accentColor}18`,
-              color: project.accentColor,
+              backgroundColor: `${categoryColor}18`,
+              color: categoryColor,
             }}
           >
             {project.category}
