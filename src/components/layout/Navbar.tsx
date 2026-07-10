@@ -66,7 +66,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-full px-6 max-w-[1440px] mx-auto">
 
           {/* Logo — Figma node 627:342: Inter SemiBold 18px, text-primary */}
+          {/* id used by IntroAnimation to measure this element as the corner-
+              transition landing target — do not remove. */}
           <Link
+            id="nav-logo-name"
             href="/"
             className="font-semibold text-[18px] leading-none whitespace-nowrap shrink-0"
             style={{ color: "var(--text-primary)" }}

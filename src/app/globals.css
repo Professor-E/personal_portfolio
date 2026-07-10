@@ -13,6 +13,10 @@
 
   html {
     scroll-behavior: smooth;
+    /* Reserves space for the vertical scrollbar whether or not the page is
+       currently scrollable, so IntroAnimation's scroll-lock/unlock never
+       shifts the centered layout when the scrollbar appears. */
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -44,6 +48,17 @@
 }
 html.intro-pending #intro-splash {
   display: block;
+}
+
+/* ── Intro corner-transition handoff ───────────────────────────────────────
+   The real navbar logo stays hidden for as long as IntroAnimation is
+   playing (set on mount, removed the instant its traveling name lands
+   pixel-exact on top of this element) — otherwise the real, always-mounted
+   nav text is visible the moment the intro backdrop clears while the
+   traveling typewriter name is still mid-flight elsewhere, showing two
+   copies of the name on screen at once. */
+html.intro-playing #nav-logo-name {
+  visibility: hidden;
 }
 
 /* ── Company marquee (right-to-left infinite scroll) ──────────────────────────
