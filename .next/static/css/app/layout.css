@@ -890,10 +890,6 @@ video {
 
 html {
     scroll-behavior: smooth;
-    /* Reserves space for the vertical scrollbar whether or not the page is
-       currently scrollable, so IntroAnimation's scroll-lock/unlock never
-       shifts the centered layout when the scrollbar appears. */
-    scrollbar-gutter: stable;
   }
 
 body {

@@ -98,6 +98,12 @@ export default function IntroAnimation({ onReveal, onComplete }: IntroAnimationP
     finishedRef.current = true;
     if (typeof window !== "undefined") {
       document.body.style.overflow = "";
+      // Remove the scrollbar-width compensation (see mount effect below) in
+      // the same instant scroll unlocks, so the real scrollbar reappearing
+      // and this padding disappearing cancel out — otherwise the page's
+      // content width net-changes right as the name lands, visibly
+      // shifting the centered layout sideways at that exact moment.
+      document.body.style.paddingRight = "";
       // Reveal the real nav logo at the exact instant the traveling name
       // lands pixel-exact on top of it — see the `.intro-playing` rule in
       // globals.css, which hides #nav-logo-name for as long as this class
@@ -120,13 +126,35 @@ export default function IntroAnimation({ onReveal, onComplete }: IntroAnimationP
   // is ever visible until it lands.
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // Measure the real scrollbar width (0 on OSes/browsers that overlay
+      // scrollbars, e.g. macOS trackpads) via the classic offscreen
+      // overflow:scroll probe, and reserve that same width as body padding
+      // while scroll is locked. Locking scroll hides the scrollbar, which
+      // would otherwise narrow the viewport by its width; without this
+      // compensation, unlocking scroll later (in `finish()`) makes the
+      // scrollbar reappear and the centered layout jump left at that exact
+      // moment. Padding now + removing it exactly when scroll unlocks keeps
+      // total occupied width constant throughout, so there's no shift.
+      const outer = document.createElement("div");
+      outer.style.visibility = "hidden";
+      outer.style.overflow = "scroll";
+      document.body.appendChild(outer);
+      const inner = document.createElement("div");
+      outer.appendChild(inner);
+      const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+      outer.remove();
+
       document.body.style.overflow = "hidden";
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
       document.documentElement.classList.remove("intro-pending");
       document.documentElement.classList.add("intro-playing");
     }
     return () => {
       if (typeof window !== "undefined") {
         document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
         document.documentElement.classList.remove("intro-playing");
       }
     };
