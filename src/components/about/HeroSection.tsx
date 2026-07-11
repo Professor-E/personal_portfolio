@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { EASE_OUT } from "@/lib/motion";
+import Magnetic from "@/components/ui/Magnetic";
 
 /**
  * Hero section — content locked to Figma node 616:671 (text verbatim).
@@ -116,6 +117,7 @@ export default function HeroSection() {
           transition={{ delay: 0.45, duration: 0.7, ease: EASE_OUT }}
           className="mt-6"
         >
+          <Magnetic>
           <a
             href="/resume.pdf"
             download="Resume - Dominik Grzeszczak.pdf"
@@ -140,6 +142,7 @@ export default function HeroSection() {
               aria-hidden="true"
             />
           </a>
+          </Magnetic>
         </motion.div>
       </div>
     </section>

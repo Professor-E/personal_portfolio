@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { PROJECT_CATEGORY_COLORS, type Project } from "@/lib/constants";
 
@@ -10,10 +11,39 @@ import { PROJECT_CATEGORY_COLORS, type Project } from "@/lib/constants";
  * (object-cover, so it always fills the band — no letterboxing) over a
  * neutral surface background, so no accent color flashes while the photo
  * loads. Projects without a photo fall back to the flat accent band.
+ *
+ * The photo parallaxes gently as the lightbox content scrolls: it starts
+ * slightly over-zoomed (so it has slack to move within) and translates at
+ * ~35% of the scroll speed. Skipped under `prefers-reduced-motion`.
  */
 export default function ProjectDetail({ project }: { project: Project }) {
   const imagePath = "imagePath" in project ? project.imagePath : undefined;
   const categoryColor = PROJECT_CATEGORY_COLORS[project.category] ?? project.accentColor;
+  const parallaxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = parallaxRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // The Lightbox owns the scroll container — find it from inside.
+    const scroller = el.closest(".overflow-y-auto");
+    if (!(scroller instanceof HTMLElement)) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const y = Math.min(scroller.scrollTop, 480);
+        el.style.transform = `translateY(${y * 0.35}px) scale(1.12)`;
+      });
+    };
+    onScroll();
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      scroller.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col">
@@ -26,14 +56,20 @@ export default function ProjectDetail({ project }: { project: Project }) {
         }}
       >
         {imagePath && (
-          <Image
-            src={imagePath}
-            alt={project.title}
-            fill
-            sizes="90vw"
-            className="object-cover"
-            priority
-          />
+          <div
+            ref={parallaxRef}
+            className="absolute inset-0"
+            style={{ transform: "scale(1.12)" }}
+          >
+            <Image
+              src={imagePath}
+              alt={project.title}
+              fill
+              sizes="90vw"
+              className="object-cover"
+              priority
+            />
+          </div>
         )}
 
         {project.badge && (

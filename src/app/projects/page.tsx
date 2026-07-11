@@ -118,10 +118,11 @@ export default function ProjectsPage() {
             className="grid grid-cols-1 gap-6 pb-16 sm:grid-cols-2 lg:grid-cols-3"
           >
             <AnimatePresence mode="popLayout">
-              {filtered.map((project) => (
+              {filtered.map((project, index) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
+                  index={index}
                   onOpen={() => {
                     setDirection(0);
                     setActiveId(project.id);

@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SmoothScroll from "@/components/layout/SmoothScroll";
+import CursorGlow from "@/components/layout/CursorGlow";
 import "./globals.css";
 
 // ── Fonts — Inter (from Figma tokens: --font-inter) ───────────────────────────
@@ -14,6 +16,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  // Resolves OG/twitter image URLs (src/app/opengraph-image.tsx). Set
+  // NEXT_PUBLIC_SITE_URL to the custom domain once one is attached; on
+  // Vercel deploys VERCEL_URL covers preview/prod URLs automatically.
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000")
+  ),
   title: "Dominik Grzeszczak",
   description:
     "Portfolio of Dominik Grzeszczak — MIT freshman studying Electrical Engineering & Computer Science.",
@@ -41,10 +52,15 @@ export default function RootLayout({
             the script above. Removed by IntroAnimation once it mounts. */}
         <div id="intro-splash" aria-hidden="true" />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <Navbar />
-          {/* pt-[70px] matches exact navbar height from Figma node 627:340 */}
-          <main className="pt-[70px]">{children}</main>
-          <Footer />
+          <SmoothScroll>
+            <CursorGlow />
+            {/* Sitewide film grain — see .grain-overlay in globals.css */}
+            <div className="grain-overlay" aria-hidden="true" />
+            <Navbar />
+            {/* pt-[70px] matches exact navbar height from Figma node 627:340 */}
+            <main className="pt-[70px]">{children}</main>
+            <Footer />
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

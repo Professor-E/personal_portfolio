@@ -198,10 +198,11 @@ const FEATURED_ITEMS: FeaturedItem[] = [
 ];
 
 // ── Fade-in container for the grid rows ───────────────────────────────────────
-// All cards in a row fade in together (no stagger) — see `cardVariants` below.
+// Cards in a row cascade left→right with a small stagger — same choreography
+// rhythm as the Projects grid's per-column reveal.
 const containerVariants = {
   hidden: {},
-  show: {},
+  show: { transition: { staggerChildren: 0.08 } },
 };
 
 // Canonical site-wide fade + rise entrance (see src/lib/motion.ts).

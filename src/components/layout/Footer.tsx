@@ -127,7 +127,7 @@ export default function Footer() {
             <Link
               key={href}
               href={href}
-              className="font-medium leading-none transition-colors duration-150 hover:text-[var(--accent)] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--border)]"
+              className="link-underline w-fit font-medium leading-none transition-colors duration-150 hover:text-[var(--accent)] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--border)]"
               style={{ fontSize: "12px", color: "var(--text-secondary)" }}
             >
               {label}
@@ -155,7 +155,7 @@ export default function Footer() {
           {/* Email — Figma node 627:381: Inter Medium 12px, var(--accent) */}
           <a
             href="mailto:dominikgrzeszczak28@gmail.com"
-            className="font-medium leading-none hover:underline transition-colors duration-150 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--border)]"
+            className="link-underline w-fit font-medium leading-none transition-colors duration-150 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--border)]"
             style={{ fontSize: "12px", color: "var(--accent)" }}
           >
             dominikgrzeszczak28@gmail.com

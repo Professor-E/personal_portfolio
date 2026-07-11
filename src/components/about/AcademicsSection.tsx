@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { EASE_OUT } from "@/lib/motion";
+import { useParallax } from "@/lib/useParallax";
 
 /**
  * Academics section — content locked to Figma node 616:680 (text verbatim).
@@ -41,6 +42,96 @@ const BASE_GRADIENT =
 const HOVER_GRADIENT =
   "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 40%, rgba(0,0,0,0.82) 100%)";
 
+/** One academics card — split out so each gets its own parallax ref. */
+function AcademicsCard({
+  image,
+  label,
+  institution,
+  years,
+  body,
+  index,
+}: (typeof CARDS)[number] & { index: number }) {
+  // Scroll-scrubbed drift of the photo inside the card frame. The wrapper is
+  // over-scaled (1.12) so the ±26px travel never exposes the card's edges.
+  const parallaxRef = useParallax<HTMLDivElement>(26);
+
+  return (
+    <motion.div
+      className="flex-1 w-full min-w-0"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.12, duration: 0.7, ease: EASE_OUT }}
+    >
+      {/* Inner wrapper: hover scale only (spring) */}
+      <motion.div
+        className="relative overflow-hidden rounded-2xl w-full group"
+        style={{ height: "442px" }}
+        whileHover={{ scale: 1.025 }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      >
+        {/* Parallax frame — GSAP animates `y`, preserving the scale */}
+        <div
+          ref={parallaxRef}
+          className="absolute inset-0"
+          style={{ transform: "scale(1.12)" }}
+        >
+          <Image
+            src={image}
+            alt={institution}
+            fill
+            className="object-cover"
+            style={{ objectPosition: "center" }}
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+
+        {/* Base gradient overlay */}
+        <div className="absolute inset-0" style={{ background: BASE_GRADIENT }} />
+        {/* Deeper hover gradient — fades in over the base overlay */}
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100"
+          style={{
+            background: HOVER_GRADIENT,
+            transition: "opacity 0.3s ease",
+          }}
+        />
+
+        {/* Text overlay — bottom of card, white, Figma strings verbatim */}
+        <div
+          className="absolute bottom-0 left-0 right-0 flex flex-col gap-1.5"
+          style={{ padding: "24px" }}
+        >
+          <p
+            className="font-semibold text-white"
+            style={{ fontSize: "13px", opacity: 0.85, lineHeight: 1 }}
+          >
+            {label}
+          </p>
+          <h3
+            className="font-bold text-white"
+            style={{ fontSize: "24px", lineHeight: "normal" }}
+          >
+            {institution}
+          </h3>
+          <p
+            className="font-medium text-white"
+            style={{ fontSize: "16px", opacity: 0.85, lineHeight: 1 }}
+          >
+            {years}
+          </p>
+          <p
+            className="font-medium text-white mt-2"
+            style={{ fontSize: "13px", opacity: 0.8, lineHeight: "20px" }}
+          >
+            {body}
+          </p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function AcademicsSection() {
   return (
     <section className="flex flex-col gap-6 w-full" aria-label="Academics">
@@ -58,79 +149,8 @@ export default function AcademicsSection() {
 
       {/* Cards — equal width and height, stack on mobile */}
       <div className="flex flex-col md:flex-row gap-6 w-full">
-        {CARDS.map(({ id, image, label, institution, years, body }, i) => (
-          /* Outer wrapper: entry animation only (whileInView, stagger) */
-          <motion.div
-            key={id}
-            className="flex-1 w-full min-w-0"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.12, duration: 0.7, ease: EASE_OUT }}
-          >
-            {/* Inner wrapper: hover scale only (spring) */}
-            <motion.div
-              className="relative overflow-hidden rounded-2xl w-full group"
-              style={{ height: "442px" }}
-              whileHover={{ scale: 1.025 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            >
-              {/* Background image fills the card */}
-              <Image
-                src={image}
-                alt={institution}
-                fill
-                className="object-cover"
-                style={{ objectPosition: "center" }}
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-
-              {/* Base gradient overlay */}
-              <div
-                className="absolute inset-0"
-                style={{ background: BASE_GRADIENT }}
-              />
-              {/* Deeper hover gradient — fades in over the base overlay */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                style={{
-                  background: HOVER_GRADIENT,
-                  transition: "opacity 0.3s ease",
-                }}
-              />
-
-              {/* Text overlay — bottom of card, white, Figma strings verbatim */}
-              <div
-                className="absolute bottom-0 left-0 right-0 flex flex-col gap-1.5"
-                style={{ padding: "24px" }}
-              >
-                <p
-                  className="font-semibold text-white"
-                  style={{ fontSize: "13px", opacity: 0.85, lineHeight: 1 }}
-                >
-                  {label}
-                </p>
-                <h3
-                  className="font-bold text-white"
-                  style={{ fontSize: "24px", lineHeight: "normal" }}
-                >
-                  {institution}
-                </h3>
-                <p
-                  className="font-medium text-white"
-                  style={{ fontSize: "16px", opacity: 0.85, lineHeight: 1 }}
-                >
-                  {years}
-                </p>
-                <p
-                  className="font-medium text-white mt-2"
-                  style={{ fontSize: "13px", opacity: 0.8, lineHeight: "20px" }}
-                >
-                  {body}
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
+        {CARDS.map((card, i) => (
+          <AcademicsCard key={card.id} {...card} index={i} />
         ))}
       </div>
     </section>

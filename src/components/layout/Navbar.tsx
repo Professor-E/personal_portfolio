@@ -87,6 +87,7 @@ export default function Navbar() {
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={cn(
                   "text-[16px] font-medium leading-none whitespace-nowrap transition-colors duration-150",
+                  "link-underline",
                   "rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
                   isActive(item.href)
                     ? "text-[var(--accent)]"

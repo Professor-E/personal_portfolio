@@ -12,7 +12,14 @@ import { EASE_OUT } from "@/lib/motion";
 const IntroAnimation = dynamic(
   () => import("@/components/home/IntroAnimation"),
   { ssr: false }
-); 
+);
+
+// WebGL hero backdrop — heavy (three.js), so lazy client-only like the intro.
+// Renders behind the hero text; has its own static fallback for reduced
+// motion / mobile / missing WebGL.
+const HeroBackdrop = dynamic(() => import("@/components/home/HeroBackdrop"), {
+  ssr: false,
+});
 
 export default function HomePage() {
   const [showIntro, setShowIntro] = useState(false);
@@ -56,7 +63,15 @@ export default function HomePage() {
                 navbar offset (see globals.css `main { padding-top: 70px }`)
                 so this block occupies exactly one full screen, and the user
                 has to scroll to reach "Recent Work" below. ─────────────── */}
-            <div className="flex flex-col" style={{ minHeight: "calc(100vh - 70px)" }}>
+            <div
+              className="relative flex flex-col"
+              style={{ minHeight: "calc(100vh - 70px)" }}
+            >
+              {/* WebGL aurora — fills the whole first viewport behind the
+                  hero and marquee. pointer-events-none; content sits above
+                  on z-10. */}
+              <HeroBackdrop />
+
               {/* Hero — delay 0. flex-1 fills the space above the marquee and
                   centers the hero content vertically within it. Same fade+rise
                   shape (y: 20, 0.6s) used for every page's entrance animation. */}
@@ -68,7 +83,7 @@ export default function HomePage() {
                   duration: 0.6,
                   ease: EASE_OUT,
                 }}
-                className="flex-1 flex items-center justify-center"
+                className="relative z-10 flex-1 flex items-center justify-center"
               >
                 <HeroSection />
               </motion.div>
@@ -83,6 +98,7 @@ export default function HomePage() {
                   duration: 0.6,
                   ease: EASE_OUT,
                 }}
+                className="relative z-10"
               >
                 <CompanyScroll />
               </motion.div>

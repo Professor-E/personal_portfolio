@@ -108,6 +108,95 @@ html.intro-playing #nav-logo-name {
   }
 }
 
+/* ── Lenis smooth scroll (see components/layout/SmoothScroll.tsx) ───────────
+   Base rules from the Lenis docs. The `scroll-behavior: auto` override is the
+   critical one: the html-level `smooth` above would fight Lenis' per-frame
+   programmatic scrolling and cause visible rubber-banding. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Anchor targets clear the 70px fixed navbar on native (non-Lenis) jumps;
+   Lenis handles the same offset via its `anchors` option. */
+#recent-work {
+  scroll-margin-top: 84px;
+}
+
+/* ── Custom cursor follower (see components/layout/CursorGlow.tsx) ──────────
+   Blend-mode dot that trails the pointer. `difference` keeps it visible on
+   both themes and over any brand color. Hidden until first pointer movement
+   (opacity set from JS); never rendered for touch / reduced-motion users. */
+.cursor-dot {
+  position: fixed;
+  top: -6px;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+}
+
+/* ── Link underline reveal ──────────────────────────────────────────────────
+   Micro-interaction for inline/nav links: the underline draws in from the
+   left on hover and exits to the right on leave (background-position swap).
+   Uses currentColor so it inherits each link's own text color. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: 0% 1.5px;
+  transition: background-size 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  padding-bottom: 2px;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-position: left bottom;
+  background-size: 100% 1.5px;
+}
+
+/* ── Film grain overlay (ambient media pass) ────────────────────────────────
+   Code-generated noise — an inline SVG feTurbulence tile, no external asset.
+   Sits fixed above page content (below the route curtain z-80 and lightboxes
+   z-90) at near-invisible opacity; adds the analog depth award sites have
+   without touching any real photo or logo. Static, so reduced-motion safe. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.025;
+}
+.dark .grain-overlay {
+  opacity: 0.05;
+}
+
+/* ── Mesh-gradient accent panel (ambient media pass) ────────────────────────
+   Token-derived mesh: white light from the top-left, deeper accent-hover
+   pooling bottom-right. Replaces flat accent fills (contact info panel). */
+.mesh-accent {
+  background-color: var(--accent);
+  background-image:
+    radial-gradient(80% 70% at 12% 8%, rgba(255, 255, 255, 0.16), transparent 60%),
+    radial-gradient(95% 85% at 88% 92%, color-mix(in srgb, var(--accent-hover) 80%, transparent), transparent 68%),
+    radial-gradient(55% 45% at 75% 18%, rgba(255, 255, 255, 0.07), transparent 60%);
+}
+
 /* ── Scrollbar styling ────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--background); }

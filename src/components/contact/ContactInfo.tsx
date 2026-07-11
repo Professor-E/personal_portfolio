@@ -65,9 +65,10 @@ const INFO_ITEMS: ContactInfoItem[] = [
 export default function ContactInfo() {
   return (
     <div
-      className="flex flex-col h-full w-full"
+      // mesh-accent (globals.css): token-derived mesh gradient over the old
+      // flat accent fill — part of the ambient media pass.
+      className="mesh-accent flex flex-col h-full w-full"
       style={{
-        backgroundColor: "var(--accent)",
         padding: "32px",
         gap: "12px",
       }}

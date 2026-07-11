@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Magnetic from "@/components/ui/Magnetic";
 
 /**
  * Hero section — Figma node 616:505
@@ -43,7 +44,11 @@ export default function HeroSection() {
       </p>
 
       {/* ── CTA row — primary button + quiet secondary link ───────────── */}
+      {/* Both CTAs get a gentle magnetic pull toward the pointer (desktop
+          only — see ui/Magnetic.tsx). The wrapper moves; the buttons' own
+          hover lift still composes on top. */}
       <div className="mt-1 flex flex-col sm:flex-row items-center gap-5 sm:gap-7">
+        <Magnetic>
         <Link
           href="/contact"
           className="group inline-flex items-center justify-center gap-2 font-bold text-white transition-all duration-200 hover:-translate-y-0.5 hover:opacity-95 active:translate-y-0 active:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
@@ -66,10 +71,12 @@ export default function HeroSection() {
             aria-hidden="true"
           />
         </Link>
+        </Magnetic>
 
         {/* Secondary — solid black (inverts in dark mode) button that scrolls
             to the Recent Work grid. Same size/lift as the primary CTA, but a
             neutral fill so the accent button stays the loudest element. */}
+        <Magnetic>
         <a
           href="#recent-work"
           className="group inline-flex items-center justify-center gap-2 font-bold text-[var(--background)] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
@@ -85,6 +92,7 @@ export default function HeroSection() {
         >
           View my work
         </a>
+        </Magnetic>
       </div>
     </section>
   );
