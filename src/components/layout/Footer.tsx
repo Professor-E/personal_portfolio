@@ -76,9 +76,10 @@ export default function Footer() {
         {/* ── Left column — Identity (Figma node 627:364) ──────────────── */}
         {/* h-[96px] p-[10px] justify-between in Figma */}
         <div className="flex flex-col gap-3">
-          {/* Name — Figma node 627:365: Inter Bold 14px, text-primary */}
+          {/* Name — Figma node 627:365: Bold 14px, text-primary. Set in the
+              display face so the footer wordmark matches the navbar logo. */}
           <p
-            className="font-bold leading-none"
+            className="font-display font-bold leading-none"
             style={{ fontSize: "14px", color: "var(--text-primary)" }}
           >
             Dominik Grzeszczak

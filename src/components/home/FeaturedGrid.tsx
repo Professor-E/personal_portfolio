@@ -393,7 +393,7 @@ export default function FeaturedGrid() {
       {/* Section heading — medium weight + display tracking, matching the
           inner pages' title treatment */}
       <h2
-        className="font-medium text-[var(--text-primary)] mb-8"
+        className="font-semibold text-[var(--text-primary)] mb-8"
         style={{
           fontSize: "clamp(28px, 3.4vw, 40px)",
           letterSpacing: "var(--tracking-display)",

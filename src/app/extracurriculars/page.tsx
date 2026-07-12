@@ -69,7 +69,7 @@ export default function ExtracurricularsPage() {
           </p>
 
           <h1
-            className="mt-3 font-medium leading-none text-[var(--text-primary)]"
+            className="mt-3 font-semibold leading-none text-[var(--text-primary)]"
             style={{
               fontSize: "clamp(36px, 5vw, 64px)",
               letterSpacing: "var(--tracking-display)",

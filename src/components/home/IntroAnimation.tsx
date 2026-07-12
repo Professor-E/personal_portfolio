@@ -268,9 +268,12 @@ export default function IntroAnimation({ onReveal, onComplete }: IntroAnimationP
             the text) changes while typing; its height and vertical
             position are constant from the first character onward. */}
         <div className="flex items-center justify-center" style={{ height: NAME_FONT_SIZE, lineHeight: 1 }}>
+          {/* font-display MUST match the navbar logo (#nav-logo-name) — the
+              corner transition scales this span by the font-size ratio, so a
+              family mismatch would visibly swap glyphs at the landing. */}
           <motion.span
             ref={nameRef}
-            className="whitespace-nowrap font-semibold leading-none inline-block"
+            className="font-display whitespace-nowrap font-semibold leading-none inline-block"
             style={{
               fontSize: NAME_FONT_SIZE,
               transformOrigin: "0 0",

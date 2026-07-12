@@ -3,6 +3,11 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Magnetic from "@/components/ui/Magnetic";
+import RotatingWord from "@/components/home/RotatingWord";
+
+// Synonym cycle for the hero's typewriter verb — all read naturally after
+// "I love to …". First entry doubles as the SSR/reduced-motion static word.
+const ROTATING_VERBS = ["build", "create", "design", "engineer", "invent", "craft"] as const;
 
 /**
  * Hero section — Figma node 616:505
@@ -16,21 +21,26 @@ export default function HeroSection() {
       className="flex flex-col items-center justify-center gap-7 pt-12 pb-4 min-h-[492px]"
       aria-label="Hero"
     >
-      {/* ── Display headline — locked to two lines on desktop ──────────── */}
-      {/* Inter Medium, text-primary, text-center. The font scale is nudged
-          down slightly from the original 64px cap so the line breaks cleanly
-          into exactly two balanced lines ("…and practice." on line two). */}
+      {/* ── Display headline — greeting + typewriter verb rotator ──────── */}
+      {/* Two lines on desktop: the greeting, then "I love to <verb>" where
+          the verb types/deletes through synonyms in the accent color (see
+          RotatingWord). The old "…bridge theory and practice" line moved to
+          the About page hero. aria-label keeps a static sentence for screen
+          readers while the visual content churns. */}
       <h1
-        className="font-medium text-[var(--text-primary)] text-center leading-[1.05] max-w-[1250px] px-8 md:px-16 lg:px-24"
+        aria-label="Hello, I'm Dominik — I love to build."
+        className="font-semibold text-[var(--text-primary)] text-center leading-[1.05] max-w-[1250px] px-8 md:px-16 lg:px-24"
         style={{
           fontSize: "clamp(30px, 5vw, 58px)",
           textWrap: "balance",
           letterSpacing: "var(--tracking-display)",
         }}
       >
-        Hello, I&apos;m Dominik — I build things{" "}
-        <br className="hidden md:block" />
-        that bridge theory and practice.
+        <span aria-hidden="true">
+          Hello, I&apos;m Dominik —{" "}
+          <br className="hidden md:block" />
+          I love to <RotatingWord words={ROTATING_VERBS} />
+        </span>
       </h1>
 
       {/* ── Subtitle ──────────────────────────────────────────────────── */}

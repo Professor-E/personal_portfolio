@@ -95,6 +95,10 @@
   /* Negative tracking for large display headings only */
   --tracking-display: -0.02em;
 
+  /* Display face — headings + wordmarks (body/UI stays Inter). The
+     --font-manrope var is injected on <html> by next/font (layout.tsx). */
+  --font-display: var(--font-manrope), var(--font-inter), "Inter", sans-serif;
+
   /* Skill pill tints (About page) — derived from the accent color */
   --skill-pill-bg:     color-mix(in srgb, var(--accent) 6%, transparent);
   --skill-pill-border: color-mix(in srgb, var(--accent) 18%, transparent);

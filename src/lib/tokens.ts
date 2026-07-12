@@ -28,6 +28,8 @@ export const colors = {
 export const typography = {
   fontFamily: {
     inter: "Inter, sans-serif",
+    // Post-Figma display face — headings + wordmarks (mirrors --font-display)
+    display: "'Manrope', Inter, sans-serif",
   },
   fontSize: {
     display:    "64px",

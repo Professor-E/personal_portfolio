@@ -67,7 +67,7 @@ export default function ContactPage() {
         >
           {/* Display token: clamp(36px → 64px) */}
           <h1
-            className="font-medium leading-none"
+            className="font-semibold leading-none"
             style={{
               fontSize: "clamp(36px, 5vw, 64px)",
               color: "var(--text-primary)",

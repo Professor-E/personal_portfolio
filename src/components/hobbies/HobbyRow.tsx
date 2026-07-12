@@ -106,7 +106,7 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
           />
 
           <h2
-            className="mb-2 font-medium leading-snug text-[var(--text-primary)]"
+            className="mb-2 font-semibold leading-snug text-[var(--text-primary)]"
             style={{ fontSize: "24px" }}
           >
             {hobby.name}

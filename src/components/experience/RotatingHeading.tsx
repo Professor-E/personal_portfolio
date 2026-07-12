@@ -35,7 +35,7 @@ export default function RotatingHeading({ companyName, brandColor }: RotatingHea
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="text-3xl md:text-[clamp(28px,2.9vw,42px)] font-bold leading-tight"
+            className="font-display text-3xl md:text-[clamp(28px,2.9vw,42px)] font-bold leading-tight"
             style={{
               color: brandColor,
               display: "block",

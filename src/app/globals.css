@@ -27,6 +27,18 @@
   main {
     padding-top: 70px;
   }
+
+  /* ── Display typography ────────────────────────────────────────────────
+     Headings sitewide render in the display face (Manrope) while body and
+     UI text stay Inter — the family contrast is what makes headings read
+     as designed rather than defaulted. `.font-display` opts non-heading
+     elements (nav wordmark, intro name, marquee) into the same face. */
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+  }
 }
 
 /* ── Cold-open intro splash ───────────────────────────────────────────────────
@@ -81,6 +93,15 @@ html.intro-playing #nav-logo-name {
   display: flex;
   width: max-content;
   animation: marquee-scroll 38s linear infinite;
+}
+/* Company names carry their brand color via custom props set inline in
+   CompanyScroll.tsx. Dark theme swaps to a lighter same-hue variant for
+   brands whose color would vanish against the dark background. */
+.marquee-name {
+  color: var(--marquee-color);
+}
+.dark .marquee-name {
+  color: var(--marquee-color-dark, var(--marquee-color));
 }
 .marquee-track:hover {
   animation-play-state: paused;
@@ -148,6 +169,24 @@ html.lenis body {
   pointer-events: none;
   z-index: 10000;
   opacity: 0;
+}
+
+/* ── Rotating-word caret (home hero — see components/home/RotatingWord.tsx)
+   Blinking accent bar sized/aligned like the intro animation's caret. The
+   site-wide reduced-motion block freezes the blink, but RotatingWord doesn't
+   render the caret at all under reduced motion anyway. */
+.rotating-caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.95em;
+  margin-left: 0.08em;
+  vertical-align: text-bottom;
+  background-color: var(--accent);
+  animation: caret-blink 1.1s steps(1) infinite;
+}
+@keyframes caret-blink {
+  0%, 54% { opacity: 1; }
+  55%, 100% { opacity: 0; }
 }
 
 /* ── Link underline reveal ──────────────────────────────────────────────────

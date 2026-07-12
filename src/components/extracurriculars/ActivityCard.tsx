@@ -92,7 +92,7 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Header row — name + date range */}
         <div className="flex items-start justify-between gap-4">
-          <h3 className="text-[16px] font-medium leading-snug text-[var(--text-primary)]">
+          <h3 className="text-[16px] font-semibold leading-snug text-[var(--text-primary)]">
             {activity.name}
           </h3>
           <span

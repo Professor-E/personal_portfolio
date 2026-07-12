@@ -70,16 +70,21 @@ export default function HeroSection() {
 
       {/* ── Text block — RIGHT ───────────────────────────────────────────── */}
       <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1 min-w-0">
-        {/* Heading — Figma node 616:673, verbatim */}
+        {/* Heading — copy moved here from the homepage hero (July 2026, user
+            request); the old "Electrical Engineer, …" list it replaced is
+            retired. Balanced wrapping so no word strands alone on a line. */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.7, ease: EASE_OUT }}
-          className="font-medium text-[var(--text-primary)]"
-          style={{ fontSize: "clamp(28px, 3.5vw, 48px)", lineHeight: "normal" }}
+          className="font-semibold text-[var(--text-primary)]"
+          style={{
+            fontSize: "clamp(28px, 3.3vw, 44px)",
+            lineHeight: 1.15,
+            textWrap: "balance",
+          }}
         >
-          Electrical Engineer, Computer Scientist, Builder, and Problem
-          Solver.
+          I build things that bridge theory and practice.
         </motion.h1>
 
         {/* Accent line — width animates 0 → 48px */}

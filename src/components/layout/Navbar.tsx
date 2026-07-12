@@ -65,13 +65,16 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between h-full px-6 max-w-[1440px] mx-auto">
 
-          {/* Logo — Figma node 627:342: Inter SemiBold 18px, text-primary */}
+          {/* Logo — Figma node 627:342: SemiBold 18px, text-primary */}
           {/* id used by IntroAnimation to measure this element as the corner-
-              transition landing target — do not remove. */}
+              transition landing target — do not remove. font-display MUST stay
+              in sync with IntroAnimation's name span: the intro's traveling
+              name scales down to land pixel-exact on this element, which only
+              works when both share a font family. */}
           <Link
             id="nav-logo-name"
             href="/"
-            className="font-semibold text-[18px] leading-none whitespace-nowrap shrink-0"
+            className="font-display font-semibold text-[18px] leading-none whitespace-nowrap shrink-0"
             style={{ color: "var(--text-primary)" }}
           >
             Dominik Grzeszczak

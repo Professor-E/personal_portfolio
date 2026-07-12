@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -13,6 +13,16 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
   weight: ["400", "500", "600", "700"],
+});
+
+// Display face for headings and wordmarks — see `--font-display` in tokens.css.
+// Manrope: smooth, professional grotesque that reads properly heavy at
+// semibold/bold (replaced Space Grotesk, whose clipped terminals read
+// "8-bit" to the user). Variable font: all weights ship in one file.
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -45,7 +55,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${manrope.variable}`}
+    >
       <body>
         <script dangerouslySetInnerHTML={{ __html: introSplashScript }} />
         {/* Cold-open intro splash — hidden unless `html.intro-pending` is set by

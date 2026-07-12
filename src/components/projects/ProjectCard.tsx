@@ -154,7 +154,7 @@ const ProjectCard = forwardRef<HTMLElement, ProjectCardProps>(function ProjectCa
 
         {/* Title */}
         <h3
-          className="font-medium leading-snug text-[var(--text-primary)]"
+          className="font-semibold leading-snug text-[var(--text-primary)]"
           style={{ fontSize: "17px" }}
         >
           {project.title}
