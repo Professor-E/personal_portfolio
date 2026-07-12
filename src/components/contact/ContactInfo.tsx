@@ -71,17 +71,13 @@ export default function ContactInfo() {
   return (
     <div
       // mesh-accent (globals.css): token-derived mesh gradient over the old
-      // flat accent fill — part of the ambient media pass. `relative` +
-      // `overflow-hidden` contain the PanelOrnament canvas, which bleeds
-      // past the bottom-right corner by design.
-      className="mesh-accent relative overflow-hidden flex flex-col h-full w-full"
+      // flat accent fill — part of the ambient media pass.
+      className="mesh-accent flex flex-col h-full w-full"
       style={{
         padding: "32px",
         gap: "12px",
       }}
     >
-      {/* Slow wireframe icosahedron, bottom-right — pointer-events-none */}
-      <PanelOrnament />
       {/* "CONTACT INFORMATION" — 12px Medium, white, tracking-[2px] */}
       <p
         className="font-medium text-white shrink-0"
@@ -144,6 +140,12 @@ export default function ContactInfo() {
           </div>
         ))}
       </div>
+
+      {/* Wireframe icosahedron — fills the empty middle of the panel, below
+          the location row and above the social icons, so it can never sit on
+          top of (or block clicks to) either. Renders nothing on mobile /
+          reduced-motion / no-WebGL. */}
+      <PanelOrnament />
 
       {/* Social links — pushed to bottom with mt-auto */}
       <div className="mt-auto pt-4">

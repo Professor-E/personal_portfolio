@@ -7,14 +7,20 @@ import { useWebGLMode } from "@/lib/webgl";
 
 /**
  * Quiet 3D ornament for the Contact page's blue info panel — a wireframe
- * icosahedron (plus a counter-rotating inner shell) drifting slowly in the
- * panel's bottom-right corner, like an engineering wireframe sketched in
- * light. White line-work over the token mesh gradient, matching the panel's
- * existing rgba-white accents.
+ * icosahedron (plus a counter-rotating inner shell) drifting slowly, like an
+ * engineering wireframe sketched in light. White line-work over the token
+ * mesh gradient, matching the panel's existing rgba-white accents.
  *
- * Perf/hygiene: two wireframe meshes, no lights, dpr ≤ 1.5, pointer-events
- * none, frameloop paused off-screen; not mounted at all for reduced-motion /
- * coarse-pointer / no-WebGL visitors (the mesh gradient panel stands alone).
+ * Placement: an IN-FLOW flex child that fills the panel's empty middle
+ * region (below the location row, above "FIND ME ON") — it originally
+ * floated over the bottom-right corner, where it sat on top of the social
+ * icons and swallowed their clicks. In-flow, overlap is impossible; the
+ * canvas is also explicitly pointer-events: none, belt and braces.
+ *
+ * Perf/hygiene: two wireframe meshes, no lights, dpr ≤ 1.5, frameloop
+ * paused off-screen; renders nothing at all for reduced-motion /
+ * coarse-pointer / no-WebGL visitors (the panel lays out exactly as if the
+ * component didn't exist — the social block's mt-auto handles the rest).
  */
 
 function Wireframes() {
@@ -70,16 +76,16 @@ export default function PanelOrnament() {
     <div
       ref={containerRef}
       aria-hidden="true"
-      className="pointer-events-none absolute -bottom-8 -right-8"
-      style={{ width: "210px", height: "210px" }}
+      className="pointer-events-none relative w-full flex-1"
+      style={{ minHeight: "150px" }}
     >
       <Canvas
         flat
         dpr={[1, 1.5]}
         frameloop={inView ? "always" : "never"}
-        camera={{ position: [0, 0, 3.2], fov: 45 }}
+        camera={{ position: [0, 0, 3.4], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
-        style={{ position: "absolute", inset: 0 }}
+        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
       >
         <Wireframes />
       </Canvas>
