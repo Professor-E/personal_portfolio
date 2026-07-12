@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { readToken, companionColor, useWebGLMode } from "@/lib/webgl";
 
 /**
  * WebGL hero backdrop — the homepage's signature moment (escalation plan D2).
@@ -43,6 +44,7 @@ const FRAGMENT = /* glsl */ `
   varying vec2 vUv;
   uniform float uTime;
   uniform vec2  uMouse;     // normalized 0..1, lerped on the JS side
+  uniform float uScroll;    // 0..1 progress out of the first viewport, eased
   uniform vec3  uBg;
   uniform vec3  uAccent;
   uniform vec3  uAccent2;
@@ -90,7 +92,11 @@ const FRAGMENT = /* glsl */ `
   void main() {
     vec2 uv = vUv;
     vec2 p = vec2(uv.x * 1.15, uv.y);
-    float t = uTime * 0.035;
+    float t = uTime * 0.045;
+
+    // Scrolling away slides the whole field upward (a soft parallax) and
+    // the wash eases off — the aurora visibly *responds* to the scroll.
+    p.y += uScroll * 0.45;
 
     // Domain warp — this is what makes it read "liquid" instead of "clouds".
     // Low frequencies on purpose: the forms should be bigger than the
@@ -107,14 +113,27 @@ const FRAGMENT = /* glsl */ `
     float n2 = fbm(p * 0.55 - warp * 0.35 - m * 0.6 + vec2(t * 0.4, 2.1));
 
     // Threshold above the noise midpoint so MOST of the field stays pure
-    // background and the tint gathers in a few soft pools — an accent, not
-    // a fog. Ramps stay long so pool edges are feathered.
-    float washA = smoothstep(0.5, 1.05, n * 0.5 + 0.5);
-    float washB = smoothstep(0.58, 1.1, n2 * 0.5 + 0.5) * 0.8;
+    // background and the tint gathers in soft pools — an accent, not a fog.
+    // Ramps stay long so pool edges are feathered. (Thresholds sit lower
+    // than the original pass — the user asked for a more pronounced wash.)
+    float washA = smoothstep(0.46, 1.02, n * 0.5 + 0.5);
+    float washB = smoothstep(0.54, 1.06, n2 * 0.5 + 0.5) * 0.8;
 
+    // Vertical bias — the hue should read strongest across the TOP of the
+    // viewport (user request; the noise pools were gathering down by the
+    // marquee). uv.y runs 0 at the bottom → 1 at the top.
+    float topBias = mix(0.55, 1.5, smoothstep(0.0, 1.0, uv.y));
+
+    float strength = uIntensity * (1.0 - uScroll * 0.45) * topBias;
     vec3 col = uBg;
-    col = mix(col, uAccent,  washA * uIntensity);
-    col = mix(col, uAccent2, washB * uIntensity * 0.7);
+    col = mix(col, uAccent,  washA * strength);
+    col = mix(col, uAccent2, washB * strength * 0.7);
+
+    // Guaranteed ceiling glow — a soft accent wash anchored to the top edge,
+    // so the top always carries the hue no matter where the noise wanders.
+    // The noise term keeps its lower edge organic instead of a flat band.
+    float ceiling = smoothstep(0.62, 1.08, uv.y + n * 0.14);
+    col = mix(col, uAccent, ceiling * uIntensity * (1.0 - uScroll * 0.45) * 0.6);
 
     // Keep the center — where the headline sits — calmer than the edges.
     float d = distance(uv, vec2(0.5, 0.55));
@@ -129,24 +148,7 @@ const FRAGMENT = /* glsl */ `
   }
 `;
 
-// ── Token helpers ─────────────────────────────────────────────────────────────
-
-function readToken(name: string): string {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
-/**
- * Companion accent — the token accent with its hue rotated +45°. Derived from
- * the token (never hardcoded) so it tracks theme changes; gives the aurora a
- * second hue (blue → violet family) instead of a flat single-color wash.
- */
-function companionColor(hex: string): THREE.Color {
-  const c = new THREE.Color(hex);
-  const hsl = { h: 0, s: 0, l: 0 };
-  c.getHSL(hsl);
-  c.setHSL((hsl.h + 45 / 360) % 1, hsl.s, hsl.l);
-  return c;
-}
+// ── Token helpers (shared with the other WebGL moments — see lib/webgl.ts) ───
 
 interface ThemeColors {
   bg: THREE.Color;
@@ -162,8 +164,11 @@ function readThemeColors(): ThemeColors {
     bg: new THREE.Color(readToken("--background")),
     accent: new THREE.Color(accentHex),
     accent2: companionColor(accentHex),
-    // Dark mode can carry a slightly stronger wash before it competes with text.
-    intensity: dark ? 0.22 : 0.15,
+    // Dark mode can carry a slightly stronger wash before it competes with
+    // text. Raised from 0.22 / 0.15 — the center-calm zone still protects
+    // the headline while the edges get to glow. (0.24 light read as smoke
+    // in verification screenshots; 0.19 is the pronounced-but-clean spot.)
+    intensity: dark ? 0.3 : 0.19,
   };
 }
 
@@ -178,6 +183,7 @@ function AuroraPlane({ mouseTarget }: { mouseTarget: React.MutableRefObject<{ x:
     return {
       uTime: { value: 0 },
       uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+      uScroll: { value: 0 },
       uBg: { value: theme.bg },
       uAccent: { value: theme.accent },
       uAccent2: { value: theme.accent2 },
@@ -208,6 +214,10 @@ function AuroraPlane({ mouseTarget }: { mouseTarget: React.MutableRefObject<{ x:
     const m = uniforms.uMouse.value;
     m.x += (mouseTarget.current.x - m.x) * 0.05;
     m.y += (mouseTarget.current.y - m.y) * 0.05;
+    // Ease scroll progress the same way (Lenis already smooths scrollY, the
+    // extra lerp just keeps the shader response silky at scroll-jump moments).
+    const target = Math.min(window.scrollY / window.innerHeight, 1);
+    uniforms.uScroll.value += (target - uniforms.uScroll.value) * 0.08;
   });
 
   return (
@@ -232,9 +242,11 @@ function StaticBackdrop() {
     <div
       className="absolute inset-0"
       style={{
+        // Top-weighted to match the WebGL field's vertical bias.
         background: `
-          radial-gradient(55% 45% at 22% 20%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%),
-          radial-gradient(50% 40% at 80% 75%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 70%)
+          linear-gradient(to bottom, color-mix(in srgb, var(--accent) 10%, transparent), transparent 38%),
+          radial-gradient(55% 45% at 22% 12%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
+          radial-gradient(50% 40% at 80% 70%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 70%)
         `,
       }}
     />
@@ -248,20 +260,8 @@ export default function HeroBackdrop() {
   const mouseTarget = useRef({ x: 0.5, y: 0.5 });
   const [inView, setInView] = useState(true);
 
-  // Decide the rendering mode once, on mount (client-only component).
-  const [mode] = useState<"webgl" | "static">(() => {
-    if (typeof window === "undefined") return "static";
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
-    let webgl = false;
-    try {
-      const canvas = document.createElement("canvas");
-      webgl = !!(canvas.getContext("webgl2") || canvas.getContext("webgl"));
-    } catch {
-      webgl = false;
-    }
-    return !reduced && !coarse && webgl ? "webgl" : "static";
-  });
+  // Decided once, on mount (client-only component) — see lib/webgl.ts.
+  const mode = useWebGLMode();
 
   // Pause the render loop while the hero is scrolled out of view.
   useEffect(() => {

@@ -1,6 +1,11 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import SocialLinks from "./SocialLinks";
+
+// Wireframe 3D ornament — lazy client-only (three.js); renders nothing for
+// reduced-motion / coarse-pointer / no-WebGL visitors.
+const PanelOrnament = dynamic(() => import("./PanelOrnament"), { ssr: false });
 
 /**
  * Left blue panel — Figma node 616:709
@@ -66,13 +71,17 @@ export default function ContactInfo() {
   return (
     <div
       // mesh-accent (globals.css): token-derived mesh gradient over the old
-      // flat accent fill — part of the ambient media pass.
-      className="mesh-accent flex flex-col h-full w-full"
+      // flat accent fill — part of the ambient media pass. `relative` +
+      // `overflow-hidden` contain the PanelOrnament canvas, which bleeds
+      // past the bottom-right corner by design.
+      className="mesh-accent relative overflow-hidden flex flex-col h-full w-full"
       style={{
         padding: "32px",
         gap: "12px",
       }}
     >
+      {/* Slow wireframe icosahedron, bottom-right — pointer-events-none */}
+      <PanelOrnament />
       {/* "CONTACT INFORMATION" — 12px Medium, white, tracking-[2px] */}
       <p
         className="font-medium text-white shrink-0"
