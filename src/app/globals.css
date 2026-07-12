@@ -178,9 +178,11 @@ html.lenis body {
 .rotating-caret {
   display: inline-block;
   width: 0.06em;
-  height: 0.95em;
+  height: 1em;
   margin-left: 0.08em;
-  vertical-align: text-bottom;
+  /* Sit like a text-editor I-beam: bottom just below the baseline, top near
+     cap height — text-bottom hung it off the line's descender, too low. */
+  vertical-align: -0.12em;
   background-color: var(--accent);
   animation: caret-blink 1.1s steps(1) infinite;
 }
@@ -209,8 +211,8 @@ html.lenis body {
 
 /* ── Film grain overlay (ambient media pass) ────────────────────────────────
    Code-generated noise — an inline SVG feTurbulence tile, no external asset.
-   Sits fixed above page content (below the route curtain z-80 and lightboxes
-   z-90) at near-invisible opacity; adds the analog depth award sites have
+   Sits fixed above page content (below the lightboxes at z-90) at
+   near-invisible opacity; adds the analog depth award sites have
    without touching any real photo or logo. Static, so reduced-motion safe. */
 .grain-overlay {
   position: fixed;

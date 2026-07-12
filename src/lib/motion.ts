@@ -25,13 +25,3 @@ export const fadeUp = {
     transition: { duration: DURATION.base, ease: EASE_OUT },
   },
 } as const;
-
-/** Slower fade + rise used by page headers / hero blocks (0.7s). */
-export const fadeUpSlow = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: DURATION.slow, ease: EASE_OUT },
-  },
-} as const;

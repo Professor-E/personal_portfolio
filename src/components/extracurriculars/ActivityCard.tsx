@@ -1,5 +1,6 @@
 "use client";
 
+import { forwardRef } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { EXTRACURRICULAR_CATEGORY_COLORS, type Extracurricular } from "@/lib/constants";
@@ -18,7 +19,14 @@ interface ActivityCardProps {
 // into view (see `whileInView` below).
 const entryVariants = fadeUp;
 
-export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
+// forwardRef: AnimatePresence mode="popLayout" (extracurriculars/page.tsx)
+// must measure this card via ref to pop it out of layout while it exits —
+// same fix ProjectCard has; without it React warns and exiting cards lose
+// their exit animation.
+const ActivityCard = forwardRef<HTMLDivElement, ActivityCardProps>(function ActivityCard(
+  { activity, onOpen },
+  ref
+) {
   // Category tag color is fixed per category (Leadership/Competition/
   // Community & Volunteering), independent of this activity's own
   // individual accentColor (which still drives its role pills/stat chips).
@@ -27,6 +35,7 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
 
   return (
     <motion.div
+      ref={ref}
       // Shared layout id — the lightbox box grows out of this exact card.
       layoutId={`activity-${activity.id}`}
       initial="hidden"
@@ -191,4 +200,6 @@ export default function ActivityCard({ activity, onOpen }: ActivityCardProps) {
       </div>
     </motion.div>
   );
-}
+});
+
+export default ActivityCard;

@@ -7,7 +7,7 @@ import RotatingWord from "@/components/home/RotatingWord";
 
 // Synonym cycle for the hero's typewriter verb — all read naturally after
 // "I love to …". First entry doubles as the SSR/reduced-motion static word.
-const ROTATING_VERBS = ["build", "create", "design", "engineer", "invent", "craft"] as const;
+const ROTATING_VERBS = ["make", "build", "craft", "engineer", "design", "create", "invent"] as const;
 
 /**
  * Hero section — Figma node 616:505
@@ -28,7 +28,7 @@ export default function HeroSection() {
           the About page hero. aria-label keeps a static sentence for screen
           readers while the visual content churns. */}
       <h1
-        aria-label="Hello, I'm Dominik — I love to build."
+        aria-label="Hello, I'm Dominik — I love to make."
         className="font-semibold text-[var(--text-primary)] text-center leading-[1.05] max-w-[1250px] px-8 md:px-16 lg:px-24"
         style={{
           fontSize: "clamp(30px, 5vw, 58px)",

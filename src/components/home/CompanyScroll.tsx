@@ -7,10 +7,9 @@
  * The list is doubled so the CSS animation loops seamlessly.
  */
 
-// Companies and institutions worked at — names + brand colors from constants.ts.
-// Handshake is the one deliberate exception: constants.ts / the Experience page
-// use #7FA000, but the marquee uses Handshake's actual trademark "Voltage Lime"
-// (#D3FB52) since this text is purely on display here.
+// Companies and institutions worked at — colors are 1:1 with the Experience
+// page's brandColor values in constants.ts (user request: the marquee must
+// match that tab exactly in light mode).
 //
 // `darkColor` — dark-theme override for brands whose color is too dark to read
 // on the #111110 background (contrast < 2.2:1). Each is a lighter tint of the
@@ -20,7 +19,7 @@
 const COMPANIES = [
   { name: "Akamai Technologies",          color: "#009BDE" },
   { name: "Y Combinator / Jam It!",       color: "#FF6600" },
-  { name: "Handshake AI Fellowship",      color: "#D3FB52" },
+  { name: "Handshake AI Fellowship",      color: "#7FA000" },
   { name: "Hamilton Broadcast Eng.",      color: "#1A1A2E", darkColor: "#9BA3C9" },
   { name: "MIT",                          color: "#A31F34", darkColor: "#E25F6C" },
   { name: "Argonne National Laboratory",  color: "#004B87", darkColor: "#58A0DC" },
