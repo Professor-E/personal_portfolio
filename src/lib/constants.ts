@@ -269,6 +269,7 @@ export const PROJECTS = [
     fullDescription:
       "Built a custom quadcopter from scratch with a 3D-printed PLA frame, brushless motors, ESCs, and a flight controller programmed with PID stabilization loops. Control interface implemented over Bluetooth using a custom mobile app. Frame designed in Fusion 360; firmware written in C++ on Arduino.",
     badge: null,
+    imagePath: "/projects/bluetooth-drone.png",
   },
   {
     id: "maine-south-radio",
@@ -395,6 +396,20 @@ export const PROJECTS = [
       "Researched, selected, and assembled a custom desktop PC from individual components — CPU, GPU, motherboard, memory, storage, power supply, and cooling. Handled the full build including cable management, BIOS configuration, thermal tuning, and OS setup for a balanced performance and reliability target.",
     badge: null,
     imagePath: "/projects/custom-pc.png",
+  },
+  {
+    id: "halloween-lantern",
+    title: "Halloween Lantern",
+    monogram: "HL",
+    category: "Hardware",
+    accentColor: "#EA580C",
+    year: "2024",
+    shortDescription:
+      "Decorative lantern with a carved jack-o'-lantern face, glowing from within via warm LED lighting.",
+    fullDescription:
+      "Designed and built a Halloween lantern featuring a menacing jack-o'-lantern face cut into the enclosure, illuminated from the inside with warm LED lighting for a flickering candlelit glow. The housing was modeled and fabricated to look like weathered wood, with a removable roof for access to the lighting.",
+    badge: null,
+    imagePath: "/projects/halloween-lantern.png",
   },
 ] as const;
 

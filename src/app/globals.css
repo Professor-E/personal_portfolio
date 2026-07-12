@@ -92,7 +92,18 @@ html.intro-playing #nav-logo-name {
 .marquee-track {
   display: flex;
   width: max-content;
+  /* CompanyScroll.tsx measures the list and sets --marquee-delay (a negative
+     animation-delay) so the loop starts with Akamai dead-center in the
+     viewport, and --marquee-offset for the reduced-motion static state.
+     opacity gates the first paint so the unmeasured position never flashes. */
+  opacity: 0;
+  transform: translateX(var(--marquee-offset, 0px));
   animation: marquee-scroll 38s linear infinite;
+  animation-delay: var(--marquee-delay, 0s);
+}
+.marquee-track.is-ready {
+  opacity: 1;
+  transition: opacity 0.4s ease;
 }
 /* Company names carry their brand color via custom props set inline in
    CompanyScroll.tsx. Dark theme swaps to a lighter same-hue variant for

@@ -1,10 +1,19 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
+
 /**
  * Infinite horizontal marquee of company names.
  * Figma node 616:510 — "Companies (Scroll Anim)"
  * Inter Medium 32px, text-primary, w-full
  * The list is doubled so the CSS animation loops seamlessly.
+ *
+ * On load the loop is phase-shifted (negative animation-delay, measured in a
+ * layout effect) so Akamai — the first entry — sits centered in the viewport
+ * instead of cut off at the left edge. Because it's only a time offset into
+ * the same seamless loop, coverage/looping are unaffected. The track paints
+ * at opacity 0 until measured (`.is-ready`), so the unshifted position never
+ * flashes; reduced-motion gets the same centering via a static transform.
  */
 
 // Companies and institutions worked at — colors are 1:1 with the Experience
@@ -31,9 +40,57 @@ export default function CompanyScroll() {
   // Double the list for seamless infinite loop
   const doubled = [...COMPANIES, ...COMPANIES];
 
+  const maskRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const mask = maskRef.current;
+    const track = trackRef.current;
+    if (!mask || !track) return;
+
+    const center = () => {
+      const first = track.querySelector<HTMLElement>(".marquee-name");
+      if (!first) return;
+      const trackRect = track.getBoundingClientRect();
+      const copyWidth = trackRect.width / 2; // the track holds the list twice
+      if (copyWidth <= 0) return;
+      const firstRect = first.getBoundingClientRect();
+      // Akamai's center within one copy — both rects carry the track's
+      // current transform, so the delta is transform-invariant.
+      const itemCenter = firstRect.left - trackRect.left + firstRect.width / 2;
+      // Phase (px of leftward travel) at which the SECOND copy's Akamai sits
+      // at the mask's center; modulo keeps it in [0, copyWidth) on any width.
+      const phase =
+        (((copyWidth + itemCenter - mask.clientWidth / 2) % copyWidth) +
+          copyWidth) %
+        copyWidth;
+      track.style.setProperty("--marquee-offset", `${-phase}px`);
+      const duration = parseFloat(getComputedStyle(track).animationDuration);
+      if (duration > 0) {
+        track.style.setProperty(
+          "--marquee-delay",
+          `${(-duration * phase) / copyWidth}s`
+        );
+      }
+      track.classList.add("is-ready");
+    };
+
+    center();
+    // Re-center when the viewport or the track's own width changes (resize,
+    // display-font swap-in).
+    const observer = new ResizeObserver(center);
+    observer.observe(mask);
+    observer.observe(track);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="marquee-mask w-full overflow-hidden py-4" aria-hidden="true">
-      <div className="marquee-track">
+    <div
+      ref={maskRef}
+      className="marquee-mask w-full overflow-hidden py-4"
+      aria-hidden="true"
+    >
+      <div ref={trackRef} className="marquee-track">
         {doubled.map((company, i) => (
           <div
             key={`${company.name}-${i}`}
