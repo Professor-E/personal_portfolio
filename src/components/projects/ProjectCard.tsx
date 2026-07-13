@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { PROJECT_CATEGORY_COLORS, type Project } from "@/lib/constants";
 import { DURATION, EASE_OUT } from "@/lib/motion";
+import { LiveSiteChip } from "@/components/common/LiveSitePreview";
 
 interface ProjectCardProps {
   project: Project;
@@ -176,6 +177,13 @@ const ProjectCard = forwardRef<HTMLElement, ProjectCardProps>(function ProjectCa
             {project.shortDescription}
           </p>
         </div>
+
+        {/* Live-site chip — direct deep link to the deployed site, visible
+            right on the grid (no lightbox needed). Stops propagation so it
+            never triggers the card's onOpen. */}
+        {"website" in project && (
+          <LiveSiteChip url={project.website} className="mb-3" />
+        )}
 
         {/* Footer row — year + see more, pinned to bottom */}
         <div className="mt-auto flex items-center justify-between">

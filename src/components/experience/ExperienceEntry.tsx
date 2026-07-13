@@ -3,6 +3,7 @@
 import { forwardRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { ExperienceEntry as ExperienceEntryType } from "@/types";
+import LiveSitePreview from "@/components/common/LiveSitePreview";
 
 interface ExperienceEntryProps {
   entry: ExperienceEntryType;
@@ -218,6 +219,21 @@ const ExperienceEntryComponent = forwardRef<HTMLDivElement, ExperienceEntryProps
                         </div>
                       ))}
                     </div>
+                  )}
+
+                  {/* Live-site link — browser-chrome bar only (no screenshot;
+                      user request: the full window preview was too tall for
+                      the cards' uniform rhythm). Plain static markup + CSS
+                      hover per the unified animation rule (no child motion
+                      wrappers inside the card). */}
+                  {entry.website && (
+                    <LiveSitePreview
+                      url={entry.website}
+                      variant="bar"
+                      label={`the ${entry.company} website`}
+                      accentColor={entry.brandColor}
+                      className="mt-5 w-full max-w-[440px]"
+                    />
                   )}
                 </div>
 

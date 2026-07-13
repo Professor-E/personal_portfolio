@@ -49,6 +49,9 @@ export const EXPERIENCE: ExperienceEntry[] = [
     brandColor: "#FF6600",
     logoPlaceholder: "yc-jam-it",
     logo: "/images/logos/yc.svg",
+    // Live marketing site — surfaces as a browser-chrome bar on the active
+    // Experience card (see LiveSitePreview.tsx, variant "bar").
+    website: "https://jamit-ios.com",
   },
   {
     id: "handshake",
@@ -200,6 +203,10 @@ export const PROJECTS = [
       "Co-founded and launched Jam It! on the App Store with direct funding from Y Combinator. Achieved a 5-star rating, over 1,000 views, 53 downloads, and $25 of in-app purchases within 60 days. Designed low-fidelity and high-fidelity prototypes in Figma, built game logic and song compatibility in Swift and SwiftUI, and designed the marketing website in TypeScript, Node.js, and React deployed on Vercel and Cloudflare.",
     badge: "YC Funded",
     imagePath: "/projects/jam-it.png",
+    // Live marketing site — surfaces as a chip on the grid card and a
+    // browser-window preview in the lightbox (see LiveSitePreview.tsx).
+    website: "https://jamit-ios.com",
+    websiteImage: "/projects/jamit-site.png",
   },
   {
     id: "digital-logic-trainer",

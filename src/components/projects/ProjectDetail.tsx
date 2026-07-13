@@ -1,6 +1,7 @@
 "use client";
 
 import { PROJECT_CATEGORY_COLORS, type Project } from "@/lib/constants";
+import LiveSitePreview from "@/components/common/LiveSitePreview";
 
 /**
  * Full project detail rendered inside the enlarged lightbox.
@@ -69,6 +70,26 @@ export default function ProjectDetail({ project }: { project: Project }) {
         >
           {project.fullDescription}
         </p>
+
+        {/* Live-site preview — a clickable mini browser window deep-linking
+            to the deployed site (Jam It!). */}
+        {"website" in project && (
+          <div className="mt-2 flex flex-col gap-3">
+            <p
+              className="font-medium uppercase tracking-widest"
+              style={{ fontSize: "12px", color: "var(--text-tertiary)" }}
+            >
+              Live site
+            </p>
+            <LiveSitePreview
+              url={project.website}
+              image={project.websiteImage}
+              label={`the ${project.title} website`}
+              accentColor={categoryColor}
+              className="max-w-[620px]"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

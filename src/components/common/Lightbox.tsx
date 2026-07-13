@@ -200,8 +200,19 @@ export default function Lightbox({
                 AnimatePresence's exit bookkeeping, leaving the invisible
                 backdrop mounted forever and freezing all interactivity.
                 A key remount with an enter-only slide keeps the directional
-                cue without registering any nested exit animations. */}
-            <div className="h-full w-full overflow-y-auto overflow-x-hidden">
+                cue without registering any nested exit animations.
+
+                data-lenis-prevent: while the lightbox is open the body
+                scroll-lock puts Lenis in stop(), and a STOPPED Lenis
+                preventDefaults every wheel/touch event on the page — which
+                silently killed two-finger scrolling inside this pane (only
+                scrollbar drag worked). The attribute excludes events that
+                originate here from Lenis' virtual scroll, so the pane
+                scrolls natively. */}
+            <div
+              className="h-full w-full overflow-y-auto overflow-x-hidden"
+              data-lenis-prevent
+            >
               <motion.div
                 key={contentKey}
                 custom={direction}
