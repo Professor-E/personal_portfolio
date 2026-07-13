@@ -1,14 +1,8 @@
-// ── Tab Navigation ───────────────────────────────────────────────────────────
-export type TabId =
-  | "home"
-  | "experience"
-  | "projects"
-  | "activities"
-  | "hobbies"
-  | "about"
-  | "contact";
-
 // ── Experience ────────────────────────────────────────────────────────────────
+// The Experience data (src/lib/constants.ts → EXPERIENCE) is the one dataset
+// with a hand-written interface; Projects, Hobbies, and Extracurriculars derive
+// their types straight from their `as const` arrays (`Project`, `Hobby`,
+// `Extracurricular`) so the shape can never drift from the data.
 export interface ExperienceStat {
   value: string;
   label: string;
@@ -31,34 +25,4 @@ export interface ExperienceEntry {
   /** Path to the company/institution logo (public/). When omitted, a
    *  brand-colored monogram (first letter) is shown as a fallback. */
   logo?: string;
-}
-
-// ── Projects ─────────────────────────────────────────────────────────────────
-export interface ProjectEntry {
-  id: string;
-  title: string;
-  description: string;
-  tech: string[];
-  startDate: string;
-  endDate: string | "Present" | null;
-  link: string | null;
-}
-
-// ── Activities ────────────────────────────────────────────────────────────────
-export interface ActivityEntry {
-  id: string;
-  title: string;
-  role: string;
-  startDate: string;
-  endDate: string | "Present";
-  description: string;
-  highlights: string[];
-}
-
-// ── Hobbies ───────────────────────────────────────────────────────────────────
-export interface HobbyEntry {
-  id: string;
-  title: string;
-  description: string;
-  vibe: string;
 }

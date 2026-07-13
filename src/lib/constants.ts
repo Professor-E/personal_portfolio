@@ -1,4 +1,4 @@
-import type { ExperienceEntry, ActivityEntry } from "@/types";
+import type { ExperienceEntry } from "@/types";
 
 // ── Experience ────────────────────────────────────────────────────────────────
 export const EXPERIENCE: ExperienceEntry[] = [
@@ -411,6 +411,34 @@ export const PROJECTS = [
     badge: null,
     imagePath: "/projects/halloween-lantern.png",
   },
+  {
+    id: "iron-man-helmet",
+    title: "Iron-Man Helmet",
+    monogram: "IH",
+    category: "Hardware",
+    accentColor: "#64748B",
+    year: "2023",
+    shortDescription:
+      "Wearable 3D-printed Iron Man helmet with a hand-finished, battle-worn silver paint job.",
+    fullDescription:
+      "Designed and 3D printed a full-size wearable Iron Man helmet, printed in sections and assembled with post-processing — sanding, filling, and a hand-painted battle-worn silver finish with brushed weathering. Sized and fitted to be worn, with cutout eye lenses.",
+    badge: null,
+    imagePath: "/projects/iron-man-helmet.png",
+  },
+  {
+    id: "octo-pi",
+    title: "Octo-Pi Automation",
+    monogram: "OP",
+    category: "Software",
+    accentColor: "#C51A4A",
+    year: "2023",
+    shortDescription:
+      "Raspberry Pi 4 + OctoPrint setup to control 3D printers from anywhere, capture timelapses, and run large batch prints.",
+    fullDescription:
+      "Automated my 3D printers using a Raspberry Pi 4 running OctoPi (OctoPrint), enabling full remote control of the printers from anywhere, automatic timelapse capture of prints, and batch automation for printing large runs of parts back to back without manual intervention between jobs.",
+    badge: null,
+    imagePath: "/projects/octo-pi.png",
+  },
 ] as const;
 
 export type Project = (typeof PROJECTS)[number];
@@ -423,94 +451,6 @@ export const PROJECT_CATEGORY_COLORS: Record<string, string> = {
   Software: "#EA580C",
   Research: "#7C3AED",
 };
-
-// ── Activities ────────────────────────────────────────────────────────────────
-export const ACTIVITIES: ActivityEntry[] = [
-  {
-    id: "mit-motorsports",
-    title: "MIT Motorsports",
-    role: "Member",
-    startDate: "Sep 2025",
-    endDate: "Present",
-    description: "Member of MIT's Formula SAE team designing and building a race car from scratch.",
-    highlights: ["Electrical subsystem", "Formula SAE competition"],
-  },
-  {
-    id: "engineering-club",
-    title: "Engineering Club",
-    role: "Member",
-    startDate: "Sep 2021",
-    endDate: "May 2025",
-    description: "Active member of Glenbrook South's Engineering Club, leading hands-on projects.",
-    highlights: ["Project leadership", "Mentorship"],
-  },
-  {
-    id: "vex-robotics",
-    title: "VEX Robotics",
-    role: "Team Captain",
-    startDate: "Sep 2021",
-    endDate: "May 2025",
-    description: "Competed in VEX Robotics competitions, achieving 5th place at the state level.",
-    highlights: ["5th in State", "Team Captain", "Robot design and programming"],
-  },
-  {
-    id: "science-olympiad",
-    title: "Science Olympiad",
-    role: "Competitor",
-    startDate: "Sep 2021",
-    endDate: "May 2025",
-    description: "Competed in Science Olympiad achieving top placements at regional and state levels.",
-    highlights: ["2nd at Regionals", "9th at State"],
-  },
-  {
-    id: "math-team",
-    title: "Math Team",
-    role: "Competitor",
-    startDate: "Sep 2021",
-    endDate: "May 2025",
-    description: "Competed in high school math competitions at regional, state, and national levels.",
-    highlights: ["10th at State", "8th nationally in Math Madness"],
-  },
-  {
-    id: "glenviews-got-steam",
-    title: "Glenview's Got STEAM",
-    role: "Volunteer & Organizer",
-    startDate: "Sep 2022",
-    endDate: "May 2025",
-    description:
-      "Helped organize and run a community STEAM fair promoting science and engineering for kids.",
-    highlights: ["Community outreach", "STEM education"],
-  },
-  {
-    id: "private-tutor",
-    title: "Private Tutor / TLC",
-    role: "Tutor",
-    startDate: "Sep 2021",
-    endDate: "May 2025",
-    description:
-      "Provided private tutoring in math, science, and engineering subjects to 150+ students.",
-    highlights: ["150+ students", "Math & Science", "TLC program"],
-  },
-  {
-    id: "jv-swim",
-    title: "JV Swim Team",
-    role: "Swimmer",
-    startDate: "Sep 2021",
-    endDate: "May 2023",
-    description: "Competed on the Glenbrook South JV swim team.",
-    highlights: ["Freestyle", "Backstroke"],
-  },
-  {
-    id: "polish-school",
-    title: "Polish School",
-    role: "Student",
-    startDate: "2010",
-    endDate: "2025",
-    description:
-      "Attended Polish language and cultural school for 15 years, maintaining fluency and heritage.",
-    highlights: ["Fluent Polish", "Cultural heritage", "15 years"],
-  },
-];
 
 // ── Hobbies ───────────────────────────────────────────────────────────────────
 export const HOBBIES = [
