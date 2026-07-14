@@ -1,7 +1,4 @@
-// TODO: Implement About Me tab sections:
-//   - Full bio with photo
-//   - MIT / EECS focus, hometown, personal values
-//   - Skills section (languages, tools, hardware)
-export default function AboutSections() {
-  return null;
-}
+export { default } from "./AboutPage";
+export { default as HeroSection } from "./HeroSection";
+export { default as AcademicsSection } from "./AcademicsSection";
+export { default as SkillsSection } from "./SkillsSection";
