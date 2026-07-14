@@ -198,9 +198,9 @@ export const PROJECTS = [
     accentColor: "#E85D20",
     year: "Jan–Feb 2026",
     shortDescription:
-      "Music-tech social DJ app co-founded as part of Y Combinator. 5★ on the App Store, 53 downloads in 60 days.",
+      "A guess-the-song party game my cofounders and I took from an idea to the App Store, backed by Y Combinator. 5★ in its first 60 days.",
     fullDescription:
-      "Co-founded and launched Jam It! on the App Store with direct funding from Y Combinator. Achieved a 5-star rating, over 1,000 views, 53 downloads, and $25 of in-app purchases within 60 days. Designed low-fidelity and high-fidelity prototypes in Figma, built game logic and song compatibility in Swift and SwiftUI, and designed the marketing website in TypeScript, Node.js, and React deployed on Vercel and Cloudflare.",
+      "Jam It! began as a simple question — how fast can you and your friends name a song? — and grew into a vinyl-themed, guess-the-song party game funded by Y Combinator. Within 60 days on the App Store it earned a 5-star rating, 1,000+ views, 53 downloads, and our first $25 of in-app purchases (a milestone is a milestone!). I designed the UI/UX from low-fidelity sketches to high-fidelity Figma prototypes, wrote the game logic and song-compatibility backend in Swift and SwiftUI, and built the marketing site — the one previewed below — in TypeScript, Node.js, and React on Vercel and Cloudflare.",
     badge: "YC Funded",
     imagePath: "/projects/jam-it.png",
     // Live marketing site — surfaces as a chip on the grid card and a
@@ -216,9 +216,9 @@ export const PROJECTS = [
     accentColor: "#2563EB",
     year: "2024",
     shortDescription:
-      "Custom PCB teaching tool for digital logic gates, flip-flops, and combinational circuits.",
+      "A PCB learning kit that peels the lid off the 'black box' of an IC — logic gates built from bare transistors, one blinking bit at a time.",
     fullDescription:
-      "Designed and manufactured a custom printed circuit board intended as a hands-on educational tool for digital electronics. The board allows students to wire and test logic gates, flip-flops, multiplexers, and combinational circuits using physical jumpers and onboard LEDs. Schematic and layout designed in KiCAD and EasyEDA Pro.",
+      "This one came from teaching: students kept asking what actually happens inside a logic chip, and pointing at a black epoxy square wasn't cutting it. So I designed a trainer board that rebuilds the classic logic gates from individual 2N2222A transistors — flip a switch, watch the LEDs, and see exactly how 1s and 0s come to be. I drew the schematic and layout in KiCAD and EasyEDA Pro, then wrote the full build documentation and released it under a CC BY-SA license so anyone can build one — or teach with it.",
     badge: null,
     imagePath: "/projects/digital-logic-trainer.png",
   },
@@ -230,9 +230,9 @@ export const PROJECTS = [
     accentColor: "#0D9488",
     year: "2022–2023",
     shortDescription:
-      "Designed and built a full broadcast radio station for Maine East High School, now serving 2,340+ listeners.",
+      "A full broadcast radio station I helped plan, build, and wire for Maine East High School — now on the air for 2,340+ listeners.",
     fullDescription:
-      "Planned, designed, and implemented a complete AM/FM broadcast radio station for Maine East High School as part of work at Hamilton Broadcast Engineering. The station serves over 2,340 listeners. Work included antenna system design, transmitter configuration, studio wiring, and signal path verification using spectrum analyzers and oscilloscopes.",
+      "As part of my work at Hamilton Broadcast Engineering, I helped plan, design, and build a complete broadcast radio station for Maine East High School — from studio wiring and transmitter setup to verifying the signal path with oscilloscopes and spectrum analyzers. Today the station reaches 2,340+ listeners. Flipping a transmitter on and hearing a school find its voice never gets old.",
     badge: null,
     imagePath: "/projects/maine-east-radio.png",
   },
@@ -244,9 +244,9 @@ export const PROJECTS = [
     accentColor: "#7C3AED",
     year: "2023",
     shortDescription:
-      "Hand-wound solid-state Tesla coil (SSTC) capable of producing 12-inch plasma streamers.",
+      "Hand-wound solid-state Tesla coil (SSTC) that throws 12-inch plasma streamers. Equal parts physics lesson and light show.",
     fullDescription:
-      "Designed and built a solid-state Tesla coil from scratch, including primary and secondary coil winding, resonant frequency tuning, IGBT driver circuit design, and safety interlock systems. Capable of producing 12-inch continuous plasma streamers. All circuit design completed in KiCAD; mathematical resonance calculations performed by hand.",
+      "I built this solid-state Tesla coil from scratch — winding the primary and secondary coils by hand, working the resonance math out on paper, designing the IGBT driver circuit in KiCAD, and wiring in safety interlocks before the first spark ever flew. The payoff is continuous 12-inch plasma streamers, on demand. It's the closest you can get to keeping a lightning storm on a workbench.",
     badge: null,
     imagePath: "/projects/tesla-coil.png",
   },
@@ -258,9 +258,9 @@ export const PROJECTS = [
     accentColor: "#D97706",
     year: "2024",
     shortDescription:
-      "Fully 3D printed rocket with avionics bay, parachute deployment, and dual-event recovery system.",
+      "Fully 3D-printed rocket with an avionics bay and dual-parachute recovery — built to fly, land softly, and fly again.",
     fullDescription:
-      "Designed and 3D printed a multi-stage model rocket with an integrated avionics bay for altimeter-triggered dual-event parachute deployment. The airframe, nose cone, and fins were modeled in Autodesk Fusion 360 and printed on a Prusa MINI+. Recovery system uses a main chute and drogue chute for safe descent.",
+      "I modeled the airframe, nose cone, and fins in Autodesk Fusion 360 and printed everything on a Prusa MINI+, then fit an avionics bay with an altimeter that triggers dual-event recovery — a drogue chute at apogee and the main chute closer to the ground. 'Reusable' is the whole point: a soft landing means the afternoon of launches isn't over.",
     badge: null,
     imagePath: "/projects/3d-rocket.png",
   },
@@ -272,9 +272,9 @@ export const PROJECTS = [
     accentColor: "#6B7280",
     year: "2023",
     shortDescription:
-      "Custom quadcopter with Bluetooth control, PID stabilization, and a fully 3D-printed frame.",
+      "Custom quadcopter with a 3D-printed frame, hand-tuned PID stabilization, and a phone for a remote.",
     fullDescription:
-      "Built a custom quadcopter from scratch with a 3D-printed PLA frame, brushless motors, ESCs, and a flight controller programmed with PID stabilization loops. Control interface implemented over Bluetooth using a custom mobile app. Frame designed in Fusion 360; firmware written in C++ on Arduino.",
+      "I built this quadcopter from the frame up: a 3D-printed PLA frame modeled in Fusion 360, brushless motors and ESCs, and a flight controller running PID stabilization loops I wrote in C++ on Arduino — all steered over Bluetooth from a custom mobile app. Tuning PID by hand is a rite of passage; every wobble is just the math telling you to try again.",
     badge: null,
     imagePath: "/projects/bluetooth-drone.png",
   },
@@ -286,9 +286,9 @@ export const PROJECTS = [
     accentColor: "#B91C1C",
     year: "2023",
     shortDescription:
-      "Rebuilt and modernized WMTH, the Maine South High School broadcast station, end to end.",
+      "Gave WMTH — Maine South High School's radio station — a second life: full teardown, rewiring, and back on the air.",
     fullDescription:
-      "Planned and executed a full rebuild of WMTH, the Maine South High School radio station, as part of work at Hamilton Broadcast Engineering. Work spanned studio teardown and cleanup, equipment-rack rewiring, console and monitor installation, and signal-path verification so the station could return to reliable on-air broadcasting.",
+      "Another Hamilton Broadcast Engineering project: a complete rebuild of WMTH, Maine South High School's broadcast station. We tore the studio down to the racks, rewired the equipment, installed the console and monitors, and verified the signal path end to end so the station could return to reliable on-air broadcasting — good as new, with decades of character intact.",
     badge: null,
     imagePath: "/projects/maine-south-radio.png",
   },
@@ -300,9 +300,9 @@ export const PROJECTS = [
     accentColor: "#6D28D9",
     year: "2023",
     shortDescription:
-      "Custom-built electric longboard with a belt-drive motor, battery enclosure, and remote throttle control.",
+      "Custom electric longboard — belt-drive motor, hand-built battery pack, wireless throttle, and very few excuses left to walk.",
     fullDescription:
-      "Designed and built an electric longboard from the deck up, integrating a brushless hub/belt-drive motor, a custom lithium battery pack with a sealed enclosure, an electronic speed controller, and a handheld wireless remote for throttle and braking. Tuned acceleration and regenerative braking curves for a smooth, controllable ride.",
+      "I built this longboard from the deck up: a brushless belt-drive motor, a custom lithium battery pack in a sealed enclosure, an electronic speed controller, and a handheld wireless remote for throttle and braking. Half the fun was in the tuning — shaping the acceleration and regenerative-braking curves until the ride felt smooth enough to genuinely trust.",
     badge: null,
     imagePath: "/projects/electric-longboard.png",
   },
@@ -314,9 +314,9 @@ export const PROJECTS = [
     accentColor: "#DC2626",
     year: "2022",
     shortDescription:
-      "Battery-powered go kart built on a welded steel frame with a motor controller and custom drivetrain.",
+      "Battery-powered go kart on a welded steel frame — chain drive, real torque, and a grin included with every lap.",
     fullDescription:
-      "Built a fully electric go kart powered by a series battery pack and a motor controller driving a chain-and-sprocket drivetrain. The project covered frame fabrication, steering and seat mounting, wiring of the power electronics with safety cutoffs, and tuning the drivetrain for usable torque and top speed.",
+      "A fully electric go kart built around a welded steel frame: a series battery pack feeding a motor controller, a chain-and-sprocket drivetrain, steering and seat mounting, and power wiring with proper safety cutoffs. Tuning the drivetrain was a balancing act between usable torque and top speed — though electric torque off the line makes every lap feel faster than the numbers say.",
     badge: null,
     imagePath: "/projects/electric-go-kart.png",
   },
@@ -328,9 +328,9 @@ export const PROJECTS = [
     accentColor: "#059669",
     year: "2022",
     shortDescription:
-      "Microcontroller-driven digital clock with a multiplexed seven-segment display and real-time clock module.",
+      "Microcontroller digital clock with a multiplexed seven-segment display — hand-soldered, programmed in C, always on time.",
     fullDescription:
-      "Designed and built a digital clock around a microcontroller and a DS-series real-time clock module, driving a multiplexed seven-segment display. Implemented timekeeping, alarm, and button-based time-setting logic in C, with a custom-soldered board for the display and driver circuitry.",
+      "I built this clock around a microcontroller and a DS-series real-time clock module, driving a multiplexed seven-segment display on a board I soldered myself. The timekeeping, alarm, and button-based time-setting logic are all written in C. Nothing teaches you to respect timing quite like debugging the thing responsible for keeping it.",
     badge: null,
     imagePath: "/projects/digital-clock.png",
   },
@@ -342,9 +342,9 @@ export const PROJECTS = [
     accentColor: "#CA8A04",
     year: "2024",
     shortDescription:
-      "Playable electric guitar with a 3D-printed honeycomb body, bolt-on neck, and wired single-coil pickups.",
+      "A playable electric guitar with a 3D-printed honeycomb body, bolt-on neck, and hand-wired single-coil pickups.",
     fullDescription:
-      "Designed and 3D printed the body of a fully playable electric guitar, featuring a parametric honeycomb-infill cavity for weight reduction and visual effect. Modeled in Fusion 360 and printed in multiple sections, then assembled with a bolt-on neck, pickups, bridge, control electronics, and hardware before final wiring and setup.",
+      "I modeled the body in Fusion 360 with a parametric honeycomb infill — partly to save weight, mostly because it looks fantastic — printed it in sections, and assembled it with a bolt-on neck, pickups, bridge, and control electronics before the final wiring and setup. The best part is that it doesn't just hang on the wall. It plays.",
     badge: null,
     imagePath: "/projects/3d-guitar.png",
   },
@@ -356,9 +356,9 @@ export const PROJECTS = [
     accentColor: "#0EA5E9",
     year: "2019–Present",
     shortDescription:
-      "Years of additive-manufacturing experience designing, slicing, and printing functional parts and prototypes.",
+      "Years of additive manufacturing — designing, slicing, and printing the parts that show up in half the projects on this page.",
     fullDescription:
-      "Extensive hands-on experience with additive manufacturing, from CAD modeling in Fusion 360 to slicing in PrusaSlicer and printing on FDM machines including the Prusa MINI+. Comfortable tuning print settings, designing for printability, and producing both functional engineering parts and prototypes that feed into larger projects.",
+      "3D printing is the quiet workhorse behind most of my builds — drone frames, rocket fins, guitar bodies, helmet shells. I model in Fusion 360, slice in PrusaSlicer, and print on FDM machines including my Prusa MINI+, tuning settings and designing for printability along the way. Most of my projects start life as a sketch and a spool of filament.",
     badge: null,
     imagePath: "/projects/3d-printing.png",
   },
@@ -370,9 +370,9 @@ export const PROJECTS = [
     accentColor: "#8B5CF6",
     year: "2025",
     shortDescription:
-      "Personal AI assistant that handles voice queries, scheduling, and automations across everyday tasks.",
+      "Jingle, my personal AI assistant — voice queries, scheduling, and automations for the everyday things I kept forgetting.",
     fullDescription:
-      "Built Jingle, a personal AI assistant that combines a large language model with voice input and task automation. It handles natural-language queries, scheduling, reminders, and integrations with everyday tools, with a focus on a fast, conversational interface and extensible command handling.",
+      "Jingle is a personal AI assistant I built to handle the everyday stuff: voice queries, scheduling, reminders, and automations wired into the tools I already use. Under the hood it pairs a large language model with voice input and an extensible command system, tuned for a fast, conversational back-and-forth. Think of it as a helpful roommate who never sleeps — and only occasionally mishears me.",
     badge: null,
     imagePath: "/projects/jingle.png",
   },
@@ -384,9 +384,9 @@ export const PROJECTS = [
     accentColor: "#92400E",
     year: "2023",
     shortDescription:
-      "Handcrafted wooden penny-hockey (knock hockey) board built from scratch for tabletop play.",
+      "Handcrafted wooden penny-hockey board, built from raw stock for fast (and surprisingly competitive) tabletop games.",
     fullDescription:
-      "Designed and built a wooden penny-hockey board from raw stock, including cutting and finishing the playing surface, rails, and goal slots. The project focused on woodworking, precise measurement, and a smooth, durable finish for fast tabletop gameplay.",
+      "I built this penny-hockey — knock hockey, depending on where you grew up — board from raw stock: cutting and finishing the playing surface, rails, and goal slots, then sanding everything down to a smooth, durable finish so the puck really flies. Simple materials, careful measurement, and a great deal of highly competitive quality-assurance testing.",
     badge: null,
     imagePath: "/projects/penny-hockey.png",
   },
@@ -398,9 +398,9 @@ export const PROJECTS = [
     accentColor: "#1F2937",
     year: "2021",
     shortDescription:
-      "Hand-built desktop PC with selected components, cable management, and a tuned cooling setup.",
+      "Hand-built desktop PC — researched, assembled, cable-managed, and tuned until it ran cool, quiet, and fast.",
     fullDescription:
-      "Researched, selected, and assembled a custom desktop PC from individual components — CPU, GPU, motherboard, memory, storage, power supply, and cooling. Handled the full build including cable management, BIOS configuration, thermal tuning, and OS setup for a balanced performance and reliability target.",
+      "The classic engineer's rite of passage: I researched and picked every component — CPU, GPU, motherboard, memory, storage, power supply, cooling — then assembled the build, configured the BIOS, tuned the thermals, and set up the OS for the balance of performance and reliability I wanted. And yes, the cable management is still something I'm proud of.",
     badge: null,
     imagePath: "/projects/custom-pc.png",
   },
@@ -412,9 +412,9 @@ export const PROJECTS = [
     accentColor: "#EA580C",
     year: "2024",
     shortDescription:
-      "Decorative lantern with a carved jack-o'-lantern face, glowing from within via warm LED lighting.",
+      "A jack-o'-lantern lantern glowing with warm LEDs — spooky on the outside, circuits on the inside.",
     fullDescription:
-      "Designed and built a Halloween lantern featuring a menacing jack-o'-lantern face cut into the enclosure, illuminated from the inside with warm LED lighting for a flickering candlelit glow. The housing was modeled and fabricated to look like weathered wood, with a removable roof for access to the lighting.",
+      "I built this Halloween lantern with a menacing jack-o'-lantern face cut into the enclosure and warm LEDs inside for a flickering, candlelit glow — minus the fire hazard. The housing is fabricated to read as weathered wood, with a removable roof for access to the lighting. October engineering is still engineering!",
     badge: null,
     imagePath: "/projects/halloween-lantern.png",
   },
@@ -426,9 +426,9 @@ export const PROJECTS = [
     accentColor: "#64748B",
     year: "2023",
     shortDescription:
-      "Wearable 3D-printed Iron Man helmet with a hand-finished, battle-worn silver paint job.",
+      "Wearable, 3D-printed Iron Man helmet with a hand-finished, battle-worn silver paint job.",
     fullDescription:
-      "Designed and 3D printed a full-size wearable Iron Man helmet, printed in sections and assembled with post-processing — sanding, filling, and a hand-painted battle-worn silver finish with brushed weathering. Sized and fitted to be worn, with cutout eye lenses.",
+      "I printed this full-size Iron Man helmet in sections, then got to the slow, satisfying part: sanding, filling, and hand-painting a battle-worn silver finish with brushed weathering. It's sized to actually be worn, cutout eye lenses and all. Some projects solve problems — this one just makes everyone who tries it on stand up a little straighter.",
     badge: null,
     imagePath: "/projects/iron-man-helmet.png",
   },
@@ -440,9 +440,9 @@ export const PROJECTS = [
     accentColor: "#C51A4A",
     year: "2023",
     shortDescription:
-      "Raspberry Pi 4 + OctoPrint setup to control 3D printers from anywhere, capture timelapses, and run large batch prints.",
+      "Raspberry Pi 4 + OctoPrint, so my 3D printers take orders from anywhere — remote control, timelapses, and batch runs.",
     fullDescription:
-      "Automated my 3D printers using a Raspberry Pi 4 running OctoPi (OctoPrint), enabling full remote control of the printers from anywhere, automatic timelapse capture of prints, and batch automation for printing large runs of parts back to back without manual intervention between jobs.",
+      "I put my 3D printers on the network with a Raspberry Pi 4 running OctoPi (OctoPrint): full remote control from anywhere, automatic timelapses of every print, and batch automation for running large jobs back to back without me hovering in between. The printers work nights now. I don't.",
     badge: null,
     imagePath: "/projects/octo-pi.png",
   },
@@ -469,7 +469,7 @@ export const HOBBIES = [
     category: "Music",
     tagline: "Pioneer DDJ-FLX4 — house, techno, and electronic music.",
     description:
-      "DJing is where engineering meets creativity for me. I mix primarily house and techno on a Pioneer DDJ-FLX4, using Rekordbox for track management and set preparation. I love the technical side — beat matching, EQ transitions, building energy across a set — as much as the musical side. It is one of the few things that completely clears my head after a long day of problem sets.",
+      "DJing is where engineering meets creativity for me. I mix mostly house and techno on a Pioneer DDJ-FLX4, with Rekordbox handling track management and set prep. I love the technical side — beat matching, EQ transitions, building energy across a set — every bit as much as the musical side. It's one of the few things that completely clears my head after a long day of problem sets.",
     chips: ["Pioneer DDJ-FLX4", "Rekordbox", "House / Techno"],
     imagePath: "/hobbies/dj.png",
   },
@@ -481,7 +481,7 @@ export const HOBBIES = [
     category: "Outdoors",
     tagline: "Black diamonds and long runs — the steeper the better.",
     description:
-      "I have been skiing since I was a kid and it remains one of my favorite ways to spend a winter weekend. I gravitate toward black diamond runs and enjoy pushing my technique on steeper terrain. There is something uniquely satisfying about the combination of speed, precision, and reading the mountain — it scratches the same problem-solving itch that engineering does, just with more adrenaline.",
+      "I've been skiing since I was a kid, and it's still my favorite way to spend a winter weekend. I gravitate toward black diamonds and love pushing my technique on steeper terrain. There's something uniquely satisfying about the mix of speed, precision, and reading the mountain — it scratches the same problem-solving itch that engineering does, just with a lot more adrenaline.",
     chips: ["Alpine skiing", "Black diamonds", "Midwest + Colorado"],
     imagePath: "/hobbies/skiing.png",
   },
@@ -493,7 +493,7 @@ export const HOBBIES = [
     category: "Fitness",
     tagline: "Daily training — consistency over intensity.",
     description:
-      "I train daily and treat the gym as a non-negotiable part of my routine. Lifting gives me a reliable way to build discipline and mental clarity that carries directly into academic and engineering work. I focus on compound movements and progressive overload, tracking everything methodically — the same approach I apply to projects and problem sets.",
+      "I train daily — the gym is the non-negotiable part of my routine. Lifting builds the kind of discipline and mental clarity that carries straight into problem sets and projects. I keep the programming simple: compound movements, progressive overload, and a training log I maintain as methodically as any lab notebook.",
     chips: ["Strength training", "Daily routine", "Progressive overload"],
     imagePath: "/hobbies/working-out.png",
     // Show the whole pizza rather than cropping it to fill the card.
@@ -509,7 +509,7 @@ export const HOBBIES = [
     category: "Outdoors",
     tagline: "Trailheads, summits, and multi-day trips off the grid.",
     description:
-      "Backpacking and hiking are how I disconnect and reset. I love the planning that goes into a trip — mapping routes, dialing in gear weight, and reading terrain and weather — almost as much as the time on the trail itself. There is a simple, methodical satisfaction in covering ground under your own power and solving small problems as they come, which feels a lot like engineering with a much better view.",
+      "Backpacking and hiking are how I disconnect and reset. I love the planning that goes into a trip — mapping routes, dialing in gear weight, reading terrain and weather — almost as much as the time on the trail itself. There's a simple, methodical satisfaction in covering ground under your own power and solving small problems as they come up. It's basically engineering with a much better view.",
     chips: ["Trail hiking", "Multi-day trips", "Gear & route planning"],
     imagePath: "/hobbies/hiking.png",
   },
@@ -521,7 +521,7 @@ export const HOBBIES = [
     category: "Engineering",
     tagline: "Wrenching, modifications, and understanding how things work.",
     description:
-      "Working on cars is a natural extension of my love for hands-on engineering. I enjoy doing my own maintenance and modifications — understanding every system, diagnosing issues from first principles, and improving performance where I can. It is the same mindset as PCB debugging or circuit design, just at a larger, greasier scale.",
+      "Working on cars is hands-on engineering at its most honest. I do my own maintenance and modifications — understanding every system, diagnosing issues from first principles, and improving performance where I can. It's the same mindset as PCB debugging or circuit design, just at a larger, considerably greasier scale.",
     chips: ["Maintenance & repair", "Modifications", "Diagnostics"],
     imagePath: "/hobbies/cars.png",
   },
@@ -533,7 +533,7 @@ export const HOBBIES = [
     category: "Growth",
     tagline: "Online courses, side projects, and chasing curiosity.",
     description:
-      "I treat learning as a constant, self-directed habit rather than something confined to the classroom. Whether it is working through online courses, picking up a new tool for a side project, or going deep on a topic that caught my attention, I love the process of building understanding from the ground up. Staying curious and teaching myself new skills is what keeps both my engineering work and my interests moving forward.",
+      "Learning is a constant, self-directed habit for me, not something confined to a classroom. Whether it's working through an online course, picking up a new tool for a side project, or going way too deep on a topic that caught my attention, I love building understanding from the ground up. Chasing curiosity is what keeps both my engineering work and everything else on this site moving forward.",
     chips: ["Self-directed", "Online courses", "Side projects"],
     imagePath: "/hobbies/learning.png",
     // Book cover should be shown in full rather than cropped to fill.
@@ -550,7 +550,7 @@ export const HOBBIES = [
     tagline:
       "Engineering textbooks, biographies, and anything that teaches me something new.",
     description:
-      "I read consistently across engineering, science, biography, and history. Some of my favorites include Electronic Principles by Malvino, which I worked through cover to cover during my time at Hamilton Broadcast Engineering, and biographies of engineers and scientists who applied theory to change the world. Reading is how I fill the gaps between formal coursework and practical work.",
+      "I read consistently across engineering, science, biography, and history. A favorite is Electronic Principles by Malvino — I worked through it cover to cover during my time at Hamilton Broadcast Engineering, and it taught me more practical circuit intuition than any class. Beyond textbooks, I love biographies of engineers and scientists who took theory and changed the world with it. Reading is how I fill the gaps between coursework and the workbench.",
     chips: ["Engineering & science", "Biographies", "History"],
     imagePath: "/hobbies/reading.png",
     // Book cover should be shown in full rather than cropped to fill.
@@ -566,7 +566,7 @@ export const HOBBIES = [
     category: "Personal",
     tagline: "Polish roots, Chicago raised — the people who keep me grounded.",
     description:
-      "Outside of everything else, time with family and friends is what matters most. I grew up in a close Polish-American household in the Chicago suburbs and that foundation — hard work, loyalty, showing up for the people around you — shapes how I approach everything. The best moments are the simple ones: cooking together, watching the game, or just being present.",
+      "Underneath everything else on this site, time with family and friends is what matters most. I grew up in a close Polish-American household in the Chicago suburbs — eleven years of Saturday Polish school included — and that foundation of hard work, loyalty, and showing up for your people shapes how I approach everything. The best moments are the simple ones: cooking together, watching the game, or just being present.",
     chips: ["Polish-American", "Chicago suburbs", "Close-knit"],
     imagePath: "/hobbies/family.png",
   },
@@ -585,9 +585,9 @@ export const EXTRACURRICULARS = [
     roles: ["President", "Electronics Manager"],
     dateRange: "Aug 2021 – May 2025",
     shortDescription:
-      "Led the largest non-volunteering club of 124 members with 7 active subsets — Maker Events, MakerFaire, VEX Robotics, Glenview's Got STEAM, CAD Club, Project Enable, and AI Club.",
+      "President of the school's largest non-volunteering club — 124 members, 7 subsets, and a makerspace that never sat still.",
     fullDescription:
-      "As President (senior year) and Makerspace & Electronics Manager (freshman–junior year), I led a club of 124 members across 7 subsets. I organized monthly STEM volunteering events for 60+ elementary and middle schoolers, ran fundraisers raising $1,000+ for new makerspace equipment, and managed weekly meetings for each subset. Subsets included Maker Events (monthly tool lectures and build competitions), MakerFaire (year-long project showcase for 300+ attendees), VEX Robotics, Glenview's Got STEAM (STEAM outreach to 10 local schools), CAD Club, Project Enable (3D printing prosthetics for children), and AI Club.",
+      "Engineering Club was my home base in high school. I spent freshman through junior year as Makerspace & Electronics Manager and served as President my senior year, leading 124 members across 7 subsets: Maker Events (monthly tool lectures and build competitions), MakerFaire (a year-long project showcase for 300+ students and 100+ visitors), VEX Robotics, Glenview's Got STEAM, CAD Club, Project Enable (3D-printing prosthetics donated to children in need), and AI Club. Along the way we ran monthly STEM events for 60 elementary and middle schoolers and raised $1,000+ for new makerspace equipment. My favorite part was simpler than any of that: watching someone use a tool for the first time and immediately start planning what they'd build with it.",
     stats: [
       { value: "124", label: "members" },
       { value: "7", label: "subsets" },
@@ -604,9 +604,9 @@ export const EXTRACURRICULARS = [
     roles: ["Team Captain", "Programmer", "Hardware Engineer"],
     dateRange: "Aug 2022 – May 2025",
     shortDescription:
-      "Team captain, hardware engineer, and programmer. Led a team of 7, placed 5th in State, and automated drivetrain code for a 60% efficiency gain.",
+      "Team captain, hardware engineer, and programmer — led a team of 7 to 5th in State with a drivetrain 60% more efficient than the year before.",
     fullDescription:
-      "As Team Captain, I led a team of 7 students through three competitive seasons. I designed and built the robot's drivetrain and defensive subsystems, wrote autonomous gameplay code, and optimized the drivetrain for 60% greater efficiency over the prior year's robot. The team placed 5th in the Illinois State Championship. I also assisted in organizing competitions hosted at Glenbrook South with ~100 competitors and 10+ local high school teams, handled field inspection, and consulted with other teams on robot design and strategy.",
+      "As Team Captain I led our team of 7 through three build seasons — designing and building the drivetrain and defensive subsystems, writing the autonomous gameplay code, and reworking the drivetrain for a 60% efficiency gain over the prior year's robot (which went on to score 150% of the previous season's score). We placed 5th at the Illinois State Championship. I also helped organize the VEX competitions hosted at our school with ~100 competitors, handled field inspection, and consulted other teams on their robots and strategy — because the best part of robotics is that everyone wants everyone's robot to work.",
     stats: [
       { value: "5th", label: "in State" },
       { value: "100+", label: "competitors organized" },
@@ -623,9 +623,9 @@ export const EXTRACURRICULARS = [
     roles: ["Team Leader", "Varsity Competitor"],
     dateRange: "Aug 2022 – May 2025",
     shortDescription:
-      "Led and managed a team of 30. Placed 2nd at Regionals and 9th in State, improving team placement by 6 positions. Selected as ACS Competitor sophomore and senior year.",
+      "Helped lead a varsity team of 30 to 2nd at Regionals and 9th in State — a six-place jump from the season before.",
     fullDescription:
-      "I assisted in leading and managing a varsity Science Olympiad team of 30 students. I helped organize weekly team meetings, constructed practice tests for tryouts, advised coaches on event assignments, and assisted teammates in building competition solutions. The team placed 2nd in Regionals and 9th in State — an improvement of 6 places from the prior year. I personally competed in detector building, robot tour, chem lab, air trajectory, electric vehicle, and was selected as an American Chemical Society (ACS) competitor during my sophomore and senior years.",
+      "I helped lead and manage our varsity Science Olympiad team of 30 — organizing weekly meetings, writing tryout tests, advising coaches on event assignments, and helping teammates build out their competition solutions. We took 2nd at Regionals and 9th in State, six places better than the prior year. My own events kept me happily busy: detector building, robot tour, chem lab, air trajectory, and electric vehicle, plus selection as an American Chemical Society (ACS) competitor in my sophomore and senior years. If it involved building something and then being graded on it, I signed up.",
     stats: [
       { value: "2nd", label: "Regionals" },
       { value: "9th", label: "State" },
@@ -642,9 +642,9 @@ export const EXTRACURRICULARS = [
     roles: ["General Member", "Orals Competitor"],
     dateRange: "Aug 2023 – May 2025",
     shortDescription:
-      "Advanced competition math across general, orals, and Math Madness formats. Placed 10th in State and 8th nationally in Math Madness. AMC 10 & 12 competitor.",
+      "General and Orals competitor — 10th in State, 8th nationally in Math Madness, and living proof that digital logic counts as a sport.",
     fullDescription:
-      "I competed on the General and Orals math teams, practicing advanced competition mathematics including probability & statistics, algebra, geometry, trigonometry, and pre-calculus. On the Orals team I competed in applied mathematics covering digital logic circuits and game theory. I placed 10th in the Illinois State Math Competition and 8th nationally in the Math Madness tournament. I also helped teammates understand complex problems and explained solutions during team practice. Selected as an AMC 10 competitor freshman year and AMC 12 competitor junior and senior year.",
+      "I competed on the General and Orals math teams — probability and statistics, algebra, geometry, trigonometry, and pre-calculus, all at competition speed. Orals was my favorite: applied mathematics in digital logic circuits and game theory, the rare corner of competition math that overlaps with my electrical-engineering life. I placed 10th in State and 8th nationally in the Math Madness tournament, competed in the AMC 10 and AMC 12, and spent plenty of practices at the whiteboard walking teammates through solutions — still the fastest way I know to find the gaps in your own understanding.",
     stats: [
       { value: "10th", label: "in State" },
       { value: "8th", label: "national (Math Madness)" },
@@ -660,9 +660,9 @@ export const EXTRACURRICULARS = [
     roles: ["Paid Private Tutor", "TLC Volunteer"],
     dateRange: "Aug 2021 – May 2025",
     shortDescription:
-      "Tutored 150+ students across all levels — studies through AP and college. Average grade increase of about 5%. Subjects spanning engineering, math, science, CS, English, and Spanish.",
+      "Tutored 150+ students across every level — studies through AP and college — with an average grade increase of about 5%.",
     fullDescription:
-      "I worked as a paid private tutor from freshman through senior year and as a volunteer tutor at the Titan Learning Center (TLC) during junior and senior year. I provided 1:1 and small group sessions for 150+ students at every course level from Studies through AP and Dual Enrollment college courses. I tutored every subject I had studied: Engineering, Physics, Chemistry, Biology, Algebra I through Multivariable Calculus, Computer Science (Java, C, C++, Arduino), English, Spanish, World History, and Government. I reported 100% student satisfaction and an average academic grade increase of about 5% across all students.",
+      "I worked as a paid private tutor from freshman through senior year, and as a volunteer tutor at the Titan Learning Center (TLC) during junior and senior year — 1:1 and small-group sessions for 150+ students, from Studies through AP and Dual Enrollment college courses. My rule was simple: if I had studied it, I tutored it — Engineering, Physics, Chemistry, Biology, Algebra I through Multivariable Calculus, Computer Science (Java, C, C++, Arduino), English, Spanish, World History, and Government. Across all my students I reported 100% satisfaction and an average academic grade increase of about 5% — but the wins that stuck with me were the 'ohhh, THAT's what that means' moments.",
     stats: [
       { value: "150+", label: "students tutored" },
       { value: "300+", label: "hours" },
@@ -679,9 +679,9 @@ export const EXTRACURRICULARS = [
     roles: ["Student Manager", "Volunteer"],
     dateRange: "Aug 2021 – May 2025",
     shortDescription:
-      "Managed STEAM outreach events for 60 elementary and middle schoolers from 10 local schools. Organized 30 volunteers and raised $1,000+ for the public library.",
+      "Ran STEAM outreach for up to 60 elementary and middle schoolers from 10 local schools — 30 volunteers, $1,000+ raised for the public library.",
     fullDescription:
-      "I helped lead and organize STEAM-related events for 20–60 elementary and middle school students from 10 different local schools. I planned presentational materials, organized budgets and materials for each activity, lectured on topics including 3D printing, electronics fundamentals, what engineering is, and how science and math apply to everyday life. I helped create fundraisers raising $1,000+ for the club and the local public library to purchase tools and equipment for community use. I also tracked volunteer participation and briefed the 30 volunteers before each event.",
+      "Glenview's Got STEAM is where I learned that explaining how a 3D printer works to a third grader is harder — and more fun — than actually using one. I helped lead and organize STEAM events for 20–60 elementary and middle schoolers from 10 local schools: planning the presentations, budgeting the materials, briefing our 30 volunteers before each event, and teaching everything from electronics fundamentals to 'what even is engineering?'. We also ran fundraisers that raised $1,000+ for the club and the local public library, so the tools we taught with could stay in the community.",
     stats: [
       { value: "60", label: "students per event" },
       { value: "10", label: "local schools" },
@@ -698,9 +698,9 @@ export const EXTRACURRICULARS = [
     roles: ["Team Representative"],
     dateRange: "Nov 2021 – Jan 2023",
     shortDescription:
-      "Long-distance free stroke JV swimmer. Red Cross lifeguard and CPR certified. Taught swim techniques and lifeguarding to teammates.",
+      "Long-distance freestyle JV swimmer, team representative, and Red Cross lifeguard & CPR certified.",
     fullDescription:
-      "I competed as a JV swimmer specializing in long-distance free stroke events. I also swam breaststroke, backstroke, and butterfly. I served as a team representative, demonstrated proper swimming technique to newer teammates, and participated in both team and individual training exercises. During this period I obtained my Red Cross lifeguard and CPR certifications while helping teach other swimmers proper lifeguarding techniques and emergency response procedures.",
+      "I swam long-distance freestyle for the JV team — with breaststroke, backstroke, and butterfly mixed in — served as team representative, and helped newer teammates clean up their technique. Along the way I earned my Red Cross lifeguard and CPR certifications and taught other swimmers proper lifeguarding and emergency response. Early-morning practices also taught me my most transferable skill: showing up.",
     stats: [],
     imagePath: "/extracurriculars/jv-swim.png",
   },
@@ -713,9 +713,9 @@ export const EXTRACURRICULARS = [
     roles: ["Group Leader", "Volunteer"],
     dateRange: "July 2024",
     shortDescription:
-      "Week-long build trip to Manistique, MI. Painted interior and exterior of a home, refurbished a shelter, cleaned a local park, and cooked for families.",
+      "Week-long build trip to Manistique, MI — painting a home inside and out, refurbishing a shelter, and cooking for the families we served.",
     fullDescription:
-      "I participated in a week-long Habitat for Humanity build trip to Manistique, Michigan, serving as a group leader. Our team primed and painted the interior and exterior of a residential home, refurbished a dormitory shelter, cleaned a local park of weeds and debris, assisted in cleaning a local business's dining area, and cooked meals for the families we were serving. I helped direct the work and coordinate volunteers throughout the week.",
+      "I spent a week in Manistique, Michigan on a Habitat for Humanity build trip, serving as a group leader. Our team primed and painted a home inside and out, refurbished a dormitory shelter, cleaned up a local park, helped a local business clean its dining area, and cooked meals for the families we were serving — and I helped direct the work and coordinate volunteers throughout the week. It was the least technical work on this page, and some of the most rewarding.",
     stats: [],
     imagePath: "/extracurriculars/habitat-for-humanity.png",
   },

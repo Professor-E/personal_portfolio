@@ -72,7 +72,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#009BDE",
     logo: "/images/logos/akamai.svg",
     description:
-      "Built a TypeScript CLI tool that streamlined SDK integration for Akamai's Bot & Abuse Protection platform across five mobile frameworks.",
+      "Built a TypeScript CLI tool that takes the pain out of SDK integration for Akamai's Bot & Abuse Protection platform — five mobile frameworks, one command line.",
     link: "/experience",
   },
   {
@@ -82,7 +82,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#7FA000",
     logo: "/images/logos/handshake.png",
     description:
-      "Served as an electrical engineering domain expert for Handshake AI, designing PCBs, circuits, and grading rubrics to train and benchmark AI models.",
+      "Served as an electrical engineering domain expert for Handshake AI — designing the PCBs, circuits, and grading rubrics that teach AI models what good engineering looks like.",
     link: "/experience",
   },
   {
@@ -92,7 +92,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#FF6600",
     logo: "/images/logos/yc.svg",
     description:
-      "Co-founded and launched Jam It! on the App Store with direct funding from Y Combinator, owning UI/UX, backend, and the marketing site.",
+      "Co-founded Jam It! and took it from Figma prototypes to the App Store with Y Combinator funding — UI/UX, backend game logic, and the marketing site.",
     link: "/experience",
   },
 
@@ -104,7 +104,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#2563EB",
     image: "/projects/digital-logic-trainer.png",
     description:
-      "Custom PCB teaching tool for digital logic gates, flip-flops, and combinational circuits.",
+      "A custom PCB that opens the 'black box' of digital logic — classic gates rebuilt from bare transistors, with LEDs showing every bit.",
     link: "/projects",
   },
   {
@@ -114,7 +114,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#0D9488",
     image: "/projects/maine-east-radio.png",
     description:
-      "Designed and built a full broadcast radio station for Maine East High School, now serving 2,340+ listeners.",
+      "A full broadcast radio station I helped plan, build, and wire for Maine East High School — now on the air for 2,340+ listeners.",
     link: "/projects",
   },
   {
@@ -124,7 +124,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#7C3AED",
     image: "/projects/tesla-coil.png",
     description:
-      "Hand-wound solid-state Tesla coil (SSTC) capable of producing 12-inch plasma streamers.",
+      "Hand-wound solid-state Tesla coil (SSTC) that throws 12-inch plasma streamers — a lightning storm on a workbench.",
     link: "/projects",
   },
 
@@ -136,7 +136,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#E85D20",
     logo: "/extracurriculars/engineering-club.png",
     description:
-      "Led the largest non-volunteering club of 124 members with 7 active subsets — Maker Events, MakerFaire, VEX Robotics, and more.",
+      "President of the school's largest non-volunteering club — 124 members and 7 subsets, from MakerFaire to VEX Robotics and beyond.",
     link: "/extracurriculars",
   },
   {
@@ -146,7 +146,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#2563EB",
     logo: "/extracurriculars/vex-robotics.png",
     description:
-      "Team captain, hardware engineer, and programmer. Led a team of 7, placed 5th in State, and automated drivetrain code for a 60% efficiency gain.",
+      "Team captain, hardware engineer, and programmer — led a team of 7 to 5th in State with a drivetrain 60% more efficient than the year before.",
     link: "/extracurriculars",
   },
   {
@@ -156,7 +156,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#0D9488",
     logo: "/extracurriculars/science-olympiad.png",
     description:
-      "Led and managed a team of 30. Placed 2nd at Regionals and 9th in State, improving team placement by 6 positions.",
+      "Helped lead a varsity team of 30 to 2nd at Regionals and 9th in State — a six-place jump from the season before.",
     link: "/extracurriculars",
   },
 
@@ -172,7 +172,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     logo: "/hobbies/learning.png",
     logoPadding: "clamp(10px, 2vw, 18px)",
     description:
-      "Self-directed habit of building understanding from the ground up — online courses, side projects, and chasing curiosity.",
+      "A self-directed habit of building understanding from the ground up — online courses, side projects, and chasing curiosity wherever it leads.",
     link: "/hobbies",
   },
   {
@@ -182,7 +182,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#7C3AED",
     image: "/hobbies/dj.png",
     description:
-      "Pioneer DDJ-FLX4 — mixing house and techno, using Rekordbox for track management and set preparation.",
+      "Pioneer DDJ-FLX4, Rekordbox, and a deep love of house and techno — the engineering brain, applied to the dance floor.",
     link: "/hobbies",
   },
   {
@@ -192,7 +192,7 @@ const FEATURED_ITEMS: FeaturedItem[] = [
     brandColor: "#0369A1",
     image: "/hobbies/skiing.png",
     description:
-      "Black diamonds and long runs — chasing the combination of speed, precision, and reading the mountain.",
+      "Black diamonds and long runs — chasing the mix of speed, precision, and reading the mountain since I was a kid.",
     link: "/hobbies",
   },
 ];

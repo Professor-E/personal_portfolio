@@ -97,7 +97,9 @@ export default function HeroSection() {
           aria-hidden="true"
         />
 
-        {/* Bio — Figma node 616:674, verbatim */}
+        {/* Bio — rewritten July 2026 in the user's own voice (adapted from
+            their "Brief Description of myself" draft; supersedes the Figma
+            node 616:674 placeholder copy at the user's request). */}
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -105,10 +107,13 @@ export default function HeroSection() {
           className="font-normal text-[var(--text-secondary)] max-w-[597px]"
           style={{ fontSize: "18px", lineHeight: 1.6 }}
         >
-          I am a sophomore at MIT studying electrical engineering and computer
-          science. I enjoy building hardware and software that solves
-          real-world problems. My interests include PCB design, software
-          engineering, and entrepreneurship.
+          I&apos;m a sophomore at MIT studying electrical engineering and
+          computer science (Course 6-5). The principle I live by is applying
+          theory to practice — whatever I learn has to end up in something
+          real, whether that&apos;s a PCB, an app, or a Tesla coil on the
+          workbench. One day I&apos;d love to earn a Ph.D. in electrical
+          engineering — and, while I&apos;m dreaming, a Nobel Prize — but above
+          all, I want to leave the world better than I found it.
         </motion.p>
 
         {/* CTA — Figma nodes 616:676/677, verbatim. Styled to match the
