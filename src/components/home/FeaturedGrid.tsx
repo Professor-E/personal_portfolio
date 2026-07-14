@@ -225,7 +225,7 @@ function PillboxCard({ item, onOpen }: { item: FeaturedItem; onOpen: () => void 
           onOpen();
         }
       }}
-      className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[20px] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-md)] transition-[border-color,box-shadow] duration-200 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+      className="group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-[20px] border border-[var(--border)] bg-[var(--surface)] shadow-[shadow:var(--shadow-md)] transition-[border-color,box-shadow] duration-200 hover:border-[var(--border-strong)] hover:shadow-[shadow:var(--shadow-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       style={{
         padding: "24px 28px",
         // On mobile/tablet use natural height; capped lower than the original
@@ -351,12 +351,22 @@ function FeaturedDetail({ item }: { item: FeaturedItem }) {
           {item.description}
         </p>
 
+        {/* Explore CTA — interactive per item: fills with the item's brand
+            color on hover (with a small lift + arrow nudge) and compresses on
+            press. The brand color rides a CSS var so Tailwind's hover/active
+            classes stay static while each item keeps its own accent. */}
         <Link
           href={item.link}
-          className="mt-2 inline-flex w-fit items-center gap-2 rounded-[12px] border-2 px-6 py-3 font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
-          style={{ borderColor: item.brandColor, color: item.brandColor }}
+          className="group/cta mt-2 inline-flex w-fit items-center gap-2 rounded-[12px] border-2 border-[var(--cta)] px-6 py-3 font-bold text-[var(--cta)] transition-[background-color,color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[var(--cta)] hover:text-white hover:shadow-[shadow:var(--shadow-md)] active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
+          style={{ ["--cta" as string]: item.brandColor }}
         >
-          Explore {CATEGORY_EXPLORE_LABEL[item.category]} →
+          Explore {CATEGORY_EXPLORE_LABEL[item.category]}
+          <span
+            aria-hidden="true"
+            className="transition-transform duration-200 group-hover/cta:translate-x-1"
+          >
+            →
+          </span>
         </Link>
       </div>
     </div>

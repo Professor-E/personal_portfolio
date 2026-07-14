@@ -56,8 +56,8 @@ const ActivityCard = forwardRef<HTMLDivElement, ActivityCardProps>(function Acti
       className={cn(
         "group flex w-full cursor-pointer flex-row items-start gap-5 overflow-hidden rounded-2xl border p-5",
         "transition-[border-color,box-shadow] duration-200",
-        "shadow-[var(--shadow-md)]",
-        "hover:shadow-[var(--shadow-lg)]",
+        "shadow-[shadow:var(--shadow-md)]",
+        "hover:shadow-[shadow:var(--shadow-lg)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       )}
       style={{ backgroundColor: "var(--surface)", borderColor: "var(--border)" }}

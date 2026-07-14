@@ -139,8 +139,8 @@ export default function LiveSitePreview({
         {...linkProps}
         className={cn(
           "group/live flex items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-3.5 py-2.5",
-          "shadow-[var(--shadow-sm)] transition-[transform,border-color,box-shadow] duration-200",
-          "hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--live-accent)_60%,var(--border))] hover:shadow-[var(--shadow-md)]",
+          "shadow-[shadow:var(--shadow-sm)] transition-[transform,border-color,box-shadow] duration-200",
+          "hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--live-accent)_60%,var(--border))] hover:shadow-[shadow:var(--shadow-md)]",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]",
           className
         )}
@@ -171,8 +171,8 @@ export default function LiveSitePreview({
       {...linkProps}
       className={cn(
         "group/live block overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)]",
-        "shadow-[var(--shadow-md)] transition-[transform,border-color,box-shadow] duration-200",
-        "hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--live-accent)_60%,var(--border))] hover:shadow-[var(--shadow-lg)]",
+        "shadow-[shadow:var(--shadow-md)] transition-[transform,border-color,box-shadow] duration-200",
+        "hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--live-accent)_60%,var(--border))] hover:shadow-[shadow:var(--shadow-lg)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
         className
       )}

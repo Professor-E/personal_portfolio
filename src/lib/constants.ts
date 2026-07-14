@@ -660,13 +660,13 @@ export const EXTRACURRICULARS = [
     roles: ["Paid Private Tutor", "TLC Volunteer"],
     dateRange: "Aug 2021 – May 2025",
     shortDescription:
-      "Tutored 150+ students across all levels — studies through AP and college. Average grade increase of 1–2 grade levels. Subjects spanning engineering, math, science, CS, English, and Spanish.",
+      "Tutored 150+ students across all levels — studies through AP and college. Average grade increase of about 5%. Subjects spanning engineering, math, science, CS, English, and Spanish.",
     fullDescription:
-      "I worked as a paid private tutor from freshman through senior year and as a volunteer tutor at the Titan Learning Center (TLC) during junior and senior year. I provided 1:1 and small group sessions for 150+ students at every course level from Studies through AP and Dual Enrollment college courses. I tutored every subject I had studied: Engineering, Physics, Chemistry, Biology, Algebra I through Multivariable Calculus, Computer Science (Java, C, C++, Arduino), English, Spanish, World History, and Government. I reported 100% student satisfaction and an average academic grade increase of 1–2 grade levels across all students.",
+      "I worked as a paid private tutor from freshman through senior year and as a volunteer tutor at the Titan Learning Center (TLC) during junior and senior year. I provided 1:1 and small group sessions for 150+ students at every course level from Studies through AP and Dual Enrollment college courses. I tutored every subject I had studied: Engineering, Physics, Chemistry, Biology, Algebra I through Multivariable Calculus, Computer Science (Java, C, C++, Arduino), English, Spanish, World History, and Government. I reported 100% student satisfaction and an average academic grade increase of about 5% across all students.",
     stats: [
       { value: "150+", label: "students tutored" },
       { value: "300+", label: "hours" },
-      { value: "+1–2", label: "grade levels avg" },
+      { value: "+5%", label: "avg grade increase" },
     ],
     imagePath: "/extracurriculars/tutor.png",
   },

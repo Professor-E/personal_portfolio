@@ -88,8 +88,8 @@ const ProjectCard = forwardRef<HTMLElement, ProjectCardProps>(function ProjectCa
         "group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border",
         "transition-[border-color,box-shadow] duration-200",
         "border-[var(--border)] hover:border-[color-mix(in_srgb,var(--text-secondary)_55%,var(--border))]",
-        "shadow-[var(--shadow-md)]",
-        "hover:shadow-[var(--shadow-lg)]",
+        "shadow-[shadow:var(--shadow-md)]",
+        "hover:shadow-[shadow:var(--shadow-lg)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
       )}
       style={{ backgroundColor: "var(--surface)" }}

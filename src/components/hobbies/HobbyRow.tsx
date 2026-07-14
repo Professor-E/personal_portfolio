@@ -45,7 +45,7 @@ export default function HobbyRow({ hobby, index, isLast }: HobbyRowProps) {
       >
         {/* ── Image card ─────────────────────────────────────────────────── */}
         <div
-          className="relative h-[320px] w-full overflow-hidden rounded-2xl sm:w-[52%] shadow-[var(--shadow-md)]"
+          className="relative h-[320px] w-full overflow-hidden rounded-2xl sm:w-[52%] shadow-[shadow:var(--shadow-md)]"
           style={{ backgroundColor: cardBackground }}
         >
           {/* Inner content scales on hover; the container clips it (no layout
