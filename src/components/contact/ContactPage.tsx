@@ -92,13 +92,16 @@ export default function ContactPage() {
         {/* ── Two-panel card ───────────────────────────────────────────── */}
         {/*   max-h is the safety valve: if the form somehow grows past the  */}
         {/*   available height it clips inside the card, not below the fold.  */}
+        {/*   Desktop (md+) ONLY — on mobile the panels stack vertically and  */}
+        {/*   always exceed one viewport, so clamping there clipped the       */}
+        {/*   submit button below the card frame once validation errors      */}
+        {/*   added height. Mobile lets the card grow and the page scroll.   */}
         {/*   overflow-hidden also clips both panels to the rounded corners.  */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col md:flex-row items-stretch w-full max-w-[1100px] mx-auto rounded-[20px] overflow-hidden border border-[var(--border)]"
+          className="flex flex-col md:flex-row items-stretch w-full max-w-[1100px] mx-auto rounded-[20px] overflow-hidden border border-[var(--border)] md:max-h-[calc(100vh_-_70px_-_140px)]"
           style={{
             boxShadow: "var(--shadow-lg)",
-            maxHeight: "calc(100vh - 70px - 140px)",
           }}
         >
           {/* Left — ContactInfo: 280px on desktop, full-width on mobile */}
