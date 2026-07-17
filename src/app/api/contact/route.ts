@@ -122,13 +122,19 @@ export async function POST(req: NextRequest) {
   const message = (body.message as string).trim();
 
   // 3. Send via Resend
-  const toEmail = process.env.CONTACT_EMAIL_TO;
-  const fromEmail = process.env.CONTACT_EMAIL_FROM;
+  // Env vars override, but fall back to working defaults so a deployment
+  // with only RESEND_API_KEY set (e.g. Vercel) still sends. onboarding@
+  // resend.dev is Resend's always-available test sender — no domain
+  // verification needed, though it can only deliver to the Resend account
+  // owner's own inbox. Set CONTACT_EMAIL_FROM to an address on a domain
+  // verified at https://resend.com/domains to send as the custom domain.
+  const toEmail = process.env.CONTACT_EMAIL_TO || "dominikgrzeszczak28@gmail.com";
+  const fromEmail = process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev";
 
-  if (!toEmail || !fromEmail) {
-    console.error("[contact] Missing CONTACT_EMAIL_TO or CONTACT_EMAIL_FROM env vars");
+  if (!process.env.RESEND_API_KEY) {
+    console.error("[contact] Missing RESEND_API_KEY env var");
     return NextResponse.json(
-      { error: "Server misconfiguration — email not configured." },
+      { error: "Email service is not configured (missing API key)." },
       { status: 500 }
     );
   }
@@ -144,8 +150,11 @@ export async function POST(req: NextRequest) {
 
     if (error) {
       console.error("[contact] Resend error:", error);
+      // Surface Resend's own message (e.g. "API key is invalid") — the form
+      // banner shows it, so a misconfigured deploy is diagnosable from the
+      // page itself instead of a generic "something went wrong".
       return NextResponse.json(
-        { error: "Failed to send email. Please try again." },
+        { error: `Failed to send email${error.message ? ` — ${error.message}` : ""}.` },
         { status: 500 }
       );
     }

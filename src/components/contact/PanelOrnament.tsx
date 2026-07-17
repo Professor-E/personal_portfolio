@@ -79,16 +79,32 @@ export default function PanelOrnament() {
       className="pointer-events-none relative w-full flex-1"
       style={{ minHeight: "150px" }}
     >
-      <Canvas
-        flat
-        dpr={[1, 1.5]}
-        frameloop={inView ? "always" : "never"}
-        camera={{ position: [0, 0, 3.4], fov: 45 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
-        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-      >
-        <Wireframes />
-      </Canvas>
+      {/* Fixed square stage, centered in whatever space the flex-1 region
+          has. The canvas must NOT fill the region directly: the projection
+          scales with canvas height, so when the form panel grows (error
+          banner, validation messages) a filling canvas gets taller and the
+          wireframe inflates past the panel's 280px width and clips. Capping
+          the stage at a 216px square (the panel's inner width: 280 − 2×32
+          padding) keeps the ornament the same size no matter how much the
+          card stretches; it only shrinks (still square, never clipped) if
+          the region is shorter than 216px. */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div
+          className="relative"
+          style={{ height: "min(100%, 216px)", aspectRatio: "1 / 1" }}
+        >
+          <Canvas
+            flat
+            dpr={[1, 1.5]}
+            frameloop={inView ? "always" : "never"}
+            camera={{ position: [0, 0, 3.4], fov: 45 }}
+            gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
+            style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+          >
+            <Wireframes />
+          </Canvas>
+        </div>
+      </div>
     </div>
   );
 }

@@ -142,6 +142,10 @@ export default function ContactForm() {
   const [values, setValues] = useState<FieldValues>({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formState, setFormState] = useState<FormState>("idle");
+  // Server-provided failure detail (e.g. "Email service is not configured") —
+  // shown in the error banner in place of the generic first sentence so real
+  // failures are diagnosable instead of always reading "Something went wrong".
+  const [serverError, setServerError] = useState<string | null>(null);
   const [shakeKey, setShakeKey] = useState(0);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
@@ -159,13 +163,22 @@ export default function ContactForm() {
       return;
     }
     setFormState("loading");
+    setServerError(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
-      if (!res.ok) throw new Error("Server error");
+      if (!res.ok) {
+        try {
+          const data = (await res.json()) as { error?: unknown };
+          if (typeof data.error === "string") setServerError(data.error);
+        } catch {
+          // Non-JSON failure body — keep the generic banner text.
+        }
+        throw new Error("Server error");
+      }
       setFormState("success");
     } catch {
       setFormState("error");
@@ -176,6 +189,7 @@ export default function ContactForm() {
     setValues({ name: "", email: "", message: "" });
     setErrors({});
     setFormState("idle");
+    setServerError(null);
     setShakeKey(0);
   }
 
@@ -270,7 +284,8 @@ export default function ContactForm() {
               }}
               role="alert"
             >
-              Something went wrong. Please try again or email me directly at{" "}
+              {serverError ?? "Something went wrong."} Please try again or email
+              me directly at{" "}
               <a
                 href="mailto:dominikgrzeszczak28@gmail.com"
                 style={{ color: "var(--accent)", textDecoration: "underline" }}
