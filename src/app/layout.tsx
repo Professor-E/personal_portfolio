@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -37,10 +39,10 @@ export const metadata: Metadata = {
   // production URL → localhost). Also resolves OG/twitter image URLs
   // (src/app/opengraph-image.tsx) and relative `alternates.canonical` paths.
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Dominik Grzeszczak — MIT EECS Student & Engineer",
-    template: "%s | Dominik Grzeszczak",
-  },
+  // Browser-tab title: just the name, on every page (user request — the longer
+  // "— MIT EECS Student & Engineer" form gets truncated in narrow tabs).
+  // OG/twitter titles below keep the descriptive form for link shares.
+  title: "Dominik Grzeszczak",
   description: SITE_DESCRIPTION,
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -151,6 +153,9 @@ export default function RootLayout({
             <Footer />
           </SmoothScroll>
         </ThemeProvider>
+        {/* Vercel visitor analytics + Core Web Vitals — no-ops in `next dev` */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
