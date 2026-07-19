@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
@@ -116,7 +115,27 @@ export default function Navbar() {
                 color: menuOpen ? "var(--text-primary)" : "var(--text-secondary)",
               }}
             >
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+              {/* Hamburger ⇄ X morph: outer lines rotate about the icon center
+                  while the middle line fades — one continuous motion both ways. */}
+              <span className="relative block w-5 h-5" aria-hidden="true">
+                {/* Lines sit at top 3px / 9px / 15px; open state slides the
+                    outer pair onto the middle line and rotates them ±45°. */}
+                <motion.span
+                  className="absolute left-0 top-[3px] block h-[2px] w-5 rounded-full bg-current"
+                  animate={menuOpen ? { y: 6, rotate: 45 } : { y: 0, rotate: 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                />
+                <motion.span
+                  className="absolute left-0 top-[9px] block h-[2px] w-5 rounded-full bg-current"
+                  animate={menuOpen ? { opacity: 0, scaleX: 0.6 } : { opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                />
+                <motion.span
+                  className="absolute left-0 top-[15px] block h-[2px] w-5 rounded-full bg-current"
+                  animate={menuOpen ? { y: -6, rotate: -45 } : { y: 0, rotate: 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                />
+              </span>
             </button>
           </div>
         </div>
